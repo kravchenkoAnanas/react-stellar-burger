@@ -2,11 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
+import AppHeader from "./components/app-header/app-header";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppHeader />
+    {/* <App /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
