@@ -1,0 +1,7 @@
+.burger_ingredients {
+  display: grid;
+  grid-template-columns: repeat(2, 272px);
+  gap: 56px;
+  max-width: 600px;
+  margin-right: 88px;
+}
