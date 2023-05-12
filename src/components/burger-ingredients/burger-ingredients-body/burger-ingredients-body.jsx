@@ -33,7 +33,7 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
   return (
     <div
       className='custom-scroll'
-      style={{ overflow: 'scroll', maxHeight: '1000px', marginRight: '100px'}}
+      style={{ overflow: 'scroll', maxHeight: '1000px'}}
     >
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
       <article className={ burgerIngredientsStyles.burger_ingredients }>    
@@ -52,7 +52,7 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
 
       {state.visible &&
         <Modal onClose={ handleCloseModal }>
-          <IngredientDetails element={ state.data } />
+          <IngredientDetails element={ state.data } onClose={ handleCloseModal } />
         </Modal>
       }
     </div>

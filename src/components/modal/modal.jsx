@@ -22,11 +22,7 @@ function Modal(props) {
 
   return ReactDOM.createPortal(
     (
-      <div className={ ModalStyle.modal } onClick={ () => { 
-          console.log("click2close");
-          onClose();
-        }}
-      >
+      <div className={ ModalStyle.modal }>
         { props.children }
       </div>
     ),

@@ -4,11 +4,13 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import doneImg from '../../images/done.png'
 
 
-function OrderDetails() {
+function OrderDetails({ onClose }) {
   return (
     <div className={ OrderDetailsStyle.container }>
       <div style={{ position: 'absolute', top: '25px', right: '25px' }}>
-        <CloseIcon type="primary" />
+        <CloseIcon type="primary" onClick={ () => {
+          onClose();
+        }}/>
       </div>
       <div className={ OrderDetailsStyle.content }>
         <p className={`${ OrderDetailsStyle.number } text text_type_digits-large mt-30`}>034536</p>

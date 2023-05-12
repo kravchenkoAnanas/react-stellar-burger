@@ -49,7 +49,6 @@ function BurgerConstructor(data) {
           style={{
             overflow: 'scroll',
             maxHeight: '600px',
-            marginRight: '100px',
             display: 'flex',
             flexDirection: 'column',
             gap: '10px'
@@ -82,7 +81,7 @@ function BurgerConstructor(data) {
 
         {state.visible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails />
+            <OrderDetails onClose={ handleCloseModal } />
           </Modal>
         }
       </div>
