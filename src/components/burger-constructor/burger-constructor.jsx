@@ -3,13 +3,21 @@ import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-de
 import ConstructorItem from '../constructor-item/constructor-item';
 import BurgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
+import Modal from '../modal/modal';
 
 function BurgerConstructor(data) {
+  const [state, setState] = useState({ visible: false });
+
   const elements = data.data;
-  
-  // TODO
-  // const bun = elements[0];
   const bun = elements.length ? elements.find((element) => element.type === "bun"): null;
+
+  const handleOpenModal = () => {
+    setState({ visible: true });
+  }
+
+  const handleCloseModal = () => {
+    setState({ visible: false });
+  }
 
   const renderBun = (posType) => {
     if (bun !== null) {
@@ -51,10 +59,20 @@ function BurgerConstructor(data) {
           <CurrencyIcon type="primary"/>
         </div>
         
-        <Button htmlType="button" type="primary" size="medium">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="medium"
+          onClick={ () => { handleOpenModal(); } }
+        >
           Оформить заказ
         </Button>
 
+        {state.visible &&
+          <Modal onClose={ handleCloseModal }>
+            <OrderDetails />
+          </Modal>
+        }
       </div>
     </div>
   )

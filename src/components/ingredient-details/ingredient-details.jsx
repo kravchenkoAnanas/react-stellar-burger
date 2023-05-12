@@ -4,7 +4,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
 function IngredientDetails({ element }) {
-  // console.log("IngredientDetails")
   return (
     <div className={ ingredientDetailsStyle.container } >
       <div style={{ position: 'absolute', top: '25px', right: '25px' }}>
@@ -21,15 +20,15 @@ function IngredientDetails({ element }) {
           </div>
           <div className="text text_type_main-default text_color_inactive">
             <p>Белки, г</p>
-            <p style={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.proteins }</p>
+            <p className={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.proteins }</p>
           </div>
           <div className="text text_type_main-default text_color_inactive">
             <p>Жиры, г</p>
-            <p style={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.fat }</p>
+            <p className={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.fat }</p>
           </div>
           <div className="text text_type_main-default text_color_inactive">
             <p>Углеводы, г</p>
-            <p style={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.carbohydrates }</p>
+            <p className={`${ ingredientDetailsStyle.number } text text_type_digits-default`}>{ element.carbohydrates }</p>
           </div>
 
         </div>

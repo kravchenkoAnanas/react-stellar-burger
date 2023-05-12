@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientStyle from './ingredient.module.css'
-import Modal from '../modal/modal';
 
 
 function Ingredient({ element, openModal }) {
-
-  // useEffect(() => {
-  //   console.log("Mount");
-  //   htmlObjects.addEventListener("click", handleOpenModal);
-
-  //   return () => {
-  //     console.log("UnMount");
-  //     htmlObjects.removeEventListener("click", handleOpenModal);
-  //   }
-  // }, [])
-
   return (
     <div className={ ingredientStyle.ingredient } onClick={ () => openModal() } > 
       <img className={ ingredientStyle.image } src={ element.image } alt="Ингредиент" />

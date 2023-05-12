@@ -5,7 +5,6 @@ import doneImg from '../../images/done.png'
 
 
 function OrderDetails() {
-  // console.log("OrderDetails")
   return (
     <div className={ OrderDetailsStyle.container }>
       <div style={{ position: 'absolute', top: '25px', right: '25px' }}>

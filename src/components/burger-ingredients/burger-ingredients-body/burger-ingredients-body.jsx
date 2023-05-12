@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import burgerIngredientsStyles from './../burger-ingredients.module.css'
 import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
+import IngredientDetails from '../../ingredient-details/ingredient-details';
 
 
 function BurgerIngredientsBody({ buns, mains, sauces}) {
   const [state, setState] = useState({ visible: false, data: null });
 
   const handleOpenModal = (data) => {
-    console.log("handleOpenModal")
     setState({
       visible: true,
       data: data
@@ -17,7 +17,6 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
   }
 
   const handleCloseModal = () => {
-    console.log("handleCloseModal")
     setState({
       visible: false,
       data: null
@@ -26,8 +25,8 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
 
   const renderElement = (element) => {
     return <Ingredient
-      element={element}
-      key={element._id}
+      element={ element }
+      key={ element._id }
       openModal={ () => handleOpenModal(element) } 
     />
   };
@@ -49,7 +48,11 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
         {mains.map((element) => renderElement(element))}
       </article>
 
-      {state.visible && <Modal element={ state.data } onClose={ handleCloseModal } />}
+      {state.visible &&
+        <Modal onClose={ handleCloseModal }>
+          <IngredientDetails element={ state.data } />
+        </Modal>
+      }
     </>
   )
 }

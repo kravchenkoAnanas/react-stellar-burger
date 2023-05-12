@@ -1,9 +1,6 @@
 import React from 'react';
-
 import BurgerIngredientsHeader from './burger-ingredients-header/burger-ingredients-header';
 import BurgerIngredientsBody from './burger-ingredients-body/burger-ingredients-body';
-// import CustomScroll from 'react-custom-scroll';
-
 
 function BurgerIngredients(data) {
   const [current, setCurrent] = React.useState('Булки')
@@ -23,22 +20,3 @@ function BurgerIngredients(data) {
 }
 
 export default BurgerIngredients;
-
-
-
-
-/* <article className={`${burgerIngredientsStyles.   } mt-25 ml-5`}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-        {elements.map((element) => (
-            element.type === "bun" &&
-
-              <ConstructorElement
-                text={ element.name }
-                price={ element.price }
-                thumbnail={ element.image }
-              />
-          )
-        )}
-        </div>
-      </article> */
-    
