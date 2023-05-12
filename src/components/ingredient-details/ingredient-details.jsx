@@ -4,9 +4,9 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
 function IngredientDetails({ element }) {
-  console.log("IngredientDetails")
+  // console.log("IngredientDetails")
   return (
-    <div className={ ingredientDetailsStyle.container }>
+    <div className={ ingredientDetailsStyle.container } >
       <div style={{ position: 'absolute', top: '25px', right: '25px' }}>
         <CloseIcon type="primary" />
       </div>

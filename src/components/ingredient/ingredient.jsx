@@ -4,16 +4,7 @@ import ingredientStyle from './ingredient.module.css'
 import Modal from '../modal/modal';
 
 
-function Ingredient({ element }) {
-  const [state, setState] = useState({ visible: false });
-  
-  const handleOpenModal = (data) => {
-    setState({ visible: true });
-  }
-
-  const handleCloseModal = () => {
-    setState({ visible: false });
-  }
+function Ingredient({ element, openModal }) {
 
   // useEffect(() => {
   //   console.log("Mount");
@@ -25,10 +16,8 @@ function Ingredient({ element }) {
   //   }
   // }, [])
 
-  const modal = (<Modal element={element}/>);
-  // console.log(htmlObjects);
   return (
-    <div className={ ingredientStyle.ingredient } onClick={handleOpenModal()}>
+    <div className={ ingredientStyle.ingredient } onClick={ () => openModal() } > 
       <img className={ ingredientStyle.image } src={ element.image } />
       {/* <Counter count={1} size="default" extraClass="m-1" /> */}
       <div className={`${ingredientStyle.price} mt-2`}>
@@ -37,10 +26,8 @@ function Ingredient({ element }) {
       </div>
       <p className={`${ingredientStyle.name} text text_type_main-default mt-2`}>{ element.name }</p>
       
-      {state.visible && modal}
     </div>
   );
-
 }
 
 export default Ingredient;

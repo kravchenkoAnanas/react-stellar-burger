@@ -1,25 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
-import BurgerConstructorStyle from './burger-constructor.module.css'
-
+import BurgerConstructorStyle from './burger-constructor.module.css';
+import OrderDetails from '../order-details/order-details';
 
 function BurgerConstructor(data) {
-  
   const elements = data.data;
-  const bun = elements[4];
+  
+  // TODO
+  // const bun = elements[0];
+  const bun = elements.length ? elements.find((element) => element.type === "bun"): null;
+
+  const renderBun = (posType) => {
+    if (bun !== null) {
+      const posWord = posType === 'top' ? 'верз' : 'низ';
+
+      return <ConstructorElement
+        type={ posType }
+        isLocked={ true }
+        text={ bun.name + ` (${posWord})` }
+        price={ bun.price }
+        thumbnail={ bun.image }
+      />
+    } else {
+      return null;
+    }
+  };
 
   return (
     <div>
-      <article style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className='mt-25'>
+      <article
+        style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+        className='mt-25'
+      >
         <div style={{ marginLeft: '35px'}}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={ bun.name + ' (верх)' }
-            price={ bun.price }
-            thumbnail={ bun.image }
-          />
+          { renderBun('top') }
         </div>
           {elements.map((element) => (
             element.type !== "bun" &&
@@ -27,13 +42,7 @@ function BurgerConstructor(data) {
           )
         )}
         <div style={{ marginLeft: '35px'}}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={ bun.name + ' (низ)' }
-            price={ bun.price }
-            thumbnail= { bun.image }
-          />
+          { renderBun('bottom') }
         </div>
       </article>
       <div className={ BurgerConstructorStyle.total }>
@@ -41,9 +50,11 @@ function BurgerConstructor(data) {
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary"/>
         </div>
+        
         <Button htmlType="button" type="primary" size="medium">
           Оформить заказ
         </Button>
+        
       </div>
     </div>
   )

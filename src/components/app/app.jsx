@@ -9,22 +9,21 @@ import AppHeader from "../app-header/app-header";
 
 function App() {
   const [ingredients, setIngredients] = useState({
-    data: null
+    data: []
   })
   
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
-  //     const dataFromServer = await res.json()
-  //     console.log(dataFromServer);
-  //     setIngredients({ data: dataFromServer.data });
-  // }
-  //   getData();
-  // }, [])
-  
-  // ingredients = {data: Array(15)}
-  // const { data } = ingredients;
-  
+  // TODO
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
+      const dataFromServer = await res.json()
+      console.log(dataFromServer);
+      setIngredients({ data: dataFromServer.data });
+  }
+    getData();
+  }, [])
+
+  const { data } = ingredients;
   
   return (
     <>
