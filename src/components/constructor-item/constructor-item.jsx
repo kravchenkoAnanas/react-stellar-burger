@@ -1,8 +1,7 @@
-import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
-
-function ConstructorItem({element}) {
+function ConstructorItem({ element }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '13px', alignItems: "center" }}>
       <DragIcon type="primary"/>
@@ -15,4 +14,7 @@ function ConstructorItem({element}) {
   )
 }
 
+ConstructorItem.propTypes = {
+  element: PropTypes.object
+}
 export default ConstructorItem;

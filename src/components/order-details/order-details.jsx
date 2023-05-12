@@ -1,8 +1,7 @@
-import React from "react";
 import OrderDetailsStyle from './order-details.module.css'
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import doneImg from '../../images/done.png'
-
+import PropTypes from 'prop-types';
 
 function OrderDetails({ onClose }) {
   return (
@@ -23,4 +22,7 @@ function OrderDetails({ onClose }) {
   )
 }
 
+OrderDetails.propTypes = {
+  onClose: PropTypes.func
+}
 export default OrderDetails;

@@ -4,6 +4,7 @@ import ConstructorItem from '../constructor-item/constructor-item';
 import BurgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
+import PropTypes from 'prop-types';
 
 function BurgerConstructor(data) {
   const [state, setState] = useState({ visible: false });
@@ -89,4 +90,7 @@ function BurgerConstructor(data) {
   )
 }
 
+BurgerConstructor.protoTypes = {
+  data: PropTypes.object
+}
 export default BurgerConstructor;

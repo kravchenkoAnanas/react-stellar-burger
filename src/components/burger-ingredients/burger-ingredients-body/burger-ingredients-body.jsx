@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-
+import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './../burger-ingredients.module.css'
 import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 
-function BurgerIngredientsBody({ buns, mains, sauces}) {
+function BurgerIngredientsBody({ buns, mains, sauces }) {
   const [state, setState] = useState({ visible: false, data: null });
 
   const handleOpenModal = (data) => {
@@ -59,4 +59,9 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
   )
 }
 
+BurgerIngredientsBody.propTypes = {
+  buns: PropTypes.array,
+  mains: PropTypes.array,
+  sauces: PropTypes.array
+}
 export default BurgerIngredientsBody;

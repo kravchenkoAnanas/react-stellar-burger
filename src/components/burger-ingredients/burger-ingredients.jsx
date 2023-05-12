@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import BurgerIngredientsHeader from './burger-ingredients-header/burger-ingredients-header';
 import BurgerIngredientsBody from './burger-ingredients-body/burger-ingredients-body';
 
@@ -19,4 +20,7 @@ function BurgerIngredients(data) {
   ) 
 }
 
+BurgerIngredients.protoTypes = {
+  data: PropTypes.object
+}
 export default BurgerIngredients;

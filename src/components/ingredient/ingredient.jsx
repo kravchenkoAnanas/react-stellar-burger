@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientStyle from './ingredient.module.css'
 
@@ -17,4 +18,8 @@ function Ingredient({ element, openModal }) {
   );
 }
 
+Ingredient.propTypes = {
+  element: PropTypes.object,
+  openModal: PropTypes.func
+}
 export default Ingredient;
