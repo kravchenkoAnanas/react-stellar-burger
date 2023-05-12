@@ -1,8 +1,10 @@
 import React from 'react';
 import { ConstructorElement, Counter, CurrencyIcon, Tab, Box, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './burger-ingredients.module.css'
-import Ingredient from '../ingridient/ingridient';
+import Ingredient from '../ingredient/ingredient';
 import { element } from 'prop-types';
+import Modal from "./../modal/modal"
+
 // import CustomScroll from 'react-custom-scroll';
 
 
@@ -15,7 +17,7 @@ function BurgerIngredients(data) {
   const mains = elements.filter(element => element.type === 'main');
   const sauces = elements.filter(element => element.type === 'sauce');
 
-  const element = mains[0];
+  const element = mains[4];
 
   return (
     <div>
@@ -31,29 +33,28 @@ function BurgerIngredients(data) {
             Начинки
         </Tab>
       </div>
-
+       
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
       <article className={ burgerIngredientsStyles.burger_ingredients }>    
         {buns.map((element) =>
-          <Ingredient element={element} />
+          <Ingredient element={element} key={element._id} />
         )}
       </article>
 
       <h3 className='text text_type_main-medium mt-10 mb-6'>Соусы</h3>
       <article className={ burgerIngredientsStyles.burger_ingredients }>    
         {sauces.map((element) =>
-          <Ingredient element={element} />
+          <Ingredient element={element} key={element._id} />
         )}
       </article>
 
       <h3 className='text text_type_main-medium mt-10 mb-6'>Начинки</h3>
       <article className={ burgerIngredientsStyles.burger_ingredients }>    
         {mains.map((element) =>
-          <Ingredient element={element} />
+          <Ingredient element={element} key={element._id} />
         )}
       </article>
-      
-      {/* <Modal element={element} /> */}
+
       </div>
   ) 
 }

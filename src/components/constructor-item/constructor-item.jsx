@@ -3,7 +3,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 
 function ConstructorItem({element}) {
-  console.log(element);
+  // console.log(element);
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '13px', alignItems: "center" }}>
       <DragIcon type="primary"/>

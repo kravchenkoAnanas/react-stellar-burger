@@ -1,0 +1,16 @@
+.total {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  gap: 41.5px;
+  margin-top: 40px;
+  margin-right: 16px;
+}
+
+.price {
+  gap: 9.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
