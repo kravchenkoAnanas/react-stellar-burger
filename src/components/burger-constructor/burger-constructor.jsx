@@ -44,11 +44,23 @@ function BurgerConstructor(data) {
         <div style={{ marginLeft: '35px'}}>
           { renderBun('top') }
         </div>
+        <div
+          className='custom-scroll'
+          style={{
+            overflow: 'scroll',
+            maxHeight: '600px',
+            marginRight: '100px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px'
+          }}
+        >
           {elements.map((element) => (
             element.type !== "bun" &&
               <ConstructorItem element={element} key={element._id}/>
           )
         )}
+        </div>
         <div style={{ marginLeft: '35px'}}>
           { renderBun('bottom') }
         </div>

@@ -1,5 +1,4 @@
-import React from 'react';
-import { ConstructorElement, Counter, CurrencyIcon, Tab, Box, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 function BurgerIngredientsHeader({ current, setCurrent }) {

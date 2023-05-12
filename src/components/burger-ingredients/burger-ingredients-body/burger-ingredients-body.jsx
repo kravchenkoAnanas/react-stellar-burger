@@ -5,7 +5,6 @@ import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 
-
 function BurgerIngredientsBody({ buns, mains, sauces}) {
   const [state, setState] = useState({ visible: false, data: null });
 
@@ -32,7 +31,10 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
   };
 
   return (
-    <>
+    <div
+      className='custom-scroll'
+      style={{ overflow: 'scroll', maxHeight: '1000px', marginRight: '100px'}}
+    >
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
       <article className={ burgerIngredientsStyles.burger_ingredients }>    
         {buns.map((element) => renderElement(element))}
@@ -53,7 +55,7 @@ function BurgerIngredientsBody({ buns, mains, sauces}) {
           <IngredientDetails element={ state.data } />
         </Modal>
       }
-    </>
+    </div>
   )
 }
 
