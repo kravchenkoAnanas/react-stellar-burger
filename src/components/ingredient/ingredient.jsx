@@ -18,7 +18,7 @@ function Ingredient({ element, openModal }) {
 
   return (
     <div className={ ingredientStyle.ingredient } onClick={ () => openModal() } > 
-      <img className={ ingredientStyle.image } src={ element.image } />
+      <img className={ ingredientStyle.image } src={ element.image } alt="Ингредиент" />
       {/* <Counter count={1} size="default" extraClass="m-1" /> */}
       <div className={`${ingredientStyle.price} mt-2`}>
         <p className="text text_type_digits-default">{ element.price }</p>

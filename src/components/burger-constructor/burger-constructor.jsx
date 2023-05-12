@@ -13,7 +13,7 @@ function BurgerConstructor(data) {
 
   const renderBun = (posType) => {
     if (bun !== null) {
-      const posWord = posType === 'top' ? 'верз' : 'низ';
+      const posWord = posType === 'top' ? 'верх' : 'низ';
 
       return <ConstructorElement
         type={ posType }
@@ -54,7 +54,7 @@ function BurgerConstructor(data) {
         <Button htmlType="button" type="primary" size="medium">
           Оформить заказ
         </Button>
-        
+
       </div>
     </div>
   )

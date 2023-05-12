@@ -21,3 +21,14 @@
   gap: 20px;
   align-items: center;
 }
+
+.image {
+  max-width: 480px;
+  min-height: 240px;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+}
+

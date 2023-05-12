@@ -13,6 +13,4 @@
   -moz-transition: all 1s linear;
   -o-transition: all 1s linear;
   transition: all 1s linear;
-  /* visibility: hidden; */
-  /* opacity: 0; */
 }
