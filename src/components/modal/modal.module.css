@@ -14,3 +14,10 @@
   -o-transition: all 1s linear;
   transition: all 1s linear;
 }
+
+.icon {
+  position: relative;
+  bottom: 225px;
+  left: 685px;
+  z-index: 2;
+}

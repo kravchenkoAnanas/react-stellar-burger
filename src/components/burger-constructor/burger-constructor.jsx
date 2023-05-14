@@ -6,10 +6,10 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor(data) {
+function BurgerConstructor(props) {
   const [state, setState] = useState({ visible: false });
 
-  const elements = data.data;
+  const elements = props.data;
   const bun = elements.length ? elements.find((element) => element.type === "bun"): null;
 
   const handleOpenModal = () => {
@@ -83,6 +83,6 @@ function BurgerConstructor(data) {
 }
 
 BurgerConstructor.protoTypes = {
-  data: PropTypes.object
+  data: PropTypes.array
 }
 export default BurgerConstructor;

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactDOM from "react-dom";
 import modalStyle from './modal.module.css'
 import PropTypes from 'prop-types';
@@ -24,6 +25,11 @@ function Modal(props) {
   return ReactDOM.createPortal(
     (
       <div className={ modalStyle.modal }>
+        <div className={ modalStyle.icon }>
+          <CloseIcon type="primary" onClick={ () => {
+            onClose();
+          }}/>
+        </div>
         { props.children }
       </div>
     ),

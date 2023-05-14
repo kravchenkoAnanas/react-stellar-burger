@@ -12,10 +12,20 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
-      const dataFromServer = await res.json()
-      setIngredients({ data: dataFromServer.data });
-  }
+      fetch('https://norma.nomoreparties.space/api/ingredients')
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`RejectError: ${res.status}`);
+        })
+        .then((dataFromServer) => {
+          setIngredients({ data: dataFromServer.data });
+        })
+        .catch((error) => {
+          console.log(`CatchError: ${error}`)
+        })
+    }
     getData();
   }, [])
 

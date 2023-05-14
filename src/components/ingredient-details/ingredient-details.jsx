@@ -1,16 +1,9 @@
-import React from "react";
 import ingredientDetailsStyle from './ingredient-details.module.css'
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 
-function IngredientDetails({ element, onClose }) {
+function IngredientDetails({ element }) {
   return (
     <div className={ ingredientDetailsStyle.container } >
-      <div className={ ingredientDetailsStyle.icon }>
-        <CloseIcon type="primary" onClick={ () => {
-          onClose();
-        }}/>
-      </div>
       <h2 className="text text_type_main-large mt-10 mr-25 ml-10">Детали ингридиента</h2>
       <div className={ ingredientDetailsStyle.content }>
         <img className={ ingredientDetailsStyle.image } src={ element.image } alt={ element.name } />
@@ -41,6 +34,5 @@ function IngredientDetails({ element, onClose }) {
 
 IngredientDetails.propTypes = {
   element: PropTypes.object,
-  onClose: PropTypes.func
 }
 export default IngredientDetails;

@@ -1,16 +1,10 @@
 import orderDetailsStyle from './order-details.module.css'
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import doneImg from '../../images/done.png'
 import PropTypes from 'prop-types';
 
-function OrderDetails({ onClose }) {
+function OrderDetails() {
   return (
     <div className={ orderDetailsStyle.container }>
-      <div className={ orderDetailsStyle.icon }>
-        <CloseIcon type="primary" onClick={ () => {
-          onClose();
-        }}/>
-      </div>
       <div className={ orderDetailsStyle.content }>
         <p className={`${ orderDetailsStyle.number } text text_type_digits-large mt-30`}>034536</p>
         <p className="text text_type_main-medium mt-8 mb-15">идентификатор заказа</p>
@@ -22,7 +16,4 @@ function OrderDetails({ onClose }) {
   )
 }
 
-OrderDetails.propTypes = {
-  onClose: PropTypes.func
-}
 export default OrderDetails;

@@ -9,12 +9,6 @@
   min-height: 538px;
 }
 
-.icon {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-}
-
 .content {
   display: flex;
   align-items: center;
