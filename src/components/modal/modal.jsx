@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
-import ModalStyle from './modal.module.css'
+import modalStyle from './modal.module.css'
 import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById("react-modals");
@@ -23,7 +23,7 @@ function Modal(props) {
 
   return ReactDOM.createPortal(
     (
-      <div className={ ModalStyle.modal }>
+      <div className={ modalStyle.modal }>
         { props.children }
       </div>
     ),

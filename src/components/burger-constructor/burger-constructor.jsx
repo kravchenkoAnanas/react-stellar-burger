@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
-import BurgerConstructorStyle from './burger-constructor.module.css';
+import burgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
@@ -39,21 +39,13 @@ function BurgerConstructor(data) {
   return (
     <div>
       <article
-        style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
-        className='mt-25'
+        className={ burgerConstructorStyle.burger_constructor }
       >
-        <div style={{ marginLeft: '35px'}}>
+        <div className={ burgerConstructorStyle.bun }>
           { renderBun('top') }
         </div>
         <div
-          className='custom-scroll'
-          style={{
-            overflow: 'scroll',
-            maxHeight: '600px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px'
-          }}
+          className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
           {elements.map((element) => (
             element.type !== "bun" &&
@@ -61,12 +53,12 @@ function BurgerConstructor(data) {
           )
         )}
         </div>
-        <div style={{ marginLeft: '35px'}}>
+        <div className={ burgerConstructorStyle.bun }>
           { renderBun('bottom') }
         </div>
       </article>
-      <div className={ BurgerConstructorStyle.total }>
-        <div className={ BurgerConstructorStyle.price }>
+      <div className={ burgerConstructorStyle.total }>
+        <div className={ burgerConstructorStyle.price }>
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary"/>
         </div>
