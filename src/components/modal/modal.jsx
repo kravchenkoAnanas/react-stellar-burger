@@ -25,12 +25,14 @@ function Modal(props) {
   return ReactDOM.createPortal(
     (
       <div className={ modalStyle.modal }>
-        <div className={ modalStyle.icon }>
-          <CloseIcon type="primary" onClick={ () => {
-            onClose();
-          }}/>
+        <div className={ modalStyle.submodal }>
+          { props.children }
+          <div className={ modalStyle.icon }>
+            <CloseIcon type="primary" onClick={ () => {
+              onClose();
+            }}/>
+          </div>
         </div>
-        { props.children }
       </div>
     ),
     modalRoot

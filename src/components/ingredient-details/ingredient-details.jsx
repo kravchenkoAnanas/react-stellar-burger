@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function IngredientDetails({ element }) {
   return (
-    <div className={ ingredientDetailsStyle.container } >
+    <div>
       <h2 className="text text_type_main-large mt-10 mr-25 ml-10">Детали ингридиента</h2>
       <div className={ ingredientDetailsStyle.content }>
         <img className={ ingredientDetailsStyle.image } src={ element.image } alt={ element.name } />
