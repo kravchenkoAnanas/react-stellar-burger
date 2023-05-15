@@ -25,23 +25,18 @@ function Modal(props) {
 
   return ReactDOM.createPortal(
     (
-      <>
-        <div className={ modalStyle.modal } onClick={ (event) => {
-            if (event.target.className.includes("modal")) {
-              onClose();
-            }
-          } } >
-          <div className={ modalStyle.submodal }>
-              { props.children }
-              <div className={ modalStyle.icon }>
-                <CloseIcon type="primary" onClick={ (event) => {
-                  event.stopPropagation();
-                  onClose();
-                } }/>
-              </div>
-            </div>
-        </div>
-      </>
+      <ModalOverlay onClose={ onClose } >
+        <div className={ modalStyle.modal }>
+            { props.children }
+            <button className={ modalStyle.icon }>
+              <CloseIcon type="primary" onClick={ (event) => {
+                console.log("CLICK button");
+                event.stopPropagation();
+                onClose();
+              } }/>
+            </button>
+          </div>
+      </ModalOverlay>
     ),
     modalRoot
   )

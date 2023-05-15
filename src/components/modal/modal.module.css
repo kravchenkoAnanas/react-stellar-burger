@@ -1,21 +1,4 @@
 .modal {
-  display: flex;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  -webkit-transition: all 1s linear;
-  -moz-transition: all 1s linear;
-  -o-transition: all 1s linear;
-  transition: all 1s linear;
-}
-
-.submodal {
   position: relative;
   background-color: #1C1C21;
   border: 1px solid rgba(76, 76, 255, 0.2);
@@ -27,6 +10,8 @@
 }
 
 .icon {
+  border: none;
+  background-color: #1C1C21;
   position: absolute;
   top: 35px;
   right: 30px;
