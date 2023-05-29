@@ -1,0 +1,23 @@
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nutrients {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.image {
+  max-width: 480px;
+  min-height: 240px;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+}
+

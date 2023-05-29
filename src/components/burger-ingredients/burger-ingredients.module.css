@@ -1,0 +1,15 @@
+.burger_ingredients {
+  display: grid;
+  grid-template-columns: repeat(2, 272px);
+  gap: 56px;
+  max-width: 600px;
+}
+
+.scroll {
+  overflow: scroll;
+  max-height: 1000px;
+}
+
+.navigation {
+  display: flex;
+}

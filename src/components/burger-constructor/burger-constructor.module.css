@@ -1,0 +1,35 @@
+.burger_constructor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 100px;
+}
+
+.bun {
+  margin-left: 35px;
+}
+
+.scroll {
+  overflow: scroll;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  gap: 41.5px;
+  margin-top: 40px;
+  margin-right: 30px;
+}
+
+.price {
+  gap: 9.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
