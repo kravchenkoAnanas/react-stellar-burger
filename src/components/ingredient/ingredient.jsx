@@ -3,9 +3,9 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import ingredientStyle from './ingredient.module.css'
 
 
-function Ingredient({ element, openModal }) {
+function Ingredient({ element, clickCallBack }) {
   return (
-    <div className={ ingredientStyle.ingredient } onClick={ () => openModal() } > 
+    <div className={ ingredientStyle.ingredient } onClick={ () => clickCallBack() } > 
       <img className={ ingredientStyle.image } src={ element.image } alt={ element.name } />
       {/* <Counter count={1} size="default" extraClass="m-1" /> */}
       <div className={`${ingredientStyle.price} mt-2`}>
@@ -20,6 +20,6 @@ function Ingredient({ element, openModal }) {
 
 Ingredient.propTypes = {
   element: PropTypes.object,
-  openModal: PropTypes.func
+  clickCallBack: PropTypes.func
 }
 export default Ingredient;

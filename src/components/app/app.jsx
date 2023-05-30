@@ -3,12 +3,12 @@ import BurgerIngredients from "./../../components/burger-ingredients/burger-ingr
 import BurgerConstructor from "./../../components/burger-constructor/burger-constructor";
 import appStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
+import { BurgerContext } from "../../utils/burger-context";
 
 
 function App() {
-  const [ingredients, setIngredients] = useState({
-    data: []
-  })
+  const [ingredients, setIngredients] = useState([]);
+  const [chosenIngredients, setChosenIngredients] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -20,7 +20,8 @@ function App() {
           return Promise.reject(`RejectError: ${res.status}`);
         })
         .then((dataFromServer) => {
-          setIngredients({ data: dataFromServer.data });
+          setIngredients(dataFromServer.data);
+          setChosenIngredients([dataFromServer.data[0]]);
         })
         .catch((error) => {
           console.log(`CatchError: ${error}`)
@@ -29,14 +30,14 @@ function App() {
     getData();
   }, [])
 
-  const { data } = ingredients;
-  
   return (
     <>
       <AppHeader />
       <main className={ appStyle.app }>
-          <BurgerIngredients data={ data } />
-          <BurgerConstructor data={ data } />
+        <BurgerContext.Provider value={{ chosenIngredients, setChosenIngredients }}>
+          <BurgerIngredients ingredients={ ingredients }/>
+          <BurgerConstructor />
+        </BurgerContext.Provider>
       </main>
     </>
     );
