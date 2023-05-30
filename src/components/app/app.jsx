@@ -3,7 +3,6 @@ import BurgerIngredients from "./../../components/burger-ingredients/burger-ingr
 import BurgerConstructor from "./../../components/burger-constructor/burger-constructor";
 import appStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import { BurgerContext } from "./../burger-context";
 
 
 function App() {
@@ -36,10 +35,8 @@ function App() {
     <>
       <AppHeader />
       <main className={ appStyle.app }>
-        <BurgerContext.Provider value={{ data }}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </BurgerContext.Provider>
+          <BurgerIngredients data={ data } />
+          <BurgerConstructor data={ data } />
       </main>
     </>
     );

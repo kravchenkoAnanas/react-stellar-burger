@@ -1,13 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsHeader from './burger-ingredients-header/burger-ingredients-header';
 import BurgerIngredientsBody from './burger-ingredients-body/burger-ingredients-body';
 
-function BurgerIngredients() {
+function BurgerIngredients(props) {
   const [current, setCurrent] = useState('Булки')
-  
-  const { elements } = useContext(BurgerContext);
-  // const elements = props.data;
+
+  const elements = props.data;
 
   const buns = elements.filter(element => element.type === 'bun');
   const mains = elements.filter(element => element.type === 'main');
