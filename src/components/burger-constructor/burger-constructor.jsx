@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useMemo} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
 import burgerConstructorStyle from './burger-constructor.module.css';
@@ -6,20 +6,30 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import { BurgerContext } from '../../utils/burger-context';
+import { sendOrder } from '../../services/api';
 
 function BurgerConstructor() {
-  const [state, setState] = useState({ visible: false });
+  const [state, setState] = useState({
+    visible: false,
+    orderNumber: 'Заказ'
+  });
   const [sum, setSum] = useState(0);
 
   const {chosenIngredients, setChosenIngredients} = useContext(BurgerContext)
   const bun = chosenIngredients.length ? chosenIngredients.find((element) => element.type === "bun"): null;
 
   const handleOpenModal = () => {
-    setState({ visible: true });
+    const ids = chosenIngredients.map((ingredient) => {
+      return ingredient._id;
+    });
+    sendOrder(ids, setState);
   }
 
   const handleCloseModal = () => {
-    setState({ visible: false });
+    setState({
+      visible: false,
+      orderNumber: 'Заказ'
+    });
   }
 
   const renderBun = (posType) => {
@@ -54,7 +64,7 @@ function BurgerConstructor() {
     return chosenIngredients[0].price * 2 + sumArrayOfIngredients(chosenIngredients.slice(1));
   }
 
-  useEffect(() => {
+  useMemo(() => {
     const newSum = calculateSum();
     setSum(newSum);
   }, [chosenIngredients])
@@ -97,7 +107,7 @@ function BurgerConstructor() {
 
         {state.visible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails onClose={ handleCloseModal } />
+            <OrderDetails state={ state } />
           </Modal>
         }
       </div>
