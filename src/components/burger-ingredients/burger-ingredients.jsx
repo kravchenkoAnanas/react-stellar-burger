@@ -20,6 +20,6 @@ function BurgerIngredients({ ingredients }) {
 }
 
 BurgerIngredients.protoTypes = {
-  data: PropTypes.array
+  data: PropTypes.number
 }
 export default BurgerIngredients;

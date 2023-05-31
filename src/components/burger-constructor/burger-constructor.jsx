@@ -107,7 +107,7 @@ function BurgerConstructor() {
 
         {state.visible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails state={ state } />
+            <OrderDetails orderNumber={ state.orderNumber } />
           </Modal>
         }
       </div>

@@ -2,12 +2,12 @@ import orderDetailsStyle from './order-details.module.css'
 import doneImg from '../../images/done.png'
 import PropTypes from 'prop-types';
 
-function OrderDetails({ state }) {
+function OrderDetails({ orderNumber }) {
   return (
     <div className={ orderDetailsStyle.container }>
       <div className={ orderDetailsStyle.content }>
         <p className={`${ orderDetailsStyle.number } text text_type_digits-large mt-30`}>
-          { state.orderNumber }
+          { orderNumber }
         </p>
         <p className="text text_type_main-medium mt-8 mb-15">идентификатор заказа</p>
         <img src={ doneImg } alt="Галочка о совершении заказа"/>
@@ -18,4 +18,7 @@ function OrderDetails({ state }) {
   )
 }
 
+OrderDetails.protoTypes = {
+  orderNumber: PropTypes.array
+}
 export default OrderDetails;
