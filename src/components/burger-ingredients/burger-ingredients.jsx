@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsHeader from './burger-ingredients-header/burger-ingredients-header';
 import BurgerIngredientsBody from './burger-ingredients-body/burger-ingredients-body';
@@ -20,6 +20,6 @@ function BurgerIngredients({ ingredients }) {
 }
 
 BurgerIngredients.protoTypes = {
-  data: PropTypes.number
+  data: PropTypes.array
 }
 export default BurgerIngredients;

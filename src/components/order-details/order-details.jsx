@@ -19,6 +19,6 @@ function OrderDetails({ orderNumber }) {
 }
 
 OrderDetails.protoTypes = {
-  orderNumber: PropTypes.array
+  orderNumber: PropTypes.number
 }
 export default OrderDetails;
