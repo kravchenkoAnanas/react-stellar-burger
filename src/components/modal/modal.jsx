@@ -30,7 +30,7 @@ function Modal(props) {
             { props.children }
             <button className={ modalStyle.icon }>
               <CloseIcon type="primary" onClick={ (event) => {
-                console.log("CLICK button");
+                // console.log("CLICK button");
                 event.stopPropagation();
                 onClose();
               } }/>

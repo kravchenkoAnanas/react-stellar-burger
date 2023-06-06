@@ -1,23 +1,35 @@
-import React, {useState} from 'react';
+import {useContext, useState, useMemo} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
+import { BurgerContext } from '../../utils/burger-context';
+import { sendOrder } from '../../services/api';
 
-function BurgerConstructor(props) {
-  const [state, setState] = useState({ visible: false });
+function BurgerConstructor() {
+  const [state, setState] = useState({
+    visible: false,
+    orderNumber: 'Заказ'
+  });
+  const [sum, setSum] = useState(0);
 
-  const elements = props.data;
-  const bun = elements.length ? elements.find((element) => element.type === "bun"): null;
+  const {chosenIngredients, setChosenIngredients} = useContext(BurgerContext)
+  const bun = chosenIngredients.length ? chosenIngredients.find((element) => element.type === "bun"): null;
 
   const handleOpenModal = () => {
-    setState({ visible: true });
+    const ids = chosenIngredients.map((ingredient) => {
+      return ingredient._id;
+    });
+    sendOrder(ids, setState);
   }
 
   const handleCloseModal = () => {
-    setState({ visible: false });
+    setState({
+      visible: false,
+      orderNumber: 'Заказ'
+    });
   }
 
   const renderBun = (posType) => {
@@ -36,6 +48,27 @@ function BurgerConstructor(props) {
     }
   };
 
+  const sumArrayOfIngredients = (arr) => {
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i = i + 1) {
+      sum = sum + arr[i].price;
+    }
+    return sum;
+  }
+
+  const calculateSum = () => {
+    if (chosenIngredients === null || chosenIngredients.length === 0) {
+      return 0;
+    }
+    return chosenIngredients[0].price * 2 + sumArrayOfIngredients(chosenIngredients.slice(1));
+  }
+
+  useMemo(() => {
+    const newSum = calculateSum();
+    setSum(newSum);
+  }, [chosenIngredients])
+
   return (
     <div>
       <article
@@ -47,9 +80,9 @@ function BurgerConstructor(props) {
         <div
           className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
-          {elements.map((element) => (
-            element.type !== "bun" &&
-              <ConstructorItem element={element} key={element._id}/>
+          {chosenIngredients.map((ingredient) => (
+            ingredient.type !== "bun" &&
+              <ConstructorItem element={ingredient} key={ingredient._id}/>
           )
         )}
         </div>
@@ -59,7 +92,7 @@ function BurgerConstructor(props) {
       </article>
       <div className={ burgerConstructorStyle.total }>
         <div className={ burgerConstructorStyle.price }>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{ sum }</p>
           <CurrencyIcon type="primary"/>
         </div>
         
@@ -74,7 +107,7 @@ function BurgerConstructor(props) {
 
         {state.visible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails onClose={ handleCloseModal } />
+            <OrderDetails orderNumber={ state.orderNumber } />
           </Modal>
         }
       </div>
