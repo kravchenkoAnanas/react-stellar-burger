@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import BurgerIngredients from "./../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./../../components/burger-constructor/burger-constructor";
 import appStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import { BurgerContext } from "../../utils/burger-context";
-import { getData } from '../../services/api'
+import { getIngredients } from './../../services/actions/index';
 
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [chosenIngredients, setChosenIngredients] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData(setIngredients, setChosenIngredients);
-  }, [])
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const { ingredients } = useSelector(state => state);
 
   return (
     <>
       <AppHeader />
       <main className={ appStyle.app }>
-        <BurgerContext.Provider value={{ chosenIngredients, setChosenIngredients }}>
-          <BurgerIngredients ingredients={ ingredients }/>
-          <BurgerConstructor />
-        </BurgerContext.Provider>
+        <BurgerIngredients ingredients={ ingredients }/>
+        <BurgerConstructor />
       </main>
     </>
     );

@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import burgerIngredientsStyle from './../burger-ingredients.module.css'
 import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
-// import { BurgerContext } from './../../../utils/burger-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_INGREDIENT } from '../../../services/actions';
 
 function BurgerIngredientsBody({ buns, mains, sauces }) {
   const [state, setState] = useState({ visible: false, data: null });
 
-  // const {chosenIngredients, setChosenIngredients} = useContext(BurgerContext);
+  const dispatch = useDispatch();
 
-  // const handleClickOnIngredient = (element) => {
-  //   if (element.type !== "bun") {
-  //     const newChosenIngredients = chosenIngredients.concat([element]);
-  //     setChosenIngredients(newChosenIngredients);
-  //   }
-  // };
+  const handleClickOnIngredient = (element) => {
+    if (element.type !== "bun") {
+      dispatch({
+        type: ADD_INGREDIENT,
+        ingredient: element
+      })
+    }
+  };
 
   const handleOpenModal = (element) => {
     setState({
@@ -36,8 +39,8 @@ function BurgerIngredientsBody({ buns, mains, sauces }) {
     return <Ingredient
       element={ element }
       key={ element._id }
-      clickCallBack={ () => handleOpenModal(element) } 
-      // clickCallBack={ () => handleClickOnIngredient(element) } 
+      // clickCallBack={ () => handleOpenModal(element) } 
+      clickCallBack={ () => handleClickOnIngredient(element) } 
     />
   };
 

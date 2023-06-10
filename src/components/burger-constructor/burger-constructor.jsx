@@ -1,34 +1,33 @@
-import {useContext, useState, useMemo} from 'react';
+import { useState, useMemo} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
-import { BurgerContext } from '../../utils/burger-context';
-import { sendOrder } from '../../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendOrder, CLOSE_ORDER } from '../../services/actions/index';
 
 function BurgerConstructor() {
-  const [state, setState] = useState({
-    visible: false,
-    orderNumber: 'Заказ'
-  });
+  const dispatch = useDispatch();
+  const { orderVisible, orderNumber, chosenIngredients } = useSelector(state => state);
+  
   const [sum, setSum] = useState(0);
-
-  const {chosenIngredients, setChosenIngredients} = useContext(BurgerContext)
-  const bun = chosenIngredients.length ? chosenIngredients.find((element) => element.type === "bun"): null;
+  
+  const bun = chosenIngredients.length
+    ? chosenIngredients.find((element) => element.type === "bun")
+    : null;
 
   const handleOpenModal = () => {
     const ids = chosenIngredients.map((ingredient) => {
       return ingredient._id;
     });
-    sendOrder(ids, setState);
+    dispatch(sendOrder(ids));
   }
 
   const handleCloseModal = () => {
-    setState({
-      visible: false,
-      orderNumber: 'Заказ'
+    dispatch({
+      type: CLOSE_ORDER,
     });
   }
 
@@ -105,9 +104,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
 
-        {state.visible &&
+        {orderVisible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails orderNumber={ state.orderNumber } />
+            <OrderDetails />
           </Modal>
         }
       </div>
