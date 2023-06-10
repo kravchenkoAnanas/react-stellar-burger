@@ -13,7 +13,8 @@ import {
   SEND_ORDER,
   CLOSE_ORDER,
   SET_INGREDIENT,
-  UNSET_INGREDIENT
+  UNSET_INGREDIENT,
+  DROP_INGREDIENT
 } from './../actions/index';
 
 const initialState = {
@@ -67,6 +68,18 @@ export const reducer = (state = initialState, action) => {
         ...state,
         ingredientVisible: initialState.ingredientVisible,
         ingredientInfo: initialState.ingredientVisible,
+      }
+    }
+    case DROP_INGREDIENT: {
+      console.log('DROP_INGREDIENT', action.element);
+      return {
+        ...state,
+        ingredients: state.ingredients.map((ingredient) => {
+          return ingredient._id === action.element._id
+          ? { ...ingredient, counter: ++ingredient.counter }
+          : ingredient;
+        }),
+        chosenIngredients: state.chosenIngredients.concat([action.element])
       }
     }
     default: {

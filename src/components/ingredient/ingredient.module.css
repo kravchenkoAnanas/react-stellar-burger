@@ -23,3 +23,9 @@
   min-height: 48px;
   justify-content: center;
 }
+
+.counter {
+  position: relative;
+  top: -75%;
+  right: -45%;
+}

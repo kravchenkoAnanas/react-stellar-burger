@@ -9,15 +9,23 @@ export const CLOSE_ORDER = 'CLOSE_ORDER';
 export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
 
+export const DROP_INGREDIENT = 'DROP_INGREDIENT';
+
 export function getIngredients() {
   return function(dispatch) {
     getData()
       .then(res => {
         if (res) {
+          const ingredients = res.data.map((ingredient) => {
+            const extendedIngredient = ingredient;
+            extendedIngredient['counter'] = 0;
+            return extendedIngredient;
+          })
+
           dispatch({
             type: INGREDIENTS,
-            ingredients: res.data,
-            chosenIngredients: [res.data[0]]
+            ingredients: ingredients,
+            chosenIngredients: [ingredients[0]]
           })
         }
       })

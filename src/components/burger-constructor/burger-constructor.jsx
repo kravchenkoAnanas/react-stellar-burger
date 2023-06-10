@@ -6,13 +6,27 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendOrder, CLOSE_ORDER } from '../../services/actions/index';
+import { sendOrder, CLOSE_ORDER, DROP_INGREDIENT } from '../../services/actions/index';
+import { useDrop } from 'react-dnd';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const { orderVisible, chosenIngredients } = useSelector(state => state);
   
   const [sum, setSum] = useState(0);
+
+  const [{ isHover } , drop] = useDrop({
+    accept: "ingredient",
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    }),
+    drop(itemId) {
+        dispatch({
+            type: DROP_INGREDIENT,
+            ...itemId
+        });
+    },
+  });
   
   const bun = chosenIngredients.length
     ? chosenIngredients.find((element) => element.type === "bun")
@@ -69,7 +83,7 @@ function BurgerConstructor() {
   }, [chosenIngredients])
 
   return (
-    <div>
+    <div ref={drop}>
       <article
         className={ burgerConstructorStyle.burger_constructor }
       >

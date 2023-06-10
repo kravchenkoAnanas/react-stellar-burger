@@ -8,4 +8,5 @@ npm install redux
 npm install @reduxjs/toolkit
 npm install react-dnd
 npm install react-dnd-html5-backend
+npm i react-dnd react-dnd-html5-backend 
 ```
