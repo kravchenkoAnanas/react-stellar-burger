@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import BurgerIngredientsHeader from './burger-ingredients-header/burger-ingredients-header';
 import BurgerIngredientsBody from './burger-ingredients-body/burger-ingredients-body';
+import { useSelector } from 'react-redux';
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
   const [current, setCurrent] = useState('Булки');
-  const elements = ingredients;
 
-  const buns = elements.filter(element => element.type === 'bun');
-  const mains = elements.filter(element => element.type === 'main');
-  const sauces = elements.filter(element => element.type === 'sauce');
+  const { ingredients } = useSelector(state => state);
+
+  const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
+  const mains = ingredients.filter(ingredient => ingredient.type === 'main');
+  const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');
 
   return (
     <div>
@@ -19,7 +20,4 @@ function BurgerIngredients({ ingredients }) {
   ) 
 }
 
-BurgerIngredients.protoTypes = {
-  data: PropTypes.array
-}
 export default BurgerIngredients;

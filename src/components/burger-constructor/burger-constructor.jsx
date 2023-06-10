@@ -10,7 +10,7 @@ import { sendOrder, CLOSE_ORDER } from '../../services/actions/index';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { orderVisible, orderNumber, chosenIngredients } = useSelector(state => state);
+  const { orderVisible, chosenIngredients } = useSelector(state => state);
   
   const [sum, setSum] = useState(0);
   

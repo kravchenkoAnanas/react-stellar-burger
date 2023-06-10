@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import BurgerIngredients from "./../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./../../components/burger-constructor/burger-constructor";
 import appStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import { BurgerContext } from "../../utils/burger-context";
 import { getIngredients } from './../../services/actions/index';
 
 
@@ -15,13 +14,11 @@ function App() {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const { ingredients } = useSelector(state => state);
-
   return (
     <>
       <AppHeader />
       <main className={ appStyle.app }>
-        <BurgerIngredients ingredients={ ingredients }/>
+        <BurgerIngredients />
         <BurgerConstructor />
       </main>
     </>

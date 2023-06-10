@@ -1,16 +1,15 @@
-import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import burgerIngredientsStyle from './../burger-ingredients.module.css'
 import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT } from '../../../services/actions';
+import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT } from '../../../services/actions';
 
 function BurgerIngredientsBody({ buns, mains, sauces }) {
-  const [state, setState] = useState({ visible: false, data: null });
-
   const dispatch = useDispatch();
+
+  const { ingredientVisible } = useSelector(state => state);
 
   const handleClickOnIngredient = (element) => {
     if (element.type !== "bun") {
@@ -22,25 +21,24 @@ function BurgerIngredientsBody({ buns, mains, sauces }) {
   };
 
   const handleOpenModal = (element) => {
-    setState({
-      visible: true,
+    dispatch({
+      type: SET_INGREDIENT,
       data: element
-    });
+    })
   }
 
   const handleCloseModal = () => {
-    setState({
-      visible: false,
-      data: null
-    });
+    dispatch({ type: UNSET_INGREDIENT });
   }
 
   const renderElement = (element) => {
     return <Ingredient
       element={ element }
       key={ element._id }
-      // clickCallBack={ () => handleOpenModal(element) } 
-      clickCallBack={ () => handleClickOnIngredient(element) } 
+      clickCallBack={ () => {
+        handleOpenModal(element);
+        handleClickOnIngredient(element);
+      }} 
     />
   };
 
@@ -63,9 +61,9 @@ function BurgerIngredientsBody({ buns, mains, sauces }) {
         {mains.map((element) => renderElement(element))}
       </article>
 
-      {state.visible &&
+      {ingredientVisible &&
         <Modal onClose={ handleCloseModal }>
-          <IngredientDetails element={ state.data } onClose={ handleCloseModal } />
+          <IngredientDetails onClose={ handleCloseModal } />
         </Modal>
       }
     </div>

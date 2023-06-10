@@ -11,14 +11,18 @@ import {
   INGREDIENTS,
   ADD_INGREDIENT,
   SEND_ORDER,
-  CLOSE_ORDER
+  CLOSE_ORDER,
+  SET_INGREDIENT,
+  UNSET_INGREDIENT
 } from './../actions/index';
 
 const initialState = {
   ingredients: [],
   chosenIngredients: [],
   orderVisible: false,
-  orderNumber: null
+  orderNumber: null,
+  ingredientVisible: false,
+  ingredientInfo: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -51,25 +55,20 @@ export const reducer = (state = initialState, action) => {
         orderNumber: initialState.orderNumber
       }
     }
-    // case INCREASE_ITEM: {
-    //   return {
-    //     ...state,
-    //     items: [...state.items].map(item =>
-    //       item.id === action.id ? { ...item, qty: ++item.qty } : item
-    //     )
-    //   };
-    // }
-    // case DECREASE_ITEM: {
-    //   return {
-    //     ...state,
-    //     items: [...state.items].map(item =>
-    //       item.id === action.id ? { ...item, qty: --item.qty } : item
-    //     )
-    //   };
-    // }
-    // case DELETE_ITEM: {
-    //   return { ...state, items: [...state.items].filter(item => item.id !== action.id) };
-    // }
+    case SET_INGREDIENT: {
+      return {
+        ...state,
+        ingredientVisible: true,
+        ingredientInfo: action.data,
+      }
+    }
+    case UNSET_INGREDIENT: {
+      return {
+        ...state,
+        ingredientVisible: initialState.ingredientVisible,
+        ingredientInfo: initialState.ingredientVisible,
+      }
+    }
     default: {
       return state;
     }
@@ -77,9 +76,3 @@ export const reducer = (state = initialState, action) => {
 };
 
 export const rootReducer = reducer;
-
-// export const rootReducer = combineReducers({
-//   ingredients: ingredientsReducer,
-//   chosenIngredients: chosenIngredientsReducer,
-//   order: orderReducer,
-// });

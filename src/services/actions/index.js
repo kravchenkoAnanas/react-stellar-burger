@@ -6,6 +6,9 @@ export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const SEND_ORDER = 'SEND_ORDER';
 export const CLOSE_ORDER = 'CLOSE_ORDER';
 
+export const SET_INGREDIENT = 'SET_INGREDIENT';
+export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
+
 export function getIngredients() {
   return function(dispatch) {
     getData()
