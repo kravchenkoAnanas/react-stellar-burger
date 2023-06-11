@@ -4,13 +4,17 @@ import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT } from '../../../services/actions';
+import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT, UPD_CURRENT_TAB } from '../../../services/actions';
 
-function BurgerIngredientsBody({ buns, mains, sauces }) {
+function BurgerIngredientsBody() {
   const dispatch = useDispatch();
 
-  const { ingredientVisible } = useSelector(state => state);
+  const { ingredients, ingredientVisible } = useSelector(state => state);
 
+  const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
+  const mains = ingredients.filter(ingredient => ingredient.type === 'main');
+  const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');
+  
   const handleClickOnIngredient = (element) => {
     if (element.type !== "bun") {
       dispatch({
@@ -42,9 +46,19 @@ function BurgerIngredientsBody({ buns, mains, sauces }) {
     />
   };
 
+  const handlePointerOver = (e) => {
+    dispatch({
+      type: UPD_CURRENT_TAB,
+      scrollTop: e.currentTarget.scrollTop,
+      bunsRowsSize: buns.length / 2 * 315,
+      sauceRowsSize: sauces.length / 2 * 315,
+    })
+  }
+
   return (
     <div 
       className={`${ burgerIngredientsStyle.scroll } custom-scroll`}
+      onPointerOver={ handlePointerOver }
     >
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
       <article className={ burgerIngredientsStyle.burger_ingredients }>    
@@ -70,9 +84,4 @@ function BurgerIngredientsBody({ buns, mains, sauces }) {
   )
 }
 
-BurgerIngredientsBody.propTypes = {
-  buns: PropTypes.array,
-  mains: PropTypes.array,
-  sauces: PropTypes.array
-}
 export default BurgerIngredientsBody;

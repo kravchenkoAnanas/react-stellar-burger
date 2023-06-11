@@ -8,7 +8,8 @@ import {
   SET_INGREDIENT,
   UNSET_INGREDIENT,
   DEL_CHOSEN_INGREDIENT,
-  MOVE_INGREDIENT
+  MOVE_INGREDIENT,
+  UPD_CURRENT_TAB
 } from './../actions/index';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   orderVisible: false,
   orderNumber: null,
   ingredientVisible: false,
-  ingredientInfo: null
+  ingredientInfo: null,
+  currentTab: 'bun'
 };
 
 export const reducer = (state = initialState, action) => {
@@ -62,6 +64,8 @@ export const reducer = (state = initialState, action) => {
               counter: ++ingredient.counter,
               chosenUuids: ingredient.chosenUuids.concat([chosenUuid])
             };
+          } else if (!isNewBun && processBun) {
+            return { ...ingredient };
           } else {
             return { ...ingredient, counter: 0 };
           }
@@ -148,6 +152,21 @@ export const reducer = (state = initialState, action) => {
         ...state,
         ingredientVisible: initialState.ingredientVisible,
         ingredientInfo: initialState.ingredientVisible,
+      }
+    }
+    case UPD_CURRENT_TAB: {
+      let newCurrentTab;
+
+      if (action.scrollTop < action.bunsRowsSize) {
+        newCurrentTab = 'bun';
+      } else if (action.scrollTop < action.sauceRowsSize) {
+        newCurrentTab = 'sauce';
+      } else {
+        newCurrentTab = 'main';
+      }
+      return {
+        ...state,
+        currentTab: newCurrentTab
       }
     }
     default: {

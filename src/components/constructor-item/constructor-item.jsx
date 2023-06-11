@@ -10,9 +10,6 @@ function ConstructorItem({ index, element }) {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-    // item: () => {
-    //   return { id, index }
-    // },
   const [{ isDrag }, dragRef] = useDrag({
     type: "innerIngredient",
     item: { index, element },
@@ -74,7 +71,7 @@ function ConstructorItem({ index, element }) {
     },
   });
 
-  const opacity = isDrag ? 0 : 1
+  // const opacity = isDrag ? 0 : 1
   dragRef(dropRef(ref));
 
   return (

@@ -13,6 +13,8 @@ export const DEL_CHOSEN_INGREDIENT = 'DEL_CHOSEN_INGREDIENT';
 
 export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
 
+export const UPD_CURRENT_TAB = 'UPD_CURRENT_TAB';
+
 export function getIngredients() {
   return function(dispatch) {
     getData()

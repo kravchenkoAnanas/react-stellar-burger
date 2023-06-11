@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientStyle from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
+import { useRef, useEffect } from 'react';
 
 function Ingredient({ element, clickCallBack }) {
-  const { _id, name, image, price, counter } = element;
+  const { name, image, price, counter } = element;
+  const ref = useRef();
   
   const [{ isDrag }, dragRef] = useDrag({
       type: "ingredient",
@@ -24,8 +26,10 @@ function Ingredient({ element, clickCallBack }) {
     }
   };
 
+  dragRef(ref);
+
   return (
-    <div className={ ingredientStyle.ingredient } onClick={ () => clickCallBack() } ref={dragRef} >
+    <div className={ ingredientStyle.ingredient } onClick={ () => clickCallBack() } ref={ref} >
       <img className={ ingredientStyle.image } src={ image } alt={ name } />
       { showCounter() }
       <div className={`${ingredientStyle.price} mt-2`}>
