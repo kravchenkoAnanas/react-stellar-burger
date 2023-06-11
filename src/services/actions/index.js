@@ -11,6 +11,8 @@ export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
 
 export const DEL_CHOSEN_INGREDIENT = 'DEL_CHOSEN_INGREDIENT';
 
+export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
+
 export function getIngredients() {
   return function(dispatch) {
     getData()

@@ -21,11 +21,10 @@ function BurgerConstructor() {
         isHover: monitor.isOver(),
     }),
     drop(item) {
-        dispatch({
-            type: ADD_INGREDIENT,
-            // ...item
-            ingredient: item.element
-        });
+      dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: item.element
+      });
     },
   });
   
@@ -95,9 +94,9 @@ function BurgerConstructor() {
         <div
           className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
-          {chosenIngredients.map((ingredient) => (
+          {chosenIngredients.map((ingredient, i) => (
             ingredient.type !== "bun" &&
-              <ConstructorItem element={ingredient} key={ingredient.uuid}/>
+              <ConstructorItem index={i} element={ingredient} key={ingredient.uuid}/>
           )
         )}
         </div>

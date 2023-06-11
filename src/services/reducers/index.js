@@ -7,7 +7,8 @@ import {
   CLOSE_ORDER,
   SET_INGREDIENT,
   UNSET_INGREDIENT,
-  DEL_CHOSEN_INGREDIENT
+  DEL_CHOSEN_INGREDIENT,
+  MOVE_INGREDIENT
 } from './../actions/index';
 
 const initialState = {
@@ -106,6 +107,19 @@ export const reducer = (state = initialState, action) => {
             return ingredient;
           }
         })
+      }
+    }
+    case MOVE_INGREDIENT: {
+      const { dragIndex, hoverIndex } = action;
+      const newChosenIngredients = state.chosenIngredients.slice();      
+      const objToInsert = newChosenIngredients[dragIndex];
+
+      newChosenIngredients.splice(dragIndex, 1);
+      newChosenIngredients.splice(hoverIndex, 0, objToInsert);
+
+      return {
+        ...state,
+        chosenIngredients: newChosenIngredients
       }
     }
     case SEND_ORDER: {
