@@ -6,7 +6,7 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendOrder, CLOSE_ORDER, DROP_INGREDIENT } from '../../services/actions/index';
+import { sendOrder, CLOSE_ORDER, ADD_INGREDIENT } from '../../services/actions/index';
 import { useDrop } from 'react-dnd';
 
 function BurgerConstructor() {
@@ -20,17 +20,19 @@ function BurgerConstructor() {
     collect: monitor => ({
         isHover: monitor.isOver(),
     }),
-    drop(itemId) {
+    drop(item) {
         dispatch({
-            type: DROP_INGREDIENT,
-            ...itemId
+            type: ADD_INGREDIENT,
+            // ...item
+            ingredient: item.element
         });
     },
   });
   
-  const bun = chosenIngredients.length
+  let bun = chosenIngredients.length
     ? chosenIngredients.find((element) => element.type === "bun")
     : null;
+  bun = bun === undefined ? null : bun;
 
   const handleOpenModal = () => {
     const ids = chosenIngredients.map((ingredient) => {

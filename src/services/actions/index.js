@@ -9,8 +9,6 @@ export const CLOSE_ORDER = 'CLOSE_ORDER';
 export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
 
-export const DROP_INGREDIENT = 'DROP_INGREDIENT';
-
 export function getIngredients() {
   return function(dispatch) {
     getData()
@@ -25,7 +23,7 @@ export function getIngredients() {
           dispatch({
             type: INGREDIENTS,
             ingredients: ingredients,
-            chosenIngredients: [ingredients[0]]
+            // chosenIngredients: [ingredients[0]]
           })
         }
       })

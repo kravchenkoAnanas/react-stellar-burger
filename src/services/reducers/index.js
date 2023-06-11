@@ -13,8 +13,7 @@ import {
   SEND_ORDER,
   CLOSE_ORDER,
   SET_INGREDIENT,
-  UNSET_INGREDIENT,
-  DROP_INGREDIENT
+  UNSET_INGREDIENT
 } from './../actions/index';
 
 const initialState = {
@@ -33,13 +32,50 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: action.ingredients,
-        chosenIngredients: action.chosenIngredients
+        // chosenIngredients: action.chosenIngredients
       };
     }
     case ADD_INGREDIENT: {
+      const ingredientToAdd = action.ingredient;
+      let isNewBun = true;
+      let processBun = false;
+
+      let newChosenIngredients = state.chosenIngredients.map((ingredient) => {
+        if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
+          if (ingredient.name === ingredientToAdd.name) {
+            processBun = true;
+            isNewBun = false;
+            return ingredient;
+          } else {
+            return ingredientToAdd;
+          }
+        } else {
+          return ingredient;
+        }
+      });
+      if (ingredientToAdd.type !== 'bun' || !processBun) {
+        newChosenIngredients = newChosenIngredients.concat([ingredientToAdd]);
+      }
+
+      const newIngredients = state.ingredients.map((ingredient) => {
+        if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
+          if (ingredient._id === ingredientToAdd._id && isNewBun && !processBun) {
+            return { ...ingredient, counter: ++ingredient.counter };
+          } else {
+            return { ...ingredient, counter: 0 };
+          }
+        }
+        if (ingredient._id === ingredientToAdd._id) {
+          return { ...ingredient, counter: ++ingredient.counter };
+        } else {
+          return ingredient;
+        }
+      });
+      
       return {
         ...state,
-        chosenIngredients: state.chosenIngredients.concat([action.ingredient])
+        ingredients: newIngredients,
+        chosenIngredients: newChosenIngredients
       }
     }
     case SEND_ORDER: {
@@ -68,18 +104,6 @@ export const reducer = (state = initialState, action) => {
         ...state,
         ingredientVisible: initialState.ingredientVisible,
         ingredientInfo: initialState.ingredientVisible,
-      }
-    }
-    case DROP_INGREDIENT: {
-      console.log('DROP_INGREDIENT', action.element);
-      return {
-        ...state,
-        ingredients: state.ingredients.map((ingredient) => {
-          return ingredient._id === action.element._id
-          ? { ...ingredient, counter: ++ingredient.counter }
-          : ingredient;
-        }),
-        chosenIngredients: state.chosenIngredients.concat([action.element])
       }
     }
     default: {
