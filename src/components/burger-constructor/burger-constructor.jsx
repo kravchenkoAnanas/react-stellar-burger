@@ -97,7 +97,7 @@ function BurgerConstructor() {
         >
           {chosenIngredients.map((ingredient) => (
             ingredient.type !== "bun" &&
-              <ConstructorItem element={ingredient} key={ingredient._id}/>
+              <ConstructorItem element={ingredient} key={ingredient.uuid}/>
           )
         )}
         </div>

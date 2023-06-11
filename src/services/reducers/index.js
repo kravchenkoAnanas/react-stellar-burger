@@ -1,11 +1,4 @@
-// список всех полученных ингредиентов,
-// список всех ингредиентов в текущем конструкторе бургера,
-// объект текущего просматриваемого ингредиента,
-// объект созданного заказа.
-
-// ingredientsReducer;
-// chosenIngredientsReducer;
-// orderReducer
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   INGREDIENTS,
@@ -13,7 +6,8 @@ import {
   SEND_ORDER,
   CLOSE_ORDER,
   SET_INGREDIENT,
-  UNSET_INGREDIENT
+  UNSET_INGREDIENT,
+  DEL_CHOSEN_INGREDIENT
 } from './../actions/index';
 
 const initialState = {
@@ -26,7 +20,6 @@ const initialState = {
 };
 
 export const reducer = (state = initialState, action) => {
-  console.log('reducer -> action', action);
   switch (action.type) {
     case INGREDIENTS: {
       return {
@@ -39,6 +32,7 @@ export const reducer = (state = initialState, action) => {
       const ingredientToAdd = action.ingredient;
       let isNewBun = true;
       let processBun = false;
+      let chosenUuid = null;
 
       let newChosenIngredients = state.chosenIngredients.map((ingredient) => {
         if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
@@ -54,19 +48,29 @@ export const reducer = (state = initialState, action) => {
         }
       });
       if (ingredientToAdd.type !== 'bun' || !processBun) {
+        chosenUuid = uuidv4()
+        ingredientToAdd['uuid'] = chosenUuid;
         newChosenIngredients = newChosenIngredients.concat([ingredientToAdd]);
       }
 
       const newIngredients = state.ingredients.map((ingredient) => {
         if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
           if (ingredient._id === ingredientToAdd._id && isNewBun && !processBun) {
-            return { ...ingredient, counter: ++ingredient.counter };
+            return {
+              ...ingredient,
+              counter: ++ingredient.counter,
+              chosenUuids: ingredient.chosenUuids.concat([chosenUuid])
+            };
           } else {
             return { ...ingredient, counter: 0 };
           }
         }
         if (ingredient._id === ingredientToAdd._id) {
-          return { ...ingredient, counter: ++ingredient.counter };
+          return {
+            ...ingredient,
+            counter: ++ingredient.counter,
+            chosenUuids: ingredient.chosenUuids.concat([chosenUuid])
+          };
         } else {
           return ingredient;
         }
@@ -76,6 +80,32 @@ export const reducer = (state = initialState, action) => {
         ...state,
         ingredients: newIngredients,
         chosenIngredients: newChosenIngredients
+      }
+    }
+    case DEL_CHOSEN_INGREDIENT: {
+      return {
+        ...state,
+        chosenIngredients: state.chosenIngredients.filter((ingredient) => {
+          if (ingredient.uuid !== action.uuid) {
+            return ingredient;
+          }
+        }),
+        ingredients: state.ingredients.map((ingredient) => {
+          if (ingredient.chosenUuids.includes(action.uuid)) {
+            const newChosenUuids = ingredient.chosenUuids.filter((uuid) => {
+              if (uuid !== action.uuid) {
+                return uuid
+              }
+            })
+            return {
+              ...ingredient,
+              chosenUuids: newChosenUuids,
+              counter: --ingredient.counter
+            }
+          } else {
+            return ingredient;
+          }
+        })
       }
     }
     case SEND_ORDER: {

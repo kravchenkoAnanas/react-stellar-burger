@@ -9,6 +9,8 @@ export const CLOSE_ORDER = 'CLOSE_ORDER';
 export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
 
+export const DEL_CHOSEN_INGREDIENT = 'DEL_CHOSEN_INGREDIENT';
+
 export function getIngredients() {
   return function(dispatch) {
     getData()
@@ -17,6 +19,7 @@ export function getIngredients() {
           const ingredients = res.data.map((ingredient) => {
             const extendedIngredient = ingredient;
             extendedIngredient['counter'] = 0;
+            extendedIngredient['chosenUuids'] = [];
             return extendedIngredient;
           })
 
