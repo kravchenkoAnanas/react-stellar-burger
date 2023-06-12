@@ -4,7 +4,7 @@ import BurgerIngredients from "./../../components/burger-ingredients/burger-ingr
 import BurgerConstructor from "./../../components/burger-constructor/burger-constructor";
 import appStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import { getIngredients } from './../../services/actions/index';
+import { getIngredients } from './../../services/actions/ingredients';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 

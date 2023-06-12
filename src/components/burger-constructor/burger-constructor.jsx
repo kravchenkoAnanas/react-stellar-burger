@@ -6,12 +6,14 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendOrder, CLOSE_ORDER, ADD_INGREDIENT } from '../../services/actions/index';
+import { sendOrder, CLOSE_ORDER } from '../../services/actions/order';
+import { ADD_INGREDIENT } from '../../services/actions/ingredients';
 import { useDrop } from 'react-dnd';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { orderVisible, chosenIngredients } = useSelector(state => state);
+  const { orderVisible } = useSelector(state => state.order);
+  const { chosenIngredients } = useSelector(state => state.ingredients);
   
   const [sum, setSum] = useState(0);
 

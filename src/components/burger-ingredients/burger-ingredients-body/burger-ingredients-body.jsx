@@ -1,20 +1,27 @@
-import PropTypes from 'prop-types';
 import burgerIngredientsStyle from './../burger-ingredients.module.css'
 import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT, UPD_CURRENT_TAB } from '../../../services/actions';
+import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT, UPD_CURRENT_TAB } from '../../../services/actions/ingredients';
+import { useMemo } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 function BurgerIngredientsBody() {
   const dispatch = useDispatch();
+  const { ingredients, ingredientVisible } = useSelector(state => state.ingredients);
 
-  const { ingredients, ingredientVisible } = useSelector(state => state);
+  const [section1Ref, section1InView] = useInView({ threshold: 0.5 });
+  const [section2Ref, section2InView] = useInView({ threshold: 0.5 });
 
-  const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
-  const mains = ingredients.filter(ingredient => ingredient.type === 'main');
-  const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');
-  
+  let [buns, mains, sauces] =  useMemo(() => {
+    const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
+    const mains = ingredients.filter(ingredient => ingredient.type === 'main');
+    const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');
+
+    return [buns, mains, sauces]
+  }, [ingredients]);
+
   const handleClickOnIngredient = (element) => {
     if (element.type !== "bun") {
       dispatch({
@@ -55,18 +62,26 @@ function BurgerIngredientsBody() {
     })
   }
 
+  useMemo(() => {
+    dispatch({
+      type: UPD_CURRENT_TAB,
+      isSection1: section1InView,
+      isSection2: section2InView
+    })
+  }, [section1InView, section2InView])
+
   return (
     <div 
       className={`${ burgerIngredientsStyle.scroll } custom-scroll`}
-      onPointerOver={ handlePointerOver }
+      // onPointerOver={ handlePointerOver }
     >
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
-      <article className={ burgerIngredientsStyle.burger_ingredients }>    
+      <article className={ burgerIngredientsStyle.burger_ingredients } ref={section1Ref} >
         {buns.map((element) => renderElement(element))}
       </article>
 
       <h3 className='text text_type_main-medium mt-10 mb-6'>Соусы</h3>
-      <article className={ burgerIngredientsStyle.burger_ingredients }>    
+      <article className={ burgerIngredientsStyle.burger_ingredients } ref={section2Ref}>
         {sauces.map((element) => renderElement(element))}
       </article>
 

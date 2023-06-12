@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import PropTypes from 'prop-types';
 import constructorItemStyle from './constructor-item.module.css'
 import { useDispatch } from 'react-redux';
-import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions';
+import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/constructor';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
 

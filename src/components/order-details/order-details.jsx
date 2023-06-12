@@ -1,11 +1,11 @@
-import orderDetailsStyle from './order-details.module.css'
-import doneImg from '../../images/done.png'
+import orderDetailsStyle from './order-details.module.css';
+import doneImg from '../../images/done.png';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const { orderNumber } = useSelector(state => state);
-  
+  const orderNumber = useSelector(state => state.order.orderNumber);
+
   return (
     <div className={ orderDetailsStyle.container }>
       <div className={ orderDetailsStyle.content }>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientStyle from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 function Ingredient({ element, clickCallBack }) {
   const { name, image, price, counter } = element;

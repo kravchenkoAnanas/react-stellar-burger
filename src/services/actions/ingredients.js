@@ -1,17 +1,9 @@
-import { getData, postOrder, catchError } from './../api';
+import { getData, catchError } from './../api';
 
-export const INGREDIENTS = 'INGREDIENTS';
-export const ADD_INGREDIENT = 'ADD_INGREDIENT';
-
-export const SEND_ORDER = 'SEND_ORDER';
-export const CLOSE_ORDER = 'CLOSE_ORDER';
+export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 
 export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
-
-export const DEL_CHOSEN_INGREDIENT = 'DEL_CHOSEN_INGREDIENT';
-
-export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
 
 export const UPD_CURRENT_TAB = 'UPD_CURRENT_TAB';
 
@@ -28,26 +20,10 @@ export function getIngredients() {
           })
 
           dispatch({
-            type: INGREDIENTS,
+            type: GET_INGREDIENTS,
             ingredients: ingredients,
             // chosenIngredients: [ingredients[0]]
           })
-        }
-      })
-      .catch(catchError)
-    };
-  };
-  
-  export function sendOrder(ids) {
-    return function(dispatch) {
-      postOrder(ids)
-      .then((res) => {
-        if (res.success) {
-          dispatch({
-            type: SEND_ORDER,
-            visible: true,
-            number: res.order.number
-          });
         }
       })
       .catch(catchError)

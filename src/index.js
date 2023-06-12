@@ -3,9 +3,9 @@ import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { compose, createStore, applyMiddleware } from 'redux';
-import { rootReducer } from './services/reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { rootReducer } from "./services/reducers";
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

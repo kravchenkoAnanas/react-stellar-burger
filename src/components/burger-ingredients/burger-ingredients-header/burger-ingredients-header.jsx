@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 
 function BurgerIngredientsHeader() {
-  const { currentTab } = useSelector(state => state)
+  const currentTab = useSelector(state => state.ingredients.currentTab);
 
   return (
     <>
