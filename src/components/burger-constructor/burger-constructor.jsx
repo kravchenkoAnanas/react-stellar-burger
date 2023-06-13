@@ -7,13 +7,14 @@ import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOrder, CLOSE_ORDER } from '../../services/actions/order';
-import { ADD_INGREDIENT } from '../../services/actions/ingredients';
+import { ADD_INGREDIENT } from '../../services/actions/constructor';
+import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 import { useDrop } from 'react-dnd';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const { orderVisible } = useSelector(state => state.order);
-  const { chosenIngredients } = useSelector(state => state.ingredients);
+  const { chosenIngredients } = useSelector(state => state.burgerConstructor);
   
   const [sum, setSum] = useState(0);
 
@@ -27,7 +28,11 @@ function BurgerConstructor() {
           type: ADD_INGREDIENT,
           ingredient: item.element
       });
-    },
+      dispatch({
+        type: UPD_INGREDIENTS,
+        ingredientIds: chosenIngredients.map(ingredient => ingredient._id).concat([item.element._id])
+      });
+    }
   });
   
   let bun = chosenIngredients.length

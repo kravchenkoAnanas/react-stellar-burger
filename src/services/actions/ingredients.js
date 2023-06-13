@@ -2,10 +2,8 @@ import { getData, catchError } from './../api';
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 
-export const SET_INGREDIENT = 'SET_INGREDIENT';
-export const UNSET_INGREDIENT = 'UNSET_INGREDIENT';
-
 export const UPD_CURRENT_TAB = 'UPD_CURRENT_TAB';
+export const UPD_INGREDIENTS = 'UPD_INGREDIENTS';
 
 export function getIngredients() {
   return function(dispatch) {
@@ -22,7 +20,6 @@ export function getIngredients() {
           dispatch({
             type: GET_INGREDIENTS,
             ingredients: ingredients,
-            // chosenIngredients: [ingredients[0]]
           })
         }
       })

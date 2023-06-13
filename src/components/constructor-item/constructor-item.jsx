@@ -1,14 +1,17 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import constructorItemStyle from './constructor-item.module.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/constructor';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
+import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 
 function ConstructorItem({ index, element }) {
   const dispatch = useDispatch();
   const ref = useRef(null);
+
+  const { chosenIngredients } = useSelector(state => state.burgerConstructor);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "innerIngredient",
@@ -86,6 +89,12 @@ function ConstructorItem({ index, element }) {
             type: DEL_CHOSEN_INGREDIENT,
             uuid: element.uuid
           })
+          dispatch({
+            type: UPD_INGREDIENTS,
+            ingredientIds: chosenIngredients
+              .map(ingredient => ingredient._id)
+              .filter(idx => idx !== element._id)
+          });
         }}
         />
     </div>
@@ -93,6 +102,7 @@ function ConstructorItem({ index, element }) {
 }
 
 ConstructorItem.propTypes = {
+  index: PropTypes.number,
   element: PropTypes.object
 }
 export default ConstructorItem;

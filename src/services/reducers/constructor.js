@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   ADD_INGREDIENT,
   DEL_CHOSEN_INGREDIENT,
@@ -8,11 +10,11 @@ const initialState = {
   chosenIngredients: []
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       const ingredientToAdd = action.ingredient;
-      let processBun;
+      let processBun = false;
 
       let newChosenIngredients = state.chosenIngredients.map((ingredient) => {
         if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
@@ -27,8 +29,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         }
       });
       if (ingredientToAdd.type !== 'bun' || !processBun) {
-        chosenUuid = uuidv4()
-        ingredientToAdd['uuid'] = chosenUuid;
+        ingredientToAdd['uuid'] = uuidv4();
         newChosenIngredients = newChosenIngredients.concat([ingredientToAdd]);
       }
 
@@ -42,22 +43,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         chosenIngredients: state.chosenIngredients.filter((ingredient) => {
           if (ingredient.uuid !== action.uuid) {
-            return ingredient;
-          }
-        }),
-        ingredients: state.ingredients.map((ingredient) => {
-          if (ingredient.chosenUuids.includes(action.uuid)) {
-            const newChosenUuids = ingredient.chosenUuids.filter((uuid) => {
-              if (uuid !== action.uuid) {
-                return uuid
-              }
-            })
-            return {
-              ...ingredient,
-              chosenUuids: newChosenUuids,
-              counter: --ingredient.counter
-            }
-          } else {
             return ingredient;
           }
         })

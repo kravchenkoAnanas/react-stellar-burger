@@ -3,13 +3,16 @@ import Ingredient from './../../ingredient/ingredient';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT, SET_INGREDIENT, UNSET_INGREDIENT, UPD_CURRENT_TAB } from '../../../services/actions/ingredients';
+import { UPD_CURRENT_TAB } from '../../../services/actions/ingredients';
+import { ADD_INGREDIENT } from '../../../services/actions/constructor';
+import { SET_INGREDIENT, UNSET_INGREDIENT } from '../../../services/actions/ingredient_details_modal';
 import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 function BurgerIngredientsBody() {
   const dispatch = useDispatch();
-  const { ingredients, ingredientVisible } = useSelector(state => state.ingredients);
+  const { ingredients } = useSelector(state => state.ingredients);
+  const { ingredientVisible } = useSelector(state => state.ingredientsDetailModal);
 
   const [section1Ref, section1InView] = useInView({ threshold: 0.5 });
   const [section2Ref, section2InView] = useInView({ threshold: 0.5 });
@@ -21,15 +24,6 @@ function BurgerIngredientsBody() {
 
     return [buns, mains, sauces]
   }, [ingredients]);
-
-  const handleClickOnIngredient = (element) => {
-    if (element.type !== "bun") {
-      dispatch({
-        type: ADD_INGREDIENT,
-        ingredient: element
-      })
-    }
-  };
 
   const handleOpenModal = (element) => {
     dispatch({
@@ -48,19 +42,9 @@ function BurgerIngredientsBody() {
       key={ element._id }
       clickCallBack={ () => {
         handleOpenModal(element);
-        handleClickOnIngredient(element);
       }} 
     />
   };
-
-  const handlePointerOver = (e) => {
-    dispatch({
-      type: UPD_CURRENT_TAB,
-      scrollTop: e.currentTarget.scrollTop,
-      bunsRowsSize: buns.length / 2 * 315,
-      sauceRowsSize: sauces.length / 2 * 315,
-    })
-  }
 
   useMemo(() => {
     dispatch({
@@ -71,10 +55,7 @@ function BurgerIngredientsBody() {
   }, [section1InView, section2InView])
 
   return (
-    <div 
-      className={`${ burgerIngredientsStyle.scroll } custom-scroll`}
-      // onPointerOver={ handlePointerOver }
-    >
+    <div className={`${ burgerIngredientsStyle.scroll } custom-scroll`} >
       <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
       <article className={ burgerIngredientsStyle.burger_ingredients } ref={section1Ref} >
         {buns.map((element) => renderElement(element))}

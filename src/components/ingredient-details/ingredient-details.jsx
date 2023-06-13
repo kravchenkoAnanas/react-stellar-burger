@@ -2,7 +2,7 @@ import ingredientDetailsStyle from './ingredient-details.module.css'
 import { useSelector } from 'react-redux';
 
 function IngredientDetails() {
-  const ingredientInfo = useSelector(state => state.ingredientInfo);
+  const { ingredientInfo } = useSelector(state => state.ingredientVisible);
   const { name, image, calories, proteins, fat, carbohydrates } = ingredientInfo;
 
   return (
