@@ -12,20 +12,17 @@ function checkResponse(res) {
   return Promise.reject(`RejectError: ${res.status}`);
 }
 
-export const getData = async (setIngredients, setChosenIngredients) => {
-  fetch(`${config.baseUrl}/ingredients`)
-    .then(checkResponse)
-    .then((dataFromServer) => {
-      setIngredients(dataFromServer.data);
-      setChosenIngredients([dataFromServer.data[0]]);
-    })
-    .catch((error) => {
-      console.log(`CatchError: ${error}`)
-    })
-}
+export const catchError = (error) => {
+  console.log(`CatchError: ${error}`)
+};
 
-export const sendOrder = async (ids, setState) => {
-  fetch(`${config.baseUrl}/orders`, {
+export const getData = async () => {
+  return fetch(`${config.baseUrl}/ingredients`)
+    .then(checkResponse)
+};
+
+export const postOrder = async (ids) => {
+  return fetch(`${config.baseUrl}/orders`, {
       method: 'POST',
       headers: config.headers,
       body: JSON.stringify({
@@ -33,15 +30,4 @@ export const sendOrder = async (ids, setState) => {
       })
     })
     .then(checkResponse)
-    .then((dataFromServer) => {
-      if (dataFromServer.success) {
-        setState({
-          visible: true,
-          orderNumber: dataFromServer.order.number
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(`CatchError: ${error}`)
-    })
-}
+};

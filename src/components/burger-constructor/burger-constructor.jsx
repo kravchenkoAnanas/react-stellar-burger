@@ -1,34 +1,55 @@
-import {useContext, useState, useMemo} from 'react';
+import { useState, useMemo} from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from '../constructor-item/constructor-item';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
-import { BurgerContext } from '../../utils/burger-context';
-import { sendOrder } from '../../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendOrder, CLOSE_ORDER } from '../../services/actions/order';
+import { ADD_INGREDIENT } from '../../services/actions/constructor';
+import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
+import { useDrop } from 'react-dnd';
 
 function BurgerConstructor() {
-  const [state, setState] = useState({
-    visible: false,
-    orderNumber: 'Заказ'
-  });
+  const dispatch = useDispatch();
+  const { orderVisible } = useSelector(state => state.order);
+  const { chosenIngredients } = useSelector(state => state.burgerConstructor);
+  
   const [sum, setSum] = useState(0);
 
-  const {chosenIngredients, setChosenIngredients} = useContext(BurgerContext)
-  const bun = chosenIngredients.length ? chosenIngredients.find((element) => element.type === "bun"): null;
+  const [{ isHover } , drop] = useDrop({
+    accept: "ingredient",
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: item.element
+      });
+      dispatch({
+        type: UPD_INGREDIENTS,
+        ingredientIds: chosenIngredients.map(ingredient => ingredient._id).concat([item.element._id])
+      });
+    }
+  });
+  
+  let bun = chosenIngredients.length
+    ? chosenIngredients.find((element) => element.type === "bun")
+    : null;
+  bun = bun === undefined ? null : bun;
 
   const handleOpenModal = () => {
     const ids = chosenIngredients.map((ingredient) => {
       return ingredient._id;
     });
-    sendOrder(ids, setState);
+    dispatch(sendOrder(ids));
   }
 
   const handleCloseModal = () => {
-    setState({
-      visible: false,
-      orderNumber: 'Заказ'
+    dispatch({
+      type: CLOSE_ORDER,
     });
   }
 
@@ -70,7 +91,7 @@ function BurgerConstructor() {
   }, [chosenIngredients])
 
   return (
-    <div>
+    <div ref={drop}>
       <article
         className={ burgerConstructorStyle.burger_constructor }
       >
@@ -80,9 +101,9 @@ function BurgerConstructor() {
         <div
           className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
-          {chosenIngredients.map((ingredient) => (
+          {chosenIngredients.map((ingredient, i) => (
             ingredient.type !== "bun" &&
-              <ConstructorItem element={ingredient} key={ingredient._id}/>
+              <ConstructorItem index={i} element={ingredient} key={ingredient.uuid}/>
           )
         )}
         </div>
@@ -105,9 +126,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
 
-        {state.visible &&
+        {orderVisible &&
           <Modal onClose={ handleCloseModal }>
-            <OrderDetails orderNumber={ state.orderNumber } />
+            <OrderDetails />
           </Modal>
         }
       </div>
