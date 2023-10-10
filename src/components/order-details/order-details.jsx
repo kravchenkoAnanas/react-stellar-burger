@@ -1,8 +1,10 @@
-import orderDetailsStyle from './order-details.module.css'
-import doneImg from '../../images/done.png'
-import PropTypes from 'prop-types';
+import orderDetailsStyle from './order-details.module.css';
+import doneImg from '../../images/done.png';
+import { useSelector } from 'react-redux';
 
-function OrderDetails({ orderNumber }) {
+function OrderDetails() {
+  const orderNumber = useSelector(state => state.order.orderNumber);
+
   return (
     <div className={ orderDetailsStyle.container }>
       <div className={ orderDetailsStyle.content }>
@@ -18,7 +20,4 @@ function OrderDetails({ orderNumber }) {
   )
 }
 
-OrderDetails.protoTypes = {
-  orderNumber: PropTypes.number
-}
 export default OrderDetails;
