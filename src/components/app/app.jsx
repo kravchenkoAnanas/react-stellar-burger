@@ -24,5 +24,6 @@ function App() {
 		</Router>
 	);
 }
+// Страница 404 на своё усмотрение.
 
 export default App;

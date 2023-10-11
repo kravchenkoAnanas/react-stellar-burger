@@ -1,6 +1,8 @@
 # Каноническая работа проекта Stellar Burger 
 # Этап "Промежуточный проект. CRA-заготовка и структура папок под компоненты"
 
+# React-lib
+https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/
 
 # npm
 
