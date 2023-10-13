@@ -9,18 +9,18 @@ function Header() {
       <nav className={ headerStyle.navigation }>
         <div className={ headerStyle.navigation_left }>
           <a href='#' className={ headerStyle.link_constructor }>
-          <BurgerIcon type="primary" />
-          <p>Конструктор</p>
+            <BurgerIcon type="primary" />
+            <p>Конструктор</p>
           </a>
           <a href='#' className={ headerStyle.link }>
-          <ListIcon type="secondary" />
-          <p>Лента заказов</p>
+            <ListIcon type="secondary" />
+            <p>Лента заказов</p>
           </a>
         </div>
         <Logo />
-        <a href='#' className={ headerStyle.navigation_right }>
-        <ProfileIcon type="secondary" />
-        <p>Личный кабинет</p>
+        <a href='/profile' className={ headerStyle.navigation_right }>
+          <ProfileIcon type="secondary" />
+          <p>Личный кабинет</p>
         </a>
       </nav>
     </header>

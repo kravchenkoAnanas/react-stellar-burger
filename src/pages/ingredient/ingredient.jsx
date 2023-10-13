@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-
 function IngredientPage() {
   const { id } = useParams();
 
