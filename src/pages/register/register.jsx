@@ -2,25 +2,38 @@ import { useState, useRef } from 'react';
 import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
+import { registerUser, catchError } from './../../services/api';
 
 function RegisterPage() {
     const navigate = useNavigate();
 
-    const [name, setName] = useState('name');
+    const [name, setName] = useState('');
     const inputRef = useRef(null);
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     };
 
-    const [email, setEmail] = useState('test@example.com');
+    const [email, setEmail] = useState('');
     const emailOnChange = e => {
-        setEmail(e.target.email)
+        setEmail(e.target.value)
     };
 
-    const [password, setPassword] = useState('password')
+    const [password, setPassword] = useState('')
     const passwordOnChange = e => {
-        setPassword(e.target.password)
+        setPassword(e.target.value)
+    }
+
+    const submit = () => {
+        console.log(`RegisterPage submit email=${email} password=${password} name=${name}`);
+        registerUser(email, password, name)
+            .then((res) => {
+                if (res.success) {
+                    console.log("RegisterPage submit success");
+                    console.log(res);
+                }
+            })
+            .catch(catchError)
     }
 
     return (
@@ -33,8 +46,8 @@ function RegisterPage() {
             <div className="mt-6">
                 <Input
                     type={'text'}
-                    placeholder={'placeholder'}
-                    onChange={e => setName(e.target.name)}
+                    placeholder={'Имя'}
+                    onChange={e => setName(e.target.value)}
                     value={name}
                     name={'name'}
                     error={false}
@@ -62,7 +75,7 @@ function RegisterPage() {
                 />
             </div>
             <div className="mt-6 mb-6">
-                <Button htmlType="button" type="primary" size="large">
+                <Button htmlType="button" type="primary" size="large" onClick={submit}>
                     Зарегистрироваться
                 </Button>
             </div>

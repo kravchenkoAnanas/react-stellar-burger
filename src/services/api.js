@@ -31,3 +31,39 @@ export const postOrder = async (ids) => {
     })
     .then(checkResponse)
 };
+
+export const forgotPassword = async (email) => {
+  return fetch(`${config.baseUrl}/password-reset`, {
+      method: 'POST',
+      headers: config.headers,
+      body: JSON.stringify({
+        email: email,
+      })
+    })
+    .then(checkResponse)
+};
+
+export const resetPassword = async (password, token) => {
+  return fetch(`${config.baseUrl}/password-reset/reset`, {
+      method: 'POST',
+      headers: config.headers,
+      body: JSON.stringify({
+        password: password,
+        token: token
+      })
+    })
+    .then(checkResponse)
+};
+
+export const registerUser = async (email, password, name) => {
+  return fetch(`${config.baseUrl}/auth/register`, {
+      method: 'POST',
+      headers: config.headers,
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: name
+      })
+    })
+    .then(checkResponse)
+};
