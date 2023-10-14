@@ -1,3 +1,5 @@
+import { getCookie } from "../utils/cookie";
+
 const config = {
   "baseUrl": "https://norma.nomoreparties.space/api",
   "headers": {
@@ -56,6 +58,7 @@ export const resetPassword = async (password, token) => {
 };
 
 export const registerUser = async (email, password, name) => {
+  console.log(`registerUser email=${email} password=${password} name=${name}`)
   return fetch(`${config.baseUrl}/auth/register`, {
       method: 'POST',
       headers: config.headers,
@@ -67,3 +70,56 @@ export const registerUser = async (email, password, name) => {
     })
     .then(checkResponse)
 };
+
+export const loginUser = async (email, password) => {
+  return fetch(`${config.baseUrl}/auth/login`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    })
+  })
+  .then(checkResponse)
+}
+
+export const logoutUser = async (refreshToken) => {
+  return fetch(`${config.baseUrl}/auth/logout`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      token: refreshToken,
+    })
+  })
+  .then(checkResponse)
+}
+
+export const updateUser = async (refreshToken) => {
+  // console.log("updateUser refreshToken", refreshToken);
+  return fetch(`${config.baseUrl}/auth/token`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      token: refreshToken,
+    })
+  })
+  .then(checkResponse)
+}
+
+export const getUser = async (token) => {
+  const headers = {
+    ...config.headers,
+    Authorization: 'Bearer ' + token
+  };
+  
+  console.log("getUser", headers);
+
+  return fetch(`${config.baseUrl}/auth/user`, {
+    method: 'GET',
+    headers: headers,
+  })
+  .then(checkResponse)
+}
+
+// PATCH https://norma.nomoreparties.space/api/auth/user - эндпоинт обновления данных о пользователе.
+

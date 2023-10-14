@@ -1,28 +1,60 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { registerUser, catchError } from './../../services/api';
+import { registerUser, catchError, getUser, updateUser } from './../../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookie';
+import { updateUserAction } from '../../services/actions/user';
+
 
 function ProfilePage() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { accessToken } = useSelector(state => state.user);
 
-    const [name, setName] = useState('nastya');
+    const [isEditMode, setIsEditMode] = useState(false);
+
+    const [name, setName] = useState('');
     const inputRef = useRef(null);
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     };
 
-    const [email, setEmail] = useState('anastasiaa.kravchenkoo@gmail.com');
+    const [email, setEmail] = useState('');
     const emailOnChange = e => {
         setEmail(e.target.value)
     };
 
-    const [password, setPassword] = useState('nastya12345')
-    const passwordOnChange = e => {
-        setPassword(e.target.value)
-    }
+    const setupUser = (name, email) => {
+        console.log("getUser(accessToken) DONE")
+        setName(name);
+        setEmail(email);
+    };
+
+    useEffect(() => {
+        if (accessToken.length === 0) {
+            console.log("updateUser(getCookie('token'));");
+            dispatch(updateUserAction(getCookie('token')));
+        }
+        getUser(accessToken)
+            .then(res => {
+                if (res.success) {
+                    console.log("setupUser", res);
+                    setupUser(res.user.name, res.user.email);
+                }
+            })
+            // .catchError()
+    }, [accessToken]);
+
+    const submitCancel = () => {
+        setIsEditMode(false);
+    };
+    const submitSave = () => {
+        setIsEditMode(false);
+        console.log(name, email);
+    };
 
     return (
     <>
@@ -78,6 +110,7 @@ function ProfilePage() {
                         size={'default'}
                         extraClass="ml-1"
                         icon='EditIcon'
+                        onClick={ () => setIsEditMode(true) }
                         />
                 </div>
                 <div className="mt-6">
@@ -88,17 +121,36 @@ function ProfilePage() {
                         isIcon={false}
                         placeholder='Логин'
                         icon='EditIcon'
+                        onClick={ () => setIsEditMode(true) }
                         />
                 </div>
                 <div className="mt-6">
                 <PasswordInput
-                    onChange={passwordOnChange}
-                    value={password}
+                    value={"dummy"}
                     name={'password'}
                     extraClass="mb-2"
                     icon='EditIcon'
-                    />
+                    onClick={ () => setIsEditMode(true) }
+                />
                 </div>
+                { isEditMode &&
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'right'
+                        }}
+                        className="mt-6 mb-6"
+                    >
+                        <Button htmlType="button" type="secondary" size="large" onClick={submitCancel}>
+                            Отмена
+                        </Button>
+                        <Button htmlType="button" type="primary" size="large" onClick={submitSave}>
+                            Сохранить
+                        </Button>
+                    </div>
+                }
             </div>
         </div>
     </>

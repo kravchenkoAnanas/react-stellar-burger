@@ -2,10 +2,16 @@ import { useState, useRef } from 'react';
 import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { registerUser, catchError } from './../../services/api';
+import { registerUserAction } from './../../services/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookie';
+
 
 function RegisterPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { accessToken } = useSelector(state => state.user);
+    const { refreshToken } = getCookie('token');
 
     const [name, setName] = useState('');
     const inputRef = useRef(null);
@@ -25,20 +31,16 @@ function RegisterPage() {
     }
 
     const submit = () => {
-        console.log(`RegisterPage submit email=${email} password=${password} name=${name}`);
-        registerUser(email, password, name)
-            .then((res) => {
-                if (res.success) {
-                    console.log("RegisterPage submit success");
-                    console.log(res);
-                }
-            })
-            .catch(catchError)
+        dispatch(registerUserAction(email, password, name));
     }
 
     return (
     <>
         <Header />
+
+        <h3> accessToken { accessToken }</h3>
+        <h3> refreshToken { refreshToken }</h3>
+
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
             <h1 className="text text_type_main-medium mt-25"> 
                 Регистрация

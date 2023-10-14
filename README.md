@@ -58,3 +58,9 @@ user:
     "refreshToken": "d4af6c6a597d800452dc7683250fd3ee991ffd0ff9ef3745783eededf54de306d3013b0b0cd807b4"
 }
 ```
+
+###############
+hazza99@mail.ru
+test1234
+###############
+

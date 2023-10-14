@@ -2,19 +2,27 @@ import { useState, useRef } from 'react';
 import Header from "../../components/header/header";
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { loginUserAction } from './../../services/actions/user';
 
 function LoginPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const [email, setEmail] = useState('test@example.com');
+    const [email, setEmail] = useState('hazza99@mail.ru');
     const emailOnChange = e => {
-        setEmail(e.target.email)
+        setEmail(e.target.value);
     };
 
-    const [password, setPassword] = useState('password')
+    const [password, setPassword] = useState('test1234')
     const passwordOnChange = e => {
-        setPassword(e.target.password)
-    }
+        setPassword(e.target.value);
+    };
+
+    const submit = () => {
+        dispatch(loginUserAction(email, password));
+        navigate('/');
+    };
 
     return (
     <>
@@ -40,7 +48,7 @@ function LoginPage() {
                 />
             </div>
             <div className="mt-6 mb-6">
-                <Button htmlType="button" type="primary" size="large">
+                <Button htmlType="button" type="primary" size="large" onClick={ submit }>
                     Войти
                 </Button>
             </div>
