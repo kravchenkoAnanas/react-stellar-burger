@@ -94,8 +94,7 @@ export const logoutUser = async (refreshToken) => {
   .then(checkResponse)
 }
 
-export const updateUser = async (refreshToken) => {
-  // console.log("updateUser refreshToken", refreshToken);
+export const refreshUser = async (refreshToken) => {
   return fetch(`${config.baseUrl}/auth/token`, {
     method: 'POST',
     headers: config.headers,
@@ -121,5 +120,16 @@ export const getUser = async (token) => {
   .then(checkResponse)
 }
 
-// PATCH https://norma.nomoreparties.space/api/auth/user - эндпоинт обновления данных о пользователе.
+export const updateUser = async (token, info) => {
+  const headers = {
+    ...config.headers,
+    Authorization: 'Bearer ' + token
+  };
 
+  return fetch(`${config.baseUrl}/auth/user`, {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify(info)
+  })
+  .then(checkResponse)
+}

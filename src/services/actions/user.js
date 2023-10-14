@@ -1,10 +1,11 @@
-import { loginUser, registerUser, updateUser, getUser, catchError } from './../api'
+import { loginUser, registerUser, refreshUser, updateUser, getUser, catchError } from './../api'
 
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH = 'REFRESH';
 export const GET = 'GET';
+export const UPDATE = 'UPDATE';
 
 export function loginUserAction(email, password) {
     return function(dispatch) {
@@ -36,9 +37,9 @@ export function registerUserAction(email, password, name) {
     };
 };
 
-export function updateUserAction(token) {
+export function refreshUserAction(token) {
     return function(dispatch) {
-        updateUser(token)
+        refreshUser(token)
             .then(res => {
                 if (res.success) {
                     dispatch({
@@ -56,9 +57,25 @@ export function getUserAction(token) {
         getUser(token)
             .then(res => {
                 if (res.success) {
-                    console.log("setupUser", res);
+                    console.log("getUser", res);
                     dispatch({
                         type: GET,
+                        data: res,
+                    })
+                }
+            })
+            .catch(catchError)
+    };
+};
+
+export function updateUserAction(token, info) {
+    return function(dispatch) {
+        updateUser(token, info)
+            .then(res => {
+                if (res.success) {
+                    console.log("updateUser", res);
+                    dispatch({
+                        type: UPDATE,
                         data: res,
                     })
                 }

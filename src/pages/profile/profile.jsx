@@ -4,7 +4,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
-import { updateUserAction, getUserAction } from '../../services/actions/user';
+import { refreshUserAction, updateUserAction, getUserAction } from '../../services/actions/user';
 
 
 function ProfilePage() {
@@ -28,8 +28,8 @@ function ProfilePage() {
 
     useEffect(() => {
         if (accessToken.length === 0) {
-            console.log("updateUser(getCookie('token'));");
-            dispatch(updateUserAction(getCookie('token')));
+            console.log("refreshUser(getCookie('token'));");
+            dispatch(refreshUserAction(getCookie('token')));
         }
         dispatch(getUserAction(accessToken));
         setNameState(name);
@@ -38,10 +38,25 @@ function ProfilePage() {
 
     const submitCancel = () => {
         setIsEditMode(false);
+        setNameState(name);
+        setEmailState(email);
     };
     const submitSave = () => {
         setIsEditMode(false);
+        const toEdit = {};
         console.log(nameState, emailState);
+        if (nameState !== name) {
+            toEdit['name'] = nameState;
+        }
+        if (emailState !== email) {
+            toEdit['name'] = emailState;
+        }
+        console.log(toEdit);
+        dispatch(updateUserAction(accessToken, toEdit));
+        // setNameState(name);
+        // setEmailState(email);
+        console.log('UPDATE USER DONE');
+        navigate('/profile');
     };
 
     return (
