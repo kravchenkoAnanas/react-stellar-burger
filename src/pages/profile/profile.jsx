@@ -2,35 +2,28 @@ import { useState, useRef, useEffect } from 'react';
 import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { registerUser, catchError, getUser, updateUser } from './../../services/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
-import { updateUserAction } from '../../services/actions/user';
+import { updateUserAction, getUserAction } from '../../services/actions/user';
 
 
 function ProfilePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { accessToken } = useSelector(state => state.user);
 
     const [isEditMode, setIsEditMode] = useState(false);
+    const { accessToken, name, email } = useSelector(state => state.user);
 
-    const [name, setName] = useState('');
+    const [nameState, setNameState] = useState(name);
     const inputRef = useRef(null);
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     };
-
-    const [email, setEmail] = useState('');
+ 
+    const [emailState, setEmailState] = useState(email);
     const emailOnChange = e => {
-        setEmail(e.target.value)
-    };
-
-    const setupUser = (name, email) => {
-        console.log("getUser(accessToken) DONE")
-        setName(name);
-        setEmail(email);
+        setEmailState(e.target.value)
     };
 
     useEffect(() => {
@@ -38,22 +31,17 @@ function ProfilePage() {
             console.log("updateUser(getCookie('token'));");
             dispatch(updateUserAction(getCookie('token')));
         }
-        getUser(accessToken)
-            .then(res => {
-                if (res.success) {
-                    console.log("setupUser", res);
-                    setupUser(res.user.name, res.user.email);
-                }
-            })
-            // .catchError()
-    }, [accessToken]);
+        dispatch(getUserAction(accessToken));
+        setNameState(name);
+        setEmailState(email);
+    }, [accessToken, name, email]);
 
     const submitCancel = () => {
         setIsEditMode(false);
     };
     const submitSave = () => {
         setIsEditMode(false);
-        console.log(name, email);
+        console.log(nameState, emailState);
     };
 
     return (
@@ -100,9 +88,9 @@ function ProfilePage() {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={e => setName(e.target.value)}
-                        value={name}
-                        name={'name'}
+                        onChange={e => setNameState(e.target.value)}
+                        value={nameState}
+                        name={'nameState'}
                         error={false}
                         ref={inputRef}
                         onIconClick={onIconClick}
@@ -116,8 +104,8 @@ function ProfilePage() {
                 <div className="mt-6">
                     <EmailInput
                         onChange={emailOnChange}
-                        value={email}
-                        name={'email'}
+                        value={emailState}
+                        name={'emailState'}
                         isIcon={false}
                         placeholder='Логин'
                         icon='EditIcon'

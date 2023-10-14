@@ -3,6 +3,7 @@ import {
     REGISTER,
     LOGOUT,
     REFRESH,
+    GET
 } from './../actions/user';
 import { setCookie } from '../../utils/cookie';
 
@@ -49,7 +50,17 @@ export const userReducer = (state = initialState, action) => {
             )
             return {
                 ...state,
-                accessToken: clearToken(action.data.accessToken)
+                accessToken: clearToken(action.data.accessToken),
+            }
+        }
+        case GET: {
+            console.log("USER GET action=", action);
+            // console.log("USER GET name=", action.data.user.name);
+            // console.log("USER GET email=", action.data.user.email);
+            return {
+                ...state,
+                name: action.data.user.name,
+                email: action.data.user.email,
             }
         }
         default: {
