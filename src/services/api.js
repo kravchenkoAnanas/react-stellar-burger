@@ -110,9 +110,7 @@ export const getUser = async (token) => {
     ...config.headers,
     Authorization: 'Bearer ' + token
   };
-  
   console.log("getUser", headers);
-
   return fetch(`${config.baseUrl}/auth/user`, {
     method: 'GET',
     headers: headers,

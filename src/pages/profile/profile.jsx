@@ -51,12 +51,10 @@ function ProfilePage() {
         if (emailState !== email) {
             toEdit['name'] = emailState;
         }
-        console.log(toEdit);
-        dispatch(updateUserAction(accessToken, toEdit));
-        // setNameState(name);
-        // setEmailState(email);
-        console.log('UPDATE USER DONE');
-        navigate('/profile');
+        if (Object.keys(toEdit).length) {
+            // console.log(toEdit);
+            dispatch(updateUserAction(accessToken, toEdit));
+        }
     };
 
     return (
@@ -129,11 +127,11 @@ function ProfilePage() {
                 </div>
                 <div className="mt-6">
                 <PasswordInput
-                    value={"dummy"}
+                    value={"*****"}
                     name={'password'}
                     extraClass="mb-2"
                     icon='EditIcon'
-                    onClick={ () => setIsEditMode(true) }
+                    onClick={ () => setIsEditMode(false) }
                 />
                 </div>
                 { isEditMode &&

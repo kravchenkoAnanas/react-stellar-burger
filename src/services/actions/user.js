@@ -57,7 +57,6 @@ export function getUserAction(token) {
         getUser(token)
             .then(res => {
                 if (res.success) {
-                    console.log("getUser", res);
                     dispatch({
                         type: GET,
                         data: res,
@@ -73,7 +72,6 @@ export function updateUserAction(token, info) {
         updateUser(token, info)
             .then(res => {
                 if (res.success) {
-                    console.log("updateUser", res);
                     dispatch({
                         type: UPDATE,
                         data: res,

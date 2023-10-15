@@ -58,15 +58,12 @@ export const userReducer = (state = initialState, action) => {
             console.log("USER UPDATE action.data=", action.data);
             return {
                 ...state,
-                accessToken: clearToken(action.data.accessToken),
                 name: action.data.user.name,
                 email: action.data.user.email,
             }
         }
         case GET: {
-            console.log("USER GET action=", action);
-            // console.log("USER GET name=", action.data.user.name);
-            // console.log("USER GET email=", action.data.user.email);
+            console.log("USER REDUCER GET action=", action);
             return {
                 ...state,
                 name: action.data.user.name,
