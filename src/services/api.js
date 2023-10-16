@@ -71,7 +71,8 @@ export const registerUser = async (email, password, name) => {
     .then(checkResponse)
 };
 
-export const loginUser = async (email, password) => {
+export const loginUser = (email, password) => {
+  console.log("loginUser = async (email, password)", email, password);
   return fetch(`${config.baseUrl}/auth/login`, {
     method: 'POST',
     headers: config.headers,
@@ -81,6 +82,16 @@ export const loginUser = async (email, password) => {
     })
   })
   .then(checkResponse)
+
+  // return new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       accessToken: "test-token",
+  //       refreshToken: "test-refresh-token",
+  //       user: {},
+  //     });
+  //   }, 1000);
+  // });
 }
 
 export const logoutUser = async (refreshToken) => {
@@ -105,13 +116,15 @@ export const refreshUser = async (refreshToken) => {
   .then(checkResponse)
 }
 
-export const getUser = async (token) => {
+export const getUser = async () => {
   const headers = {
     ...config.headers,
-    Authorization: 'Bearer ' + token
+    Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };
+
   console.log("getUser", headers);
-  return fetch(`${config.baseUrl}/auth/user`, {
+
+  return await fetch(`${config.baseUrl}/auth/user`, {
     method: 'GET',
     headers: headers,
   })

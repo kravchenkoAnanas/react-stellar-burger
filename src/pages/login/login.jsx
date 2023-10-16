@@ -21,7 +21,10 @@ function LoginPage() {
 
     const submit = () => {
         dispatch(loginUserAction(email, password));
-        navigate('/');
+        // navigate('/');
+        // console.log(window.history);
+        // window.history.back(); // back === go(-1)
+        // console.log("document.referrer", document.referrer);
     };
 
     return (

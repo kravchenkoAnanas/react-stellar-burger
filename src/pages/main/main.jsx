@@ -12,8 +12,8 @@ import { getCookie } from "../../utils/cookie";
 
 function MainPage() {
     const dispatch = useDispatch();
-    const { accessToken } = useSelector(state => state.user);
-    const { refreshToken } = getCookie('token');
+    const { accessToken } = localStorage.getItem("accessToken");
+    const { refreshToken } = localStorage.getItem("refreshToken");
 
     useEffect(() => {
         dispatch(getIngredients());

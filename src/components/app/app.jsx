@@ -8,12 +8,23 @@ import IngredientPage from './../../pages/ingredient/ingredient';
 import OrdersPage from './../../pages/orders/orders';
 import OrderPage from './../../pages/orders/order';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshUserAction, checkUserAuth } from '../../services/actions/user';
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log("App useEffect(() => {");
+        dispatch(checkUserAuth());
+    }, []);
+
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<MainPage />} /> // главная страница, конструктор бургеров.
+				<Route path="/" element={<OnlyAuth component={<MainPage/>} />} /> 
 
 				<Route path="/login" element={<LoginPage />} /> // страница авторизации.
 				<Route path="/register" element={<RegisterPage />} /> // страница регистрации.

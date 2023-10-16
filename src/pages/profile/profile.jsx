@@ -12,7 +12,14 @@ function ProfilePage() {
     const navigate = useNavigate();
 
     const [isEditMode, setIsEditMode] = useState(false);
-    const { accessToken, name, email } = useSelector(state => state.user);
+    const { accessToken, user } = useSelector(state => state.user);
+
+    let name = '';
+    let email = '';
+    if (user) {
+        name = user.name;
+        email = user.email;
+    };
 
     const [nameState, setNameState] = useState(name);
     const inputRef = useRef(null);
@@ -26,15 +33,15 @@ function ProfilePage() {
         setEmailState(e.target.value)
     };
 
-    useEffect(() => {
-        if (accessToken.length === 0) {
-            console.log("refreshUser(getCookie('token'));");
-            dispatch(refreshUserAction(getCookie('token')));
-        }
-        dispatch(getUserAction(accessToken));
-        setNameState(name);
-        setEmailState(email);
-    }, [accessToken, name, email]);
+    // useEffect(() => {
+    //     if (accessToken.length === 0) {
+    //         console.log("refreshUser(getCookie('token'));");
+    //         dispatch(refreshUserAction(getCookie('token')));
+    //     }
+    //     dispatch(getUserAction(accessToken));
+    //     setNameState(name);
+    //     setEmailState(email);
+    // }, [accessToken, name, email]);
 
     const submitCancel = () => {
         setIsEditMode(false);
