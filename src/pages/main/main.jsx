@@ -17,7 +17,7 @@ function MainPage() {
 
     useEffect(() => {
         dispatch(getIngredients());
-    }, [dispatch]);
+    }, []);
 
     return (
         <>

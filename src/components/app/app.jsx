@@ -24,7 +24,7 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<OnlyAuth component={<MainPage/>} />} /> 
+				<Route path="/" element={<MainPage/>} /> 
 
 				<Route path="/login" element={<LoginPage />} /> // страница авторизации.
 				<Route path="/register" element={<RegisterPage />} /> // страница регистрации.
@@ -32,9 +32,9 @@ function App() {
 				<Route path="/forgot-password" element={<ForgotPasswordPage />} /> // страница восстановления пароля.
 				<Route path="/reset-password" element={<ResetPasswordPage />} /> // страница сброса пароля.
 
-				<Route path="/profile" element={<ProfilePage />} />
-				<Route path="/profile/orders" element={<OrdersPage />} />
-				<Route path="/profile/orders/:id" element={<OrderPage />} />
+				<Route path="/profile" element={<OnlyAuth component={<ProfilePage/>} />} /> 
+				<Route path="/profile/orders" element={<OnlyAuth component={<OrdersPage/>} />} /> 
+				<Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderPage/>} />} /> 
 
 				<Route path="/ingredients">
 					<Route path=":id" element={<IngredientPage />} /> // страница ингредиента. 

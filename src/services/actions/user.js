@@ -51,20 +51,23 @@ export const loginUserAction = (email, password) => {
             //     }
             // })
             // .catch(catchError)
+        };
     };
-};
-
-export function registerUserAction(email, password, name) {
-    return function(dispatch) {
-        registerUser(email, password, name)
+    
+    export function registerUserAction(email, password, name) {
+        return function(dispatch) {
+            registerUser(email, password, name)
             .then(res => {
-                if (res.success) {
-                    updateAccessAndRefreshTokens(
-                        clearToken(res.accessToken),
-                        res.refreshToken
-                    )
-                    dispatch(setUser(res.user));
-                }
+                // if (res.success) {
+                console.log("registerUserAction", res);
+                updateAccessAndRefreshTokens(
+                    clearToken(res.accessToken),
+                    res.refreshToken
+                )
+                dispatch(setUser(res.user));
+                dispatch(setAuthChecked(true));
+                console.log("registerUserAction DONE");
+                // }
             })
             .catch(catchError)
     };
