@@ -12,10 +12,8 @@ import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshUserAction, checkUserAuth } from '../../services/actions/user';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { UNSET_INGREDIENT } from '../../services/actions/ingredient_details_modal';
 import ModalWrapper from '../modal/wrapper/wrapper';
+import NotFound404 from '../../pages/not_found/not_found';
 
 function App() {
 
@@ -45,6 +43,8 @@ function App() {
 				<Route path="/ingredients">
 					<Route path=":id" element={<IngredientPage />} /> // страница ингредиента. 
 				</Route>
+
+				<Route path="*" element={ <NotFound404 /> }/>
 			</Routes>
 
 			{background && (
