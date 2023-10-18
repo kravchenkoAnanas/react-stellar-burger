@@ -23,11 +23,11 @@ function ForgotPasswordPage() {
     };
 
 	const clickForgotButton = () => {
-		console.log(`clickForgotButton ${email}`);
+		// console.log(`clickForgotButton ${email}`);
 		forgotPassword(email)
 			.then((res) => {
 				if (res.success) {
-					console.log(res);
+					// console.log(res);
 					navigate("/reset-password", { state: 'from-forgot' });
 				}
 			})

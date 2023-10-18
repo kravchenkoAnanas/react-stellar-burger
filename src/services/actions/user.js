@@ -1,5 +1,5 @@
 import { setCookie } from '../../utils/cookie';
-import { loginUser, registerUser, refreshUser, updateUser, getUser, catchError } from './../api'
+import { loginUser, logoutUser, registerUser, refreshUser, updateUser, getUser, catchError } from './../api'
 
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
@@ -34,40 +34,49 @@ export const loginUserAction = (email, password) => {
     return (dispatch) => {
         return loginUser(email, password)
             .then((res) => {
-                // if (res.success) {
-                    // dispatch({
-                    //     type: LOGIN,
-                    //     data: res,
-                    // })
-                console.log("loginUserAction", res);
-                updateAccessAndRefreshTokens(
-                    clearToken(res.accessToken),
-                    res.refreshToken
-                )
-                dispatch(setUser(res.user));
-                dispatch(setAuthChecked(true));
-                console.log("loginUserAction DONE");
+                if (res.success) {
+                    // console.log("loginUserAction", res);
+                    updateAccessAndRefreshTokens(
+                        clearToken(res.accessToken),
+                        res.refreshToken
+                    )
+                    dispatch(setUser(res.user));
+                    dispatch(setAuthChecked(true));
+                    // console.log("loginUserAction DONE");
+                }
             })
-            //     }
-            // })
-            // .catch(catchError)
-        };
-    };
+            .catch(catchError)
+    }
+};
     
-    export function registerUserAction(email, password, name) {
-        return function(dispatch) {
-            registerUser(email, password, name)
+export const logoutUserAction = () => {
+    return (dispatch) => {
+        return logoutUser(localStorage.getItem("refreshToken"))
+            .then((res) => {
+                if (res.success) {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    dispatch(setUser(null));
+                }
+            })
+            .catch(catchError)
+    }
+};
+
+export function registerUserAction(email, password, name) {
+    return function(dispatch) {
+        return registerUser(email, password, name)
             .then(res => {
-                // if (res.success) {
-                console.log("registerUserAction", res);
-                updateAccessAndRefreshTokens(
-                    clearToken(res.accessToken),
-                    res.refreshToken
-                )
-                dispatch(setUser(res.user));
-                dispatch(setAuthChecked(true));
-                console.log("registerUserAction DONE");
-                // }
+                if (res.success) {
+                    // console.log("registerUserAction", res);
+                    updateAccessAndRefreshTokens(
+                        clearToken(res.accessToken),
+                        res.refreshToken
+                    )
+                    dispatch(setUser(res.user));
+                    dispatch(setAuthChecked(true));
+                    // console.log("registerUserAction DONE");
+                }
             })
             .catch(catchError)
     };
@@ -83,9 +92,9 @@ export function getUserAction() {
     };
 };
 
-export function updateUserAction(token, info) {
+export function updateUserAction(info) {
     return function(dispatch) {
-        updateUser(token, info)
+        updateUser(info)
             .then(res => {
                 if (res.success) {
                     dispatch(setUser(res.user));

@@ -1,18 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
-import { refreshUserAction, updateUserAction, getUserAction } from '../../services/actions/user';
+import { refreshUserAction, updateUserAction, getUserAction, logoutUserAction } from '../../services/actions/user';
 
 
 function ProfilePage() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [isEditMode, setIsEditMode] = useState(false);
-    const { accessToken, user } = useSelector(state => state.user);
+    const { user } = useSelector(state => state.user);
 
     let name = '';
     let email = '';
@@ -33,16 +32,6 @@ function ProfilePage() {
         setEmailState(e.target.value)
     };
 
-    // useEffect(() => {
-    //     if (accessToken.length === 0) {
-    //         console.log("refreshUser(getCookie('token'));");
-    //         dispatch(refreshUserAction(getCookie('token')));
-    //     }
-    //     dispatch(getUserAction(accessToken));
-    //     setNameState(name);
-    //     setEmailState(email);
-    // }, [accessToken, name, email]);
-
     const submitCancel = () => {
         setIsEditMode(false);
         setNameState(name);
@@ -51,7 +40,7 @@ function ProfilePage() {
     const submitSave = () => {
         setIsEditMode(false);
         const toEdit = {};
-        console.log(nameState, emailState);
+        // console.log(nameState, emailState);
         if (nameState !== name) {
             toEdit['name'] = nameState;
         }
@@ -59,9 +48,13 @@ function ProfilePage() {
             toEdit['name'] = emailState;
         }
         if (Object.keys(toEdit).length) {
-            // console.log(toEdit);
-            dispatch(updateUserAction(accessToken, toEdit));
+            console.log(toEdit);
+            dispatch(updateUserAction(toEdit));
         }
+    };
+
+    const submitExit = () => {
+        dispatch(logoutUserAction());
     };
 
     return (
@@ -86,14 +79,18 @@ function ProfilePage() {
                     <p className="text text_type_main-medium">
                         Профиль
                     </p>
-                    <a href="/profile/orders">
+                    <a href="/not_found" style={{ textDecoration: "none" }}>
+                        {/* // profile/orders */}
                         <p className="text text_type_main-medium text_color_inactive">
                             История заказов
                         </p>
                     </a>
-                    <p className="text text_type_main-medium text_color_inactive">
-                        Выход
-                    </p>
+                    <Link onClick={submitCancel} style={{ textDecoration: "none" }} >
+                        <p className="text text_type_main-medium text_color_inactive" onClick={ submitExit }>
+                            Выход
+                        </p>
+                    </Link>
+
                 </div>
                 <p className="text text_type_main-default text_color_inactive">
                     В этом разделе вы можете изменить свои персональные данные

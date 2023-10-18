@@ -8,7 +8,7 @@ const Protected = ({ onlyUnAuth = false, component }) => {
     const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
     const user = useSelector((store) => store.user.user);
     const location = useLocation();
-    console.log("Protected user", user, "onlyUnAuth", onlyUnAuth, "!user", !user);
+    // console.log("Protected user", user, "onlyUnAuth", onlyUnAuth, "!user", !user);
     
     if (!isAuthChecked) {
         // Запрос еще выполняется
@@ -24,13 +24,13 @@ const Protected = ({ onlyUnAuth = false, component }) => {
         return <Navigate to={from} />;
     }
 
-    console.log("PROTECTED !onlyUnAuth && !user", (!onlyUnAuth && !user))
+    // console.log("PROTECTED !onlyUnAuth && !user", (!onlyUnAuth && !user))
     if (!onlyUnAuth && !user) {
-        console.log('Protected NOT OK!!!!!!!!!');
+        // console.log('Protected NOT OK!!!!!!!!!');
         return <Navigate to="/login" state={{ from: location }} />;
     }
     
-    console.log('Protected OK');
+    // console.log('Protected OK');
     // !onlyUnAuth && user Пользователь авторизован и роут для авторизованного пользователя
     
     return component;

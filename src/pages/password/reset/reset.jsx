@@ -2,17 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 import Header from "../../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { resetPassword, catchError } from './../../../services/api';
+// import { resetPassword, catchError } from './../../../services/api';
 
 function ResetPasswordPage() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    console.log("ResetPasswordPage location", location);
+    // console.log("ResetPasswordPage location", location);
 
     useEffect(() => {
         if (!location.state) {
-            navigate('/');
+            navigate('/forgot-password');
         }
     }, [])
 
@@ -20,15 +20,15 @@ function ResetPasswordPage() {
 	const [code, setCode] = useState('');
 
 	const clickResetButton = () => {
-		console.log(`clickResetButton password=${password} code=${code}`);
-		resetPassword(password, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjk1YThjNmQyOTk3MDAxY2FiMjJlYiIsImlhdCI6MTY5NzIwODk3MiwiZXhwIjoxNjk3MjEwMTcyfQ.M6fjsqxeXG43jLAFxYSVxrlBAq5TelKdSZtMcitm-Ck")
-			.then((res) => {
-				if (res.success) {
-					console.log(res);
-					// navigate("/");
-				}
-			})
-			.catch(catchError)
+		// console.log(`clickResetButton password=${password} code=${code}`);
+		// resetPassword(password)
+		// 	.then((res) => {
+		// 		if (res.success) {
+		// 			console.log(res);
+		// 		}
+		// 	})
+		// 	.catch(catchError)
+        navigate("/");
 	};
 
     return (

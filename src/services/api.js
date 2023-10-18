@@ -24,9 +24,14 @@ export const getData = async () => {
 };
 
 export const postOrder = async (ids) => {
+  const headers = {
+    ...config.headers,
+    Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+  };
+
   return fetch(`${config.baseUrl}/orders`, {
       method: 'POST',
-      headers: config.headers,
+      headers: headers,
       body: JSON.stringify({
         ingredients: ids,
       })
@@ -58,7 +63,7 @@ export const resetPassword = async (password, token) => {
 };
 
 export const registerUser = async (email, password, name) => {
-  console.log(`registerUser email=${email} password=${password} name=${name}`)
+  // console.log(`registerUser email=${email} password=${password} name=${name}`)
   return fetch(`${config.baseUrl}/auth/register`, {
       method: 'POST',
       headers: config.headers,
@@ -72,7 +77,7 @@ export const registerUser = async (email, password, name) => {
 };
 
 export const loginUser = (email, password) => {
-  console.log("loginUser = async (email, password)", email, password);
+  // console.log("loginUser = async (email, password)", email, password);
   return fetch(`${config.baseUrl}/auth/login`, {
     method: 'POST',
     headers: config.headers,
@@ -122,7 +127,7 @@ export const getUser = async () => {
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };
 
-  console.log("getUser", headers);
+  // console.log("getUser", headers);
 
   return await fetch(`${config.baseUrl}/auth/user`, {
     method: 'GET',
@@ -131,10 +136,10 @@ export const getUser = async () => {
   .then(checkResponse)
 }
 
-export const updateUser = async (token, info) => {
+export const updateUser = async (info) => {
   const headers = {
     ...config.headers,
-    Authorization: 'Bearer ' + token
+    Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };
 
   return fetch(`${config.baseUrl}/auth/user`, {

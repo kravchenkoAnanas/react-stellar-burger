@@ -10,8 +10,8 @@ import { getCookie } from '../../utils/cookie';
 function RegisterPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { accessToken } = useSelector(state => state.user);
-    const { refreshToken } = getCookie('token');
+    // const { accessToken } = localStorage.getItem("accessToken") || { accessToken: "" };
+    // const { refreshToken } = localStorage.getItem("refreshToken")|| { refreshToken: "" };
 
     const [name, setName] = useState('');
     const inputRef = useRef(null);
@@ -37,9 +37,6 @@ function RegisterPage() {
     return (
     <>
         <Header />
-
-        <h3> accessToken { accessToken }</h3>
-        <h3> refreshToken { refreshToken }</h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
             <h1 className="text text_type_main-medium mt-25"> 
