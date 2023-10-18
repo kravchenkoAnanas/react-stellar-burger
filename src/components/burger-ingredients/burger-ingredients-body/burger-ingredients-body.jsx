@@ -9,10 +9,13 @@ import { SET_INGREDIENT, UNSET_INGREDIENT } from '../../../services/actions/ingr
 import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useNavigate } from 'react-router-dom';
 
 
 function BurgerIngredientsBody() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { ingredients } = useSelector(state => state.ingredients);
   const { ingredientVisible } = useSelector(state => state.ingredientsDetailModal);
   const currentTab = useSelector(state => state.ingredients.currentTab);
@@ -33,6 +36,7 @@ function BurgerIngredientsBody() {
       type: SET_INGREDIENT,
       data: element
     })
+    navigate('/')
   }
 
   const handleCloseModal = () => {
@@ -40,13 +44,15 @@ function BurgerIngredientsBody() {
   }
 
   const renderElement = (element) => {
-    return <Ingredient
-      element={ element }
-      key={ element._id }
-      clickCallBack={ () => {
-        handleOpenModal(element);
-      }} 
-    />
+    return (
+      <Ingredient
+        element={ element }
+        key={ element._id }
+        clickCallBack={ () => {
+          handleOpenModal(element);
+        }} 
+      />
+    )
   };
 
   useMemo(() => {
@@ -82,11 +88,11 @@ function BurgerIngredientsBody() {
           {mains.map((element) => renderElement(element))}
         </article>
 
-        {ingredientVisible &&
+        {/* {ingredientVisible &&
           <Modal onClose={ handleCloseModal }>
             <IngredientDetails onClose={ handleCloseModal } />
           </Modal>
-        }
+        } */}
       </div>
     </>
   )

@@ -7,22 +7,35 @@ import ProfilePage from './../../pages/profile/profile';
 import IngredientPage from './../../pages/ingredient/ingredient';
 import OrdersPage from './../../pages/orders/orders';
 import OrderPage from './../../pages/orders/order';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshUserAction, checkUserAuth } from '../../services/actions/user';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { UNSET_INGREDIENT } from '../../services/actions/ingredient_details_modal';
 
 function App() {
-    const dispatch = useDispatch();
+
+	const dispatch = useDispatch();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const background = location.state && location.state.background;
 
     useEffect(() => {
         dispatch(checkUserAuth());
     }, []);
 
+	const handleModalClose = () => {
+		// Возвращаемся к предыдущему пути при закрытии модалки
+		navigate(-1);
+		dispatch({ type: UNSET_INGREDIENT });
+	};
+
 	return (
-		<Router>
-			<Routes>
+		<>
+			<Routes location={background || location}>
 				<Route path="/" element={<MainPage/>} /> 
 
 				<Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} /> // страница авторизации.
@@ -38,7 +51,21 @@ function App() {
 					<Route path=":id" element={<IngredientPage />} /> // страница ингредиента. 
 				</Route>
 			</Routes>
-		</Router>
+
+			{background && (
+				<Routes>
+					<Route
+						path='/ingredients/:ingredientId'
+						element={
+							<Modal onClose={handleModalClose}>
+								<IngredientDetails />
+								{/* <IngredientDetails onClose={ handleCloseModal } /> */}
+							</Modal>
+						}
+					/>
+				</Routes>
+			)}
+		</>
 	);
 }
 // Страница 404 на своё усмотрение.

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 function IngredientDetails() {
   const { ingredientInfo } = useSelector(state => state.ingredientsDetailModal);
-
+  
   return (
     (ingredientInfo &&
       <div>

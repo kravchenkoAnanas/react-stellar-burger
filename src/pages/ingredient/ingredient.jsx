@@ -7,9 +7,9 @@ import Header from '../../components/header/header';
 
 function IngredientPage() {
   const dispatch = useDispatch();
-
   const { id } = useParams();
-  const { ingredients } = useSelector(state => state.ingredients);
+
+  console.log("IngredientPage id", id);
   
   useEffect(() => {
       dispatch(getIngredients(id));

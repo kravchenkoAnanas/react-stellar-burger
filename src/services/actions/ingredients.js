@@ -22,11 +22,14 @@ export function getIngredients(idx) {
             ingredients: ingredients,
           })
 
-          if (idx && idx > 0 && idx < res.data.length) {
-            dispatch({
-              type: SET_INGREDIENT,
-              data: ingredients[idx],
-            })
+          if (idx) {
+            const filtered = ingredients.filter(ingredient => ingredient._id === idx)
+            if (filtered.length === 1) {
+              dispatch({
+                type: SET_INGREDIENT,
+                data: filtered[0]
+              })
+            }
           }
         }
       })
