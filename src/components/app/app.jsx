@@ -26,11 +26,10 @@ function App() {
 			<Routes>
 				<Route path="/" element={<MainPage/>} /> 
 
-				<Route path="/login" element={<LoginPage />} /> // страница авторизации.
-				<Route path="/register" element={<RegisterPage />} /> // страница регистрации.
-
-				<Route path="/forgot-password" element={<ForgotPasswordPage />} /> // страница восстановления пароля.
-				<Route path="/reset-password" element={<ResetPasswordPage />} /> // страница сброса пароля.
+				<Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} /> // страница авторизации.
+				<Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} /> // страница регистрации.
+				<Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} /> // страница восстановления пароля.
+				<Route path="/reset-password" element={<OnlyUnAuth component={<ResetPasswordPage />} />} /> // страница сброса пароля.
 
 				<Route path="/profile" element={<OnlyAuth component={<ProfilePage/>} />} /> 
 				<Route path="/profile/orders" element={<OnlyAuth component={<OrdersPage/>} />} /> 
