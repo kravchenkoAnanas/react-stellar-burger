@@ -20,7 +20,7 @@ function BurgerIngredientsBody() {
   const [section1Ref, section1InView] = useInView({ threshold: 0.5 });
   const [section2Ref, section2InView] = useInView({ threshold: 0.5 });
 
-  let [buns, mains, sauces] =  useMemo(() => {
+  let [buns, mains, sauces] = useMemo(() => {
     const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
     const mains = ingredients.filter(ingredient => ingredient.type === 'main');
     const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');

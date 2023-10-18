@@ -12,6 +12,7 @@ const initialState = {
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS: {
+      console.log("GET_INGREDIENTS", action.ingredients);
       return {
         ...state,
         ingredients: action.ingredients,
