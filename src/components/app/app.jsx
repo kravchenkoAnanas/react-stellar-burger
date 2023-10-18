@@ -15,23 +15,18 @@ import { refreshUserAction, checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { UNSET_INGREDIENT } from '../../services/actions/ingredient_details_modal';
+import ModalWrapper from '../modal/wrapper/wrapper';
 
 function App() {
 
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const navigate = useNavigate();
+	
 	const background = location.state && location.state.background;
 
     useEffect(() => {
         dispatch(checkUserAuth());
     }, []);
-
-	const handleModalClose = () => {
-		// Возвращаемся к предыдущему пути при закрытии модалки
-		navigate(-1);
-		dispatch({ type: UNSET_INGREDIENT });
-	};
 
 	return (
 		<>
@@ -56,12 +51,7 @@ function App() {
 				<Routes>
 					<Route
 						path='/ingredients/:ingredientId'
-						element={
-							<Modal onClose={handleModalClose}>
-								<IngredientDetails />
-								{/* <IngredientDetails onClose={ handleCloseModal } /> */}
-							</Modal>
-						}
+						element={<ModalWrapper />}
 					/>
 				</Routes>
 			)}

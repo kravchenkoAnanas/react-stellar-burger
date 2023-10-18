@@ -1,11 +1,20 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Header from "../../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { resetPassword, catchError } from './../../../services/api';
 
 function ResetPasswordPage() {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    console.log("ResetPasswordPage location", location);
+
+    useEffect(() => {
+        if (!location.state) {
+            navigate('/');
+        }
+    }, [])
 
     const [password, setPassword] = useState('');
 	const [code, setCode] = useState('');

@@ -28,7 +28,7 @@ function ForgotPasswordPage() {
 			.then((res) => {
 				if (res.success) {
 					console.log(res);
-					navigate("/reset-password");
+					navigate("/reset-password", { state: 'from-forgot' });
 				}
 			})
 			.catch(catchError)
