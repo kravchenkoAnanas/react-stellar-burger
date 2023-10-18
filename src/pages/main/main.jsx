@@ -12,8 +12,8 @@ import { getCookie } from "../../utils/cookie";
 
 function MainPage() {
     const dispatch = useDispatch();
-    const { accessToken } = localStorage.getItem("accessToken");
-    const { refreshToken } = localStorage.getItem("refreshToken");
+    // const { accessToken } = localStorage.getItem("accessToken") || { accessToken: "" };;
+    // const { refreshToken } = localStorage.getItem("refreshToken") || { refreshToken: "" };;
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -23,14 +23,14 @@ function MainPage() {
         <>
             <Header />
 
-            <h3> accessToken { accessToken }</h3>
-            <h3> refreshToken { refreshToken }</h3>
+            {/* <h3> accessToken { accessToken }</h3>
+            <h3> refreshToken { refreshToken }</h3> */}
 
             <DndProvider backend={HTML5Backend}>
-            <main className={ mainStyle.main }>
-                <BurgerIngredients />
-                <BurgerConstructor />
-            </main>
+                <main className={ mainStyle.main }>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </main>
             </DndProvider>
         </>
     );

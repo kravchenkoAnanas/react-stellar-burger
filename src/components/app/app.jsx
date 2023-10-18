@@ -17,7 +17,6 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("App useEffect(() => {");
         dispatch(checkUserAuth());
     }, []);
 
