@@ -3,6 +3,7 @@ import Header from "../../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword, catchError } from './../../../services/api';
+import forgotStyle from './forgot.module.css';
 
 function ForgotPasswordPage() {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ function ForgotPasswordPage() {
     return (
     <>
         <Header />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
+        <div className={ forgotStyle.forgot }>
             <h1 className="text text_type_main-medium mt-25"> 
 				Восстановление пароля
             </h1>
@@ -51,11 +52,15 @@ function ForgotPasswordPage() {
                     />
             </div>
 			<div className="mt-6 mb-6">
-                <Button htmlType="button" type="primary" size="large" onClick={clickForgotButton}>
+                <Button 
+                    htmlType="button" 
+                    type="primary" 
+                    size="large" 
+                    onClick={clickForgotButton}> 
                     Восстановить
                 </Button>
             </div>
-			<div className="mt-20 mb-4" style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: "1em" }}>
+			<div className={ forgotStyle.recall }>
                 <p className="text text_type_main-default text_color_inactive">
 					Вспомнили пароль?
                 </p>

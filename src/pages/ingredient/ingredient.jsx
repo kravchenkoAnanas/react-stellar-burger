@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { useEffect } from 'react';
 import Header from '../../components/header/header';
+import ingredientStyle from './ingredient.module.css';
 
 function IngredientPage() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function IngredientPage() {
   return (
     <>
       <Header />
-      <div style={{ textAlign: "center", marginTop: "150px" }} >
+      <div className={ ingredientStyle.ingredient } >
         <IngredientDetails />
       </div>
     </>

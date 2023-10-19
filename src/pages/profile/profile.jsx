@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
 import { refreshUserAction, updateUserAction, getUserAction, logoutUserAction } from '../../services/actions/user';
+import profileStyle from './profile.module.css';
 
 
 function ProfilePage() {
@@ -60,32 +61,19 @@ function ProfilePage() {
     return (
     <>
         <Header />
-        <div className="mt-30" style={{ 
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: "center",
-            gap: '60px',
-        }}>
-            <div className="mt-5 mb-20" style={{
-                maxWidth: "320px" 
-            }}>
-                <div className="mt-5 mb-20" style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: "top",
-                    alignItems: "left",
-                    gap: "2em",
-                }}>
+        <div className={ profileStyle.profile }>
+            <div className={ profileStyle.profile_left }>
+                <div className={ profileStyle.profile_nav }>
                     <p className="text text_type_main-medium">
                         Профиль
                     </p>
-                    <a href="/not_found" style={{ textDecoration: "none" }}>
+                    <a href="/not_found" className={ profileStyle.link }>
                         {/* // profile/orders */}
                         <p className="text text_type_main-medium text_color_inactive">
                             История заказов
                         </p>
                     </a>
-                    <Link onClick={submitCancel} style={{ textDecoration: "none" }} >
+                    <Link onClick={submitCancel} className={ profileStyle.link } >
                         <p className="text text_type_main-medium text_color_inactive" onClick={ submitExit }>
                             Выход
                         </p>
@@ -96,11 +84,7 @@ function ProfilePage() {
                     В этом разделе вы можете изменить свои персональные данные
                 </p>
             </div>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: "center"
-            }}>
+            <div className={ profileStyle.profile_input }>
                 <div>
                     <Input
                         type={'text'}
@@ -139,15 +123,7 @@ function ProfilePage() {
                 />
                 </div>
                 { isEditMode &&
-                    <div
-                        style={{
-                            width: '100%',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'right'
-                        }}
-                        className="mt-6 mb-6"
-                    >
+                    <div className={ profileStyle.profile_edit }>
                         <Button htmlType="button" type="secondary" size="large" onClick={submitCancel}>
                             Отмена
                         </Button>

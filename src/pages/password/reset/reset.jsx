@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Header from "../../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import resetStyle from './reset.module.css';
 // import { resetPassword, catchError } from './../../../services/api';
 
 function ResetPasswordPage() {
@@ -34,7 +35,7 @@ function ResetPasswordPage() {
     return (
     <>
         <Header />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
+        <div className={ resetStyle.reset }>
             <h1 className="text text_type_main-medium mt-25"> 
 				Восстановление пароля
             </h1>
@@ -61,7 +62,7 @@ function ResetPasswordPage() {
                 Восстановить
             </Button>
         </div>
-			<div className="mt-20 mb-4" style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: "1em" }}>
+			<div className={ resetStyle.recall }>
                 <p className="text text_type_main-default text_color_inactive">
 					Вспомнили пароль?
                 </p>

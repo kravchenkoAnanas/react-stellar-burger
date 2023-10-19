@@ -4,6 +4,7 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { loginUserAction } from './../../services/actions/user';
+import loginStyle from './login.module.css';
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function LoginPage() {
     return (
     <>
         <Header />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }} >
+        <div className={ loginStyle.login } >
             <h1 className="text text_type_main-medium mt-25"> 
                 Вход
             </h1>
@@ -51,7 +52,7 @@ function LoginPage() {
                     Войти
                 </Button>
             </div>
-            <div className="mt-20 mb-4" style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: "1em" }}>
+            <div className={ loginStyle.register } >
                 <p className="text text_type_main-default text_color_inactive">
                     Вы — новый пользователь?
                 </p>
@@ -65,7 +66,7 @@ function LoginPage() {
                     Зарегистрироваться
                 </Button>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: "1em" }}>
+            <div className={ loginStyle.forgot_password }>
                 <p className="text text_type_main-default text_color_inactive">
                     Забыли пароль?
                 </p>
@@ -74,7 +75,7 @@ function LoginPage() {
                     type="secondary"
                     size="medium"
                     style={{ padding: "0px" }}
-                    onClick={ e => { navigate("/forgot-password"); } }
+                    onClick={ e => { navigate("/forgot-password"); } }  
                 >
                     Восстановить пароль
                 </Button>

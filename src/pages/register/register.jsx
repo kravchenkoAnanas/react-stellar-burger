@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerUserAction } from './../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
+import registerStyle from './register.module.css';
 
 
 function RegisterPage() {
@@ -38,7 +39,7 @@ function RegisterPage() {
     <>
         <Header />
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}>
+        <div className={ registerStyle.register }>
             <h1 className="text text_type_main-medium mt-25"> 
                 Регистрация
             </h1>
@@ -78,7 +79,7 @@ function RegisterPage() {
                     Зарегистрироваться
                 </Button>
             </div>
-            <div className="mt-20 mb-4" style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: "1em" }}>
+            <div className={ registerStyle.login }>
                 <p className="text text_type_main-default text_color_inactive">
                     Уже зарегистрированы?
                 </p>
