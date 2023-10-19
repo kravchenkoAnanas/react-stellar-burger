@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { registerUserAction } from './../../services/actions/user';
@@ -37,7 +36,6 @@ function RegisterPage() {
 
     return (
     <>
-        <Header />
 
         <div className={ registerStyle.register }>
             <h1 className="text text_type_main-medium mt-25"> 

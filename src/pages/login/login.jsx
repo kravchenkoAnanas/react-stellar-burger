@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import Header from "../../components/header/header";
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -26,7 +25,6 @@ function LoginPage() {
 
     return (
     <>
-        <Header />
         <div className={ loginStyle.login } >
             <h1 className="text text_type_main-medium mt-25"> 
                 Вход

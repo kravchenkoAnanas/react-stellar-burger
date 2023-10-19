@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import Header from "../../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import resetStyle from './reset.module.css';
@@ -34,7 +33,6 @@ function ResetPasswordPage() {
 
     return (
     <>
-        <Header />
         <div className={ resetStyle.reset }>
             <h1 className="text text_type_main-medium mt-25"> 
 				Восстановление пароля

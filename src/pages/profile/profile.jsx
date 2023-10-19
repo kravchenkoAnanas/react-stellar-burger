@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import Header from "../../components/header/header";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -60,7 +59,6 @@ function ProfilePage() {
 
     return (
     <>
-        <Header />
         <div className={ profileStyle.profile }>
             <div className={ profileStyle.profile_left }>
                 <div className={ profileStyle.profile_nav }>

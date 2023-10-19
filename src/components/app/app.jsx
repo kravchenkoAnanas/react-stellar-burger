@@ -1,3 +1,4 @@
+import Header from '../header/header';
 import MainPage from './../../pages/main/main';
 import LoginPage from './../../pages/login/login';
 import RegisterPage from './../../pages/register/register';
@@ -7,6 +8,7 @@ import ProfilePage from './../../pages/profile/profile';
 import IngredientPage from './../../pages/ingredient/ingredient';
 import OrdersPage from './../../pages/orders/orders';
 import OrderPage from './../../pages/orders/order';
+import FeedPage from '../../pages/feed/feed';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +30,7 @@ function App() {
 
 	return (
 		<>
+			<Header />
 			<Routes location={background || location}>
 				<Route path="/" element={<MainPage/>} /> 
 
@@ -45,6 +48,8 @@ function App() {
 				</Route>
 
 				<Route path="*" element={ <NotFound404 /> }/>
+
+				<Route path="/feed" element={<FeedPage/>} />
 			</Routes>
 
 			{background && (

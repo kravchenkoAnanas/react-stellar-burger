@@ -3,7 +3,6 @@ import IngredientDetails from '../../components/ingredient-details/ingredient-de
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { useEffect } from 'react';
-import Header from '../../components/header/header';
 import ingredientStyle from './ingredient.module.css';
 
 function IngredientPage() {
@@ -18,7 +17,6 @@ function IngredientPage() {
 
   return (
     <>
-      <Header />
       <div className={ ingredientStyle.ingredient } >
         <IngredientDetails />
       </div>
