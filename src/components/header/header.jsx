@@ -1,5 +1,6 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './header.module.css'
+import { Link } from 'react-router-dom';
 
 
 function Header() {
@@ -7,20 +8,22 @@ function Header() {
     <header className={ headerStyle.header }>
       <nav className={ headerStyle.navigation }>
         <div className={ headerStyle.navigation_left }>
-          <a href='#' className={ headerStyle.link_constructor }>
-            <BurgerIcon type="primary" />
+          <Link to={ "/" } className={ headerStyle.link_constructor } >
+            <BurgerIcon type="secondary" />
             <p>Конструктор</p>
-          </a>
-          <a href='#' className={ headerStyle.link }>
+          </Link>
+          <Link to={ "/not_found" } className={ headerStyle.link } >
             <ListIcon type="secondary" />
             <p>Лента заказов</p>
-          </a>
+          </Link>
         </div>
-        <Logo />
-        <a href='/profile' className={ headerStyle.navigation_right }>
+        <Link to={ "/" } className={ headerStyle.link_constructor } >
+          <Logo />
+        </Link>
+        <Link to={ "/profile" } className={ headerStyle.navigation_right } >
           <ProfileIcon type="secondary" />
           <p>Личный кабинет</p>
-        </a>
+        </Link>
       </nav>
     </header>
   ) 

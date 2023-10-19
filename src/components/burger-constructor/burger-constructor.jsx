@@ -123,7 +123,7 @@ function BurgerConstructor() {
           <p className="text text_type_digits-medium">{ sum }</p>
           <CurrencyIcon type="primary"/>
         </div>
-        
+
         <Button
           htmlType="button"
           type="primary"
