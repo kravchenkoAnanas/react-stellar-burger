@@ -16,11 +16,17 @@
     gap: 60px;
 }
 
+.orders {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 16px;
+}
+
 .info {
     background-color: #1C1C21;
     max-width: 584px;
     border-radius: 25px;
-    margin-top: 20px;
     padding: 24px;
     align-items: center;
 }
@@ -30,6 +36,13 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 24px;
+}
+
+.total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 24px;
 }
 
 .sum {

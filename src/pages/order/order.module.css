@@ -1,0 +1,62 @@
+.order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 122px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    min-width: 640px;
+}
+
+.number {
+    align-self: center;
+}
+
+.ready {
+    color: #00CCCC;
+}
+
+.sum {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.consist {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 616px;
+    padding-right: 24px;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text {
+    max-width: 320px;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+.total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    min-width: 640px;
+}
