@@ -10,12 +10,14 @@ import { sendOrder, CLOSE_ORDER } from '../../services/actions/order';
 import { ADD_INGREDIENT } from '../../services/actions/constructor';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { orderVisible } = useSelector(state => state.order);
   const { chosenIngredients } = useSelector(state => state.burgerConstructor);
-  
+  const { user } = useSelector(state => state.user);
   const [sum, setSum] = useState(0);
 
   const [{ isHover } , drop] = useDrop({
@@ -41,10 +43,15 @@ function BurgerConstructor() {
   bun = bun === undefined ? null : bun;
 
   const handleOpenModal = () => {
+    // console.log("handleOpenModal user", user);
     const ids = chosenIngredients.map((ingredient) => {
       return ingredient._id;
     });
-    dispatch(sendOrder(ids));
+    if (user) {
+      dispatch(sendOrder(ids));
+    } else {
+      navigate("/login");
+    }
   }
 
   const handleCloseModal = () => {
@@ -116,7 +123,7 @@ function BurgerConstructor() {
           <p className="text text_type_digits-medium">{ sum }</p>
           <CurrencyIcon type="primary"/>
         </div>
-        
+
         <Button
           htmlType="button"
           type="primary"

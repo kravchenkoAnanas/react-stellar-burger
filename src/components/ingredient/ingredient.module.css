@@ -29,3 +29,8 @@
   top: -75%;
   right: -45%;
 }
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}

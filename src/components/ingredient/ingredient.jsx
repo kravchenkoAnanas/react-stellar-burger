@@ -3,11 +3,14 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import ingredientStyle from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 function Ingredient({ element, clickCallBack }) {
   const { name, image, price, counter } = element;
   const ref = useRef();
-  
+  const location = useLocation();
+  const ingredientId = element['_id'];
+
   const [{ isDrag }, dragRef] = useDrag({
       type: "ingredient",
       item: {element},
@@ -29,15 +32,22 @@ function Ingredient({ element, clickCallBack }) {
   dragRef(ref);
 
   return (
-    <div className={ ingredientStyle.ingredient } onClick={ () => clickCallBack() } ref={ref} >
-      <img className={ ingredientStyle.image } src={ image } alt={ name } />
-      { showCounter() }
-      <div className={`${ingredientStyle.price} mt-2`}>
-        <p className="text text_type_digits-default">{ price }</p>
-        <CurrencyIcon type="primary"/>
+    <Link
+      key={ ingredientId }
+      to={ `/ingredients/${ingredientId}` }
+      state={{ background: location }}
+      className={ ingredientStyle.link }
+    >
+      <div className={ ingredientStyle.ingredient } onClick={ () => clickCallBack() } ref={ref} >
+        <img className={ ingredientStyle.image } src={ image } alt={ name } />
+        { showCounter() }
+        <div className={`${ingredientStyle.price} mt-2`}>
+          <p className="text text_type_digits-default">{ price }</p>
+          <CurrencyIcon type="primary"/>
+        </div>
+        <p className={`${ingredientStyle.name} text text_type_main-default mt-2`}>{ name }</p>
       </div>
-      <p className={`${ingredientStyle.name} text text_type_main-default mt-2`}>{ name }</p>
-    </div>
+    </Link>
   );
 }
 
