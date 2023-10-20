@@ -13,12 +13,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from
 import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { refreshUserAction, checkUserAuth } from '../../services/actions/user';
+import { checkUserAuth } from '../../services/actions/user';
 import ModalWrapper from '../modal/wrapper/wrapper';
 import NotFound404 from '../../pages/not_found/not_found';
+import { getIngredients } from '../../services/actions/ingredients';
 
 function App() {
-
 	const dispatch = useDispatch();
 	const location = useLocation();
 	
@@ -26,6 +26,7 @@ function App() {
 
     useEffect(() => {
         dispatch(checkUserAuth());
+		dispatch(getIngredients());
     }, []);
 
 	return (

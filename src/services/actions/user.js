@@ -1,5 +1,5 @@
 import { setCookie } from '../../utils/cookie';
-import { loginUser, logoutUser, registerUser, refreshUser, updateUser, getUser, catchError } from './../api'
+import { loginUser, logoutUser, registerUser, resetPassword, updateUser, getUser, catchError } from './../api'
 
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
@@ -103,6 +103,20 @@ export function updateUserAction(info) {
             .catch(catchError)
     };
 };
+
+export function resetPasswordAction(password, token) {
+    return function(dispatch) {
+        resetPassword(password, token)
+            .then(res => {
+                if (res.success) {
+                    console.log(resetPasswordAction, res);
+                    dispatch(setUser(res.user));
+                }
+            })
+            .catch(catchError)
+    };
+};
+
 
 export const checkUserAuth = () => {
     return (dispatch) => {

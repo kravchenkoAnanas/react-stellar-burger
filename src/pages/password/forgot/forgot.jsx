@@ -23,56 +23,61 @@ function ForgotPasswordPage() {
     };
 
 	const clickForgotButton = () => {
-		// console.log(`clickForgotButton ${email}`);
 		forgotPassword(email)
 			.then((res) => {
 				if (res.success) {
-					// console.log(res);
 					navigate("/reset-password", { state: 'from-forgot' });
 				}
 			})
 			.catch(catchError)
 	};
+    
+    const submit = (e) => {
+        e.preventDefault();
+        clickForgotButton();
+    }
 
     return (
     <>
-        <div className={ forgotStyle.forgot }>
-            <h1 className="text text_type_main-medium mt-25"> 
-				Восстановление пароля
-            </h1>
-            <div className="mt-6">
-                <EmailInput
-                    placeholder="Укажите e-mail"
-                    onChange={emailOnChange}
-                    value={email}
-                    name={'email'}
-                    isIcon={false}
+        <form action="" onSubmit={ submit }>
+            <div className={ forgotStyle.forgot }>
+                <h1 className="text text_type_main-medium mt-25"> 
+                    Восстановление пароля
+                </h1>
+                <div className="mt-6">
+                    <EmailInput
+                        placeholder="Укажите e-mail"
+                        onChange={emailOnChange}
+                        value={email}
+                        name={'email'}
+                        isIcon={false}
                     />
+                </div>
+                <div className="mt-6 mb-6">
+                    <Button 
+                        htmlType="submit" 
+                        type="primary" 
+                        size="large" 
+                        > 
+                        Восстановить
+                    </Button>
+                </div>
+                <div className={ forgotStyle.recall }>
+                    <p className="text text_type_main-default text_color_inactive">
+                        Вспомнили пароль?
+                    </p>
+                    <Button
+                        htmlType="button"
+                        type="secondary"
+                        size="medium"
+                        extraClass={ forgotStyle.link_button }
+                        onClick={ e => { navigate("/login"); } }
+                    >
+                        Войти
+                    </Button>
+                </div>
             </div>
-			<div className="mt-6 mb-6">
-                <Button 
-                    htmlType="button" 
-                    type="primary" 
-                    size="large" 
-                    onClick={clickForgotButton}> 
-                    Восстановить
-                </Button>
-            </div>
-			<div className={ forgotStyle.recall }>
-                <p className="text text_type_main-default text_color_inactive">
-					Вспомнили пароль?
-                </p>
-                <Button
-                    htmlType="button"
-                    type="secondary"
-                    size="medium"
-                    style={{ padding: "0px" }}
-                    onClick={ e => { navigate("/login"); } }
-                >
-                    Войти
-                </Button>
-            </div>
-        </div>
+        </form>
     </>
     );
 }

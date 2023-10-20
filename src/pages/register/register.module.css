@@ -12,3 +12,7 @@
     align-items: center;
     gap: 1em;
 }
+
+.link_button {
+    padding: "0px";
+}

@@ -32,30 +32,33 @@ function ProfilePage() {
         setEmailState(e.target.value)
     };
 
-    const submitCancel = () => {
-        setIsEditMode(false);
-        setNameState(name);
-        setEmailState(email);
-    };
-    const submitSave = () => {
-        setIsEditMode(false);
-        const toEdit = {};
-        // console.log(nameState, emailState);
-        if (nameState !== name) {
-            toEdit['name'] = nameState;
-        }
-        if (emailState !== email) {
-            toEdit['name'] = emailState;
-        }
-        if (Object.keys(toEdit).length) {
-            console.log(toEdit);
-            dispatch(updateUserAction(toEdit));
-        }
-    };
-
     const submitExit = () => {
         dispatch(logoutUserAction());
     };
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        if (e.nativeEvent.submitter.name === "save") {
+            setIsEditMode(false);
+            const toEdit = {};
+
+            if (nameState !== name) {
+                toEdit['name'] = nameState;
+            }
+            if (emailState !== email) {
+                toEdit['name'] = emailState;
+            }
+            if (Object.keys(toEdit).length) {
+                console.log(toEdit);
+                dispatch(updateUserAction(toEdit));
+            }
+        } else {
+            setIsEditMode(false);
+            setNameState(name);
+            setEmailState(email);
+        }
+    }
 
     return (
     <>
@@ -65,14 +68,13 @@ function ProfilePage() {
                     <p className="text text_type_main-medium">
                         Профиль
                     </p>
-                    <a href="/not_found" className={ profileStyle.link }>
-                        {/* // profile/orders */}
+                    <Link to={ "/not_found" } className={ profileStyle.link } >
                         <p className="text text_type_main-medium text_color_inactive">
                             История заказов
                         </p>
-                    </a>
-                    <Link onClick={submitCancel} className={ profileStyle.link } >
-                        <p className="text text_type_main-medium text_color_inactive" onClick={ submitExit }>
+                    </Link>
+                    <Link onClick={ submitExit } className={ profileStyle.link } >
+                        <p className="text text_type_main-medium text_color_inactive">
                             Выход
                         </p>
                     </Link>
@@ -121,14 +123,16 @@ function ProfilePage() {
                 />
                 </div>
                 { isEditMode &&
-                    <div className={ profileStyle.profile_edit }>
-                        <Button htmlType="button" type="secondary" size="large" onClick={submitCancel}>
-                            Отмена
-                        </Button>
-                        <Button htmlType="button" type="primary" size="large" onClick={submitSave}>
-                            Сохранить
-                        </Button>
-                    </div>
+                    <form action="" onSubmit={ submit }>
+                        <div className={ profileStyle.profile_edit }>
+                            <Button htmlType="submit" type="secondary" size="large" name="canel">
+                                Отмена
+                            </Button>
+                            <Button htmlType="submit" type="primary" size="large" name="save">
+                                Сохранить
+                            </Button>
+                        </div>
+                    </form>
                 }
             </div>
         </div>
