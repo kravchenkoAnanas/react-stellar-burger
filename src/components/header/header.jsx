@@ -12,7 +12,7 @@ function Header() {
             <BurgerIcon type="secondary" />
             <p>Конструктор</p>
           </Link>
-          <Link to={ "/not_found" } className={ headerStyle.link } >
+          <Link to={ "/feed" } className={ headerStyle.link } >
             <ListIcon type="secondary" />
             <p>Лента заказов</p>
           </Link>

@@ -68,7 +68,7 @@ function ProfilePage() {
                     <p className="text text_type_main-medium">
                         Профиль
                     </p>
-                    <Link to={ "/not_found" } className={ profileStyle.link } >
+                    <Link to={ "/profile/orders" } className={ profileStyle.link } >
                         <p className="text text_type_main-medium text_color_inactive">
                             История заказов
                         </p>
