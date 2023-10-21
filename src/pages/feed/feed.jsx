@@ -16,7 +16,6 @@ const getOrdersByStatus = (feedInfo, status) => {
 
 function FeedPage() {
   const dispatch = useDispatch();
-
   const { connected, messages } = useSelector(state => state.ws);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
   const total = feedInfo ? feedInfo.total : "";
@@ -29,16 +28,6 @@ function FeedPage() {
     "messages.length", messages.length,
     "feedInfo", feedInfo
   );
-
-  if (feedInfo && feedInfo.orders) {
-    console.log("Order", feedInfo.orders[0]);
-    const {
-      createdAt, ingredients, name, number, status, updatedAt, _id
-    } = feedInfo.orders[0];
-    console.log("createdAt, ingredients, name, number, status, updatedAt, _id",
-      createdAt, ingredients, name, number, status, updatedAt, _id
-    )
-  }
 
   useEffect(() => {
     dispatch({
@@ -54,7 +43,7 @@ function FeedPage() {
           <h2 className="text text_type_main-large mt-10">Лента заказов</h2>
           <div className={ `${feedStyle.orderCards} custom-scroll` }>
             {feedInfo && feedInfo.orders && feedInfo.orders.map((info) => {
-              return <Order info={ info } key={ info._id } />
+              return <Order info={ info } add_status={ false } key={ info._id } />
             })}
           </div>
         </div>

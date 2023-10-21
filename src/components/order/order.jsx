@@ -31,7 +31,7 @@ const getImages = (orderIngredients) => {
             alt="order's ingredient image"
             />
           }
-          {i === maxElements - 1 &&
+          {i === maxElements - 1 && orderIngredients.length - maxElements &&
           <>
             <img
               src={ orderIngredients[i].image }
@@ -64,13 +64,23 @@ const totalSum = (ingredients) => {
   return sum;
 }
 
-function Order({ info }) {
-  const { name, number, updatedAt } = info;
+function Order({ info, add_status }) {
+  const { name, number, createdAt } = info;
   const orderIngredientsIdxs = info.ingredients;
-  const formattedDate = new Date(updatedAt);
+  const formattedDate = new Date(createdAt);
   const { ingredients } = useSelector(state => state.ingredients);
   const orderIngredients = orderIngredientsIdxs.map((id) => getIngredient(ingredients, id));
   const price = totalSum(orderIngredients);
+
+  let status = 'Выполнен';
+  let statusStyle = '';
+  if (info.status === 'pending') {
+    status = "Готовится"
+    statusStyle = orderStyle.status_pending;
+  } else if (info.status === 'cancel') {
+    status = "Отменен"
+    statusStyle = orderStyle.status_canceled;
+  }
 
   console.log("ingredients", ingredients.length, ingredients[0]);
   console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);
@@ -86,6 +96,11 @@ function Order({ info }) {
           />
         </div>
         <p className="text text_type_main-medium">{ name }</p>
+        {add_status &&
+          <p className={`${ statusStyle } text text_type_main-default mb-6 mt-2`}>
+          { status }
+        </p>
+        }
         <div className={ orderStyle.total }>
           <div className={ orderStyle.images }> {
             getImages(orderIngredients)

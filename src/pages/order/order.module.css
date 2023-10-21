@@ -16,8 +16,12 @@
     align-self: center;
 }
 
-.ready {
+.status_pending {
     color: #00CCCC;
+}
+
+.status_canceled {
+    color: red;
 }
 
 .sum {

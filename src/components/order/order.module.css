@@ -69,3 +69,15 @@
   scale: 1.5;
   color: rgb(219, 219, 219);
 }
+
+.status {
+  margin-top: 8px;
+}
+
+.status_pending {
+  color: #00CCCC;
+}
+
+.status_canceled {
+  color: red;
+}

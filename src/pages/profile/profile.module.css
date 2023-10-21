@@ -6,26 +6,6 @@
     gap: 60px;
 }
 
-.profile_left {
-    margin-top: 20px;
-    margin-bottom: 80px;
-    max-width: 320px;
-}
-
-.profile_nav {
-    margin-top: 20px;
-    margin-bottom: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    align-items: left;
-    gap: 2em;
-}
-
-.link {
-    text-decoration: none;
-}
-
 .profile_input {
     display: flex;
     flex-direction: column;
