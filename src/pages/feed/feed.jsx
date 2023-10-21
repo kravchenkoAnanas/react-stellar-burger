@@ -1,11 +1,10 @@
-import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import feedStyle from './feed.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+import Order from "../../components/order/order";
 
 function FeedPage() {
-  const today = new Date();
   const dispatch = useDispatch();
 
   const { connected, messages } = useSelector(state => state.ws);
@@ -16,14 +15,16 @@ function FeedPage() {
     "messages.length", messages.length,
     "feedInfo", feedInfo
   );
-  
+
   if (feedInfo && feedInfo.orders) {
     console.log("Order", feedInfo.orders[0]);
     const {
       createdAt, ingredients, name, number, status, updatedAt, _id
     } = feedInfo.orders[0];
     console.log("createdAt, ingredients, name, number, status, updatedAt, _id",
-      createdAt, ingredients, name, number, status, updatedAt, _id)
+      createdAt, ingredients, name, number, status, updatedAt, _id
+    )
+    console.log("new Date(updatedAt)", new Date(updatedAt));
   }
 
   useEffect(() => {
@@ -39,114 +40,10 @@ function FeedPage() {
         <div className={ feedStyle.feed_left }>
           <h2 className="text text_type_main-large mt-10">Лента заказов</h2>
           <div className={ feedStyle.orders }>
-            
-            {/* компонент */}
-            <div className={ feedStyle.info }>
-              <div className={ feedStyle.digits }>
-                <p className="text text_type_digits-default">#03456</p>
-                <FormattedDate
-                  date={
-                    new Date(
-                      today.getFullYear(),
-                      today.getMonth(),
-                      today.getDate(),
-                      today.getHours(),
-                      today.getMinutes() - 1,
-                      0,
-                    )
-                  }
-                  className="text text_type_main-default text_color_inactive"
-                />
-              </div>
-              <p className="text text_type_main-medium">Death Star Starship Main бургер</p>
-              <div className={ feedStyle.total }>
-                <img></img>
-                <div className={ feedStyle.sum }>
-                  <p className="text text_type_digits-default">480</p>
-                  <CurrencyIcon type="primary"/>
-                </div>
-              </div>
-            </div>
-            
-            {/* повторения */}
-            <div className={ feedStyle.info }>
-              <div className={ feedStyle.digits }>
-                <p className="text text_type_digits-default">#03455</p>
-                <FormattedDate
-                  date={
-                    new Date(
-                      today.getFullYear(),
-                      today.getMonth(),
-                      today.getDate(),
-                      today.getHours(),
-                      today.getMinutes() - 1,
-                      0,
-                    )
-                  }
-                  className="text text_type_main-default text_color_inactive"
-                />
-              </div>
-              <p className="text text_type_main-medium">Interstellar бургер</p>
-              <div className={ feedStyle.total }>
-                <img></img>
-                <div className={ feedStyle.sum }>
-                  <p className="text text_type_digits-default">560</p>
-                  <CurrencyIcon type="primary"/>
-                </div>
-              </div>
-            </div>
-            <div className={ feedStyle.info }>
-              <div className={ feedStyle.digits }>
-                <p className="text text_type_digits-default">#03454</p>
-                <FormattedDate
-                  date={
-                    new Date(
-                      today.getFullYear(),
-                      today.getMonth(),
-                      today.getDate(),
-                      today.getHours(),
-                      today.getMinutes() - 1,
-                      0,
-                    )
-                  }
-                  className="text text_type_main-default text_color_inactive"
-                />
-              </div>
-              <p className="text text_type_main-medium">Black Hole Singularity острый бургер</p>
-              <div className={ feedStyle.total }>
-                <img></img>
-                <div className={ feedStyle.sum }>
-                  <p className="text text_type_digits-default">510</p>
-                  <CurrencyIcon type="primary"/>
-                </div>
-              </div>
-            </div>
-            <div className={ feedStyle.info }>
-              <div className={ feedStyle.digits }>
-                <p className="text text_type_digits-default">#03454</p>
-                <FormattedDate
-                  date={
-                    new Date(
-                      today.getFullYear(),
-                      today.getMonth(),
-                      today.getDate(),
-                      today.getHours(),
-                      today.getMinutes() - 1,
-                      0,
-                    )
-                  }
-                  className="text text_type_main-default text_color_inactive"
-                />
-              </div>
-              <p className="text text_type_main-medium">Supernova Infinity бургер</p>
-              <div className={ feedStyle.total }>
-                <img></img>
-                <div className={ feedStyle.sum }>
-                  <p className="text text_type_digits-default">370</p>
-                  <CurrencyIcon type="primary"/>
-                </div>
-              </div>
-            </div>
+            {feedInfo && feedInfo.orders && feedInfo.orders.map((info) => {
+              return <Order info={ info } key={ info._id } />
+            })
+            }
           </div>
         </div>
         <div className={ feedStyle.feed_right }>

@@ -11,7 +11,7 @@ function OrdersPage() {
 
   console.log(
     "[WS] connected", connected,
-    "messages.length", messages.length,
+    "messages.length", messages.lengh,
     "feedInfo", feedInfo
   );
   
