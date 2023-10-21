@@ -4,7 +4,6 @@ import { WS_CONNECTION_START } from "../../services/actions/wsActions";
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import ordersStyle from './orders.module.css';
 import Order from "../../components/order/order";
-import { getOrdersByStatus } from "../../utils/data";
 
 function OrdersPage() {
   const dispatch = useDispatch();
