@@ -20,10 +20,11 @@
   margin-top: 24px;
 }
 
-.sum {
+.price {
   display: flex;
   flex-direction: row;
   gap: 8px;
+  align-self: center;
 }
 
 .images {
@@ -42,14 +43,15 @@
 }
 
 .imageWrapper {
+  position: relative;
   width: 80px;
   height: 80px;
   overflow: visible;
   border: double 2px transparent;
   border-radius: 50%;
   background-image:
-  linear-gradient(#1C1C21, #1C1C21),
-  radial-gradient(rgb(155, 82, 208),#550c89);
+    linear-gradient(#1C1C21, #1C1C21),
+    radial-gradient(rgb(155, 82, 208),#550c89);
   background-origin: content-box;
   background-clip: content-box, border-box;
 }
@@ -58,5 +60,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}  
+}
 
+.frontImgText {
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  scale: 1.5;
+  color: rgb(219, 219, 219);
+}

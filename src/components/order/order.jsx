@@ -1,11 +1,6 @@
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-// import PropTypes from 'prop-types';
-// import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import orderStyle from './order.module.css';
 import { useSelector } from "react-redux";
-// import { useDrag } from 'react-dnd';
-// import { useRef } from 'react';
-// import { Link, useLocation } from 'react-router-dom';
 
 const getIngredient = (ingredients, id) => {
   const filteredIngredient = ingredients.filter((ingredient) => {
@@ -18,23 +13,39 @@ const getIngredient = (ingredients, id) => {
 
 const getImages = (orderIngredients) => {
   const output = [];
-  for (let i = 0; i < 6; ++i) {
+  const maxElements = 6;
+
+  for (let i = 0; i < maxElements; ++i) {
     let element;
 
     if (i < orderIngredients.length) {
-      // if (i === orderIngredients.length - 1) {
-
-      // };
       element = (
         <div
           className={ orderStyle.imageWrapper }
           style={{ zIndex: `${100 - i}` }}
           >
-          <img
+          {i !== maxElements - 1 &&
+            <img
             src={ orderIngredients[i].image }
             className={ orderStyle.image }
             alt="order's ingredient image"
             />
+          }
+          {i === maxElements - 1 &&
+          <>
+            <img
+              src={ orderIngredients[i].image }
+              className={ orderStyle.image }
+              alt="order's ingredient image"
+              style={{ filter: "brightness(50%)" }}
+              />
+            <p
+              className={ orderStyle.frontImgText }
+            >
+              +{orderIngredients.length - maxElements}
+            </p>
+          </>
+          }
         </div>
       )
     } else {
@@ -47,16 +58,21 @@ const getImages = (orderIngredients) => {
   return output;
 }
 
+const totalSum = (ingredients) => {
+  let sum = 0;
+  ingredients.map(ingredient => { sum += ingredient.price });
+  return sum;
+}
+
 function Order({ info }) {
   const { name, number, updatedAt } = info;
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(updatedAt);
   const { ingredients } = useSelector(state => state.ingredients);
   const orderIngredients = orderIngredientsIdxs.map((id) => getIngredient(ingredients, id));
-  const totalSum = 480;
+  const price = totalSum(orderIngredients);
 
   console.log("ingredients", ingredients.length, ingredients[0]);
-  // console.log("orderIngredientsIdxs", orderIngredientsIdxs.length, orderIngredientsIdxs[0]);
   console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);
 
   return (
@@ -75,8 +91,8 @@ function Order({ info }) {
             getImages(orderIngredients)
           }
           </div>
-          <div className={ orderStyle.sum }>
-            <p className="text text_type_digits-default">{ totalSum }</p>
+          <div className={ orderStyle.price }>
+            <p className="text text_type_digits-default">{ price }</p>
             <CurrencyIcon type="primary"/>
           </div>
         </div>
