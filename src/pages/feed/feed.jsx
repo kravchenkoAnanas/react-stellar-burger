@@ -5,13 +5,11 @@ import { WS_CONNECTION_START } from "../../services/actions/wsActions";
 import Order from "../../components/order/order";
 
 const getOrdersByStatus = (feedInfo, status) => {
-  const maxElements = 10;
-
   if (feedInfo && feedInfo.orders) {
     const filteredOrders = feedInfo.orders.filter((order) => {
       return order.status == status;
     });
-    return filteredOrders.slice(0, maxElements);
+    return filteredOrders;
   }
   return [];
 };
@@ -54,7 +52,7 @@ function FeedPage() {
       <div className={ feedStyle.feed }>
         <div className={ feedStyle.feed_left }>
           <h2 className="text text_type_main-large mt-10">Лента заказов</h2>
-          <div className={ `${feedStyle.orders} custom-scroll` }>
+          <div className={ `${feedStyle.orderCards} custom-scroll` }>
             {feedInfo && feedInfo.orders && feedInfo.orders.map((info) => {
               return <Order info={ info } key={ info._id } />
             })}
@@ -65,8 +63,13 @@ function FeedPage() {
             <div>
               <p className="text text_type_main-medium">Готовы:</p>
               <div className={ feedStyle.indexes }>
-                <div className={ feedStyle.orders }>
-                  {readyOrders.map(order => {
+                <div className={ `${feedStyle.orders} ${feedStyle.ready_orders}` }>
+                  {readyOrders.slice(0, 10).map(order => {
+                    return <p className="text text_type_digits-default">{ order.number }</p>
+                  })}
+                </div>
+                <div className={ `${feedStyle.orders} ${feedStyle.ready_orders}` }>
+                  {readyOrders.slice(10, 20).map(order => {
                     return <p className="text text_type_digits-default">{ order.number }</p>
                   })}
                 </div>
@@ -76,7 +79,12 @@ function FeedPage() {
               <p className="text text_type_main-medium">В работе:</p>
               <div className={ feedStyle.indexes }>
                 <div className={ feedStyle.orders }>
-                  {inProgressOrders.map(order => {
+                  {inProgressOrders.slice(0, 10).map(order => {
+                    return <p className="text text_type_digits-default">{ order.number }</p>
+                  })}
+                </div>
+                <div className={ feedStyle.orders }>
+                  {inProgressOrders.slice(10, 20).map(order => {
                     return <p className="text text_type_digits-default">{ order.number }</p>
                   })}
                 </div>
