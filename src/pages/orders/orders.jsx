@@ -26,7 +26,7 @@ function OrdersPage() {
   return (
     <>
       <div className={ ordersStyle.main }>
-        <ProfileNav />
+        <ProfileNav type={ "orders" }/>
 
         <div className={ `${ordersStyle.orderCards} custom-scroll` }>
           {feedInfo && feedInfo.orders && feedInfo.orders.map((info) => {

@@ -58,7 +58,7 @@ function ProfilePage() {
     return (
     <>
         <div className={ profileStyle.profile }>
-            <ProfileNav/>
+            <ProfileNav type={ "profile" } />
             <div className={ profileStyle.profile_input }>
                 <div>
                     <Input
