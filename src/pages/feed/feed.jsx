@@ -1,7 +1,7 @@
 import feedStyle from './feed.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from "../../services/actions/wsActions";
 import Order from "../../components/order/order";
 
 const getOrdersByStatus = (feedInfo, status) => {
@@ -23,17 +23,23 @@ function FeedPage() {
   const inProgressOrders = getOrdersByStatus(feedInfo, "pending");
   const readyOrders = getOrdersByStatus(feedInfo, "done");
 
-  console.log(
-    "[WS] connected", connected,
-    "messages.length", messages.length,
-    "feedInfo", feedInfo
-  );
+  // console.log(
+  //   "[WS] connected", connected,
+  //   "messages.length", messages.length,
+  //   "feedInfo", feedInfo
+  // );
 
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
       payload: '/all'
     });
+    return () => {
+      // console.log("FeedPage type: WS_CONNECTION_CLOSE")
+      dispatch({
+        type: WS_CONNECTION_CLOSE,
+      });
+    };
   }, []);
 
   return (
@@ -52,14 +58,14 @@ function FeedPage() {
             <div>
               <p className="text text_type_main-medium">Готовы:</p>
               <div className={ feedStyle.indexes }>
-                <div className={ `${feedStyle.orders} ${feedStyle.ready_orders}` }>
-                  {readyOrders.slice(0, 10).map(order => {
-                    return <p className="text text_type_digits-default">{ order.number }</p>
+                <div className={ `${feedStyle.orders} ${feedStyle.ready_orders}`}>
+                  {readyOrders.slice(0, 10).map((order, i) => {
+                    return <p className="text text_type_digits-default" key={ i }  >{ order.number }</p>
                   })}
                 </div>
                 <div className={ `${feedStyle.orders} ${feedStyle.ready_orders}` }>
-                  {readyOrders.slice(10, 20).map(order => {
-                    return <p className="text text_type_digits-default">{ order.number }</p>
+                  {readyOrders.slice(10, 20).map((order, i) => {
+                    return <p className="text text_type_digits-default" key={ i } >{ order.number } </p>
                   })}
                 </div>
               </div>

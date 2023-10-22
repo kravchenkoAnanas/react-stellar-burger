@@ -5,7 +5,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
       
       if (type === wsInit) {
         let url = wsUrl;
@@ -15,8 +15,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const token = localStorage.getItem("accessToken");
           url += `?token=${token}`;
         }
-        console.log("socketMiddleware url", url);
+        // console.log("socketMiddleware url", url);
         socket = new WebSocket(url);
+      }
+      if (type === wsClose) {
+        // console.log("socketMiddleware STOP");
+        socket.close();
+        dispatch({ type: onClose });
       }
       if (socket) {
         socket.onopen = event => {

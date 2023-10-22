@@ -36,12 +36,14 @@ export const getImages = (orderIngredients) => {
          <div
            className={ orderStyle.imageWrapper }
            style={{ zIndex: `${100 - i}` }}
-           >
+           key={ i }
+          >
            {i !== maxElements - 1 &&
              <img
              src={ orderIngredients[i].image }
              className={ orderStyle.image }
              alt="order's ingredient image"
+             key={ i }
              />
            }
            {i === maxElements - 1 && orderIngredients.length - maxElements &&
@@ -51,9 +53,11 @@ export const getImages = (orderIngredients) => {
                className={ orderStyle.image }
                alt="order's ingredient image"
                style={{ filter: "brightness(50%)" }}
+               key={ i + 1}
                />
              <p
                className={ orderStyle.frontImgText }
+               key={ i + 2 }
              >
                +{orderIngredients.length - maxElements}
              </p>
@@ -63,10 +67,13 @@ export const getImages = (orderIngredients) => {
        )
      } else {
        element = (
-         <div className={ orderStyle.imageWrapperEmpty }/>
+         <div
+          className={ orderStyle.imageWrapperEmpty }
+          key={ i }
+          />
          )
        }
-       output.push(element);
+      output.push(element);
    }
    return output;
 };

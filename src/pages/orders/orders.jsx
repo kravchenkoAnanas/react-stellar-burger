@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from "../../services/actions/wsActions";
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import ordersStyle from './orders.module.css';
 import Order from "../../components/order/order";
@@ -10,16 +10,22 @@ function OrdersPage() {
   const { connected, messages } = useSelector(state => state.ws);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
 
-  console.log(
-    "[WS] connected", connected,
-    "messages.length", messages.lengh,
-    "feedInfo", feedInfo
-  );
+  // console.log(
+  //   "[WS] connected", connected,
+  //   "messages.length", messages.lengh,
+  //   "feedInfo", feedInfo
+  // );
 
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START
     });
+    return () => {
+      // console.log("FeedPage type: WS_CONNECTION_CLOSE")
+      dispatch({
+        type: WS_CONNECTION_CLOSE,
+      });
+    };
   }, []);
 
   return (

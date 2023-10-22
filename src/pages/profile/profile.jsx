@@ -45,7 +45,7 @@ function ProfilePage() {
                 toEdit['name'] = emailState;
             }
             if (Object.keys(toEdit).length) {
-                console.log(toEdit);
+                // console.log(toEdit);
                 dispatch(updateUserAction(toEdit));
             }
         } else {

@@ -13,12 +13,12 @@ function Order({ info, add_status }) {
   const price = totalSum(orderIngredients);
   const [status, statusStyle] = getStatus(info.status);
   
-  console.log("ingredients", ingredients.length, ingredients[0]);
-  console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);
+  // console.log("ingredients", ingredients.length, ingredients[0]);
+  // console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);
 
   return (
     <>
-      <div className={ orderStyle.info }>
+      <div className={ orderStyle.info } key={ info._id } >
         <div className={ orderStyle.digits }>
           <p className="text text_type_digits-default">#{ number }</p>
           <FormattedDate
@@ -47,6 +47,4 @@ function Order({ info, add_status }) {
   );
 }
 
-Order.propTypes = {
-}
 export default Order;

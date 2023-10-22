@@ -25,11 +25,11 @@ function OrderPage() {
   const { ingredients } = useSelector(state => state.ingredients);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
 
-  console.log(
-    "[WS] connected", connected,
-    "messages.length", messages.lengh,
-    "feedInfo", feedInfo
-  );
+  // console.log(
+  //   "[WS] connected", connected,
+  //   "messages.length", messages.lengh,
+  //   "feedInfo", feedInfo
+  // );
 
   useEffect(() => {
     dispatch({
@@ -38,7 +38,7 @@ function OrderPage() {
   }, []);
 
   const info = getOrder(feedInfo, id);
-  console.log("info", info);
+  // console.log("info", info);
   if (!info) {
     return <></>
   }

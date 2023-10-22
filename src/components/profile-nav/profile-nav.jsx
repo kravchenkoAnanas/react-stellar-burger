@@ -2,12 +2,16 @@ import { Link } from 'react-router-dom';
 import profileNavStyle from './profile-nav.module.css';
 import { useDispatch } from 'react-redux';
 import { logoutUserAction } from '../../services/actions/user';
+import { WS_CONNECTION_CLOSE } from '../../services/actions/wsActions';
 
 function ProfileNav({ type }) {
   const dispatch = useDispatch();
 
   const submitExit = () => {
     dispatch(logoutUserAction());
+    dispatch({
+      type: WS_CONNECTION_CLOSE,
+    });
   };
 
   const baseNavTetxStyle = "text text_type_main-medium";
