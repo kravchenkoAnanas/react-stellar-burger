@@ -16,54 +16,30 @@
     gap: 60px;
 }
 
-.orders {
+.orderCards {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
     gap: 16px;
+    overflow: scroll;
+    max-height: 600px;
 }
 
-.info {
-    background-color: #1C1C21;
-    max-width: 584px;
-    border-radius: 25px;
-    padding: 24px;
-    align-items: center;
-}
-
-.digits {
+.indexes {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 24px;
+    flex-direction: raw;
+    gap: 3em;
 }
 
-.total {
+.orders {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     margin-top: 24px;
-}
-
-.sum {
-    display: flex;
-    flex-direction: row;
     gap: 8px;
 }
 
-.order_numbers_left {
-    display: flex;
-    flex-direction: column;
+.ready_orders {
     color: #00CCCC;
-    margin-top: 24px;
-    gap: 8px;
-}
-
-.order_numbers_right {
-    display: flex;
-    flex-direction: column;
-    margin-top: 24px;
-    gap: 8px;
 }
 
 .order_numbers {

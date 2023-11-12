@@ -13,7 +13,7 @@ function ModalWrapper() {
     
     const parts = pathname.split('/');
     const id = parts[parts.length - 1];
-    console.log("IngredientPage idx", id);
+    // console.log("IngredientPage idx", id);
 
     useEffect(() => {
         dispatch(getIngredients(id));

@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from '../../utils/cookie';
-import { refreshUserAction, updateUserAction, getUserAction, logoutUserAction } from '../../services/actions/user';
+import { updateUserAction } from '../../services/actions/user';
 import profileStyle from './profile.module.css';
+import ProfileNav from '../../components/profile-nav/profile-nav';
 
 
 function ProfilePage() {
@@ -32,10 +31,6 @@ function ProfilePage() {
         setEmailState(e.target.value)
     };
 
-    const submitExit = () => {
-        dispatch(logoutUserAction());
-    };
-
     const submit = (e) => {
         e.preventDefault();
 
@@ -50,7 +45,7 @@ function ProfilePage() {
                 toEdit['name'] = emailState;
             }
             if (Object.keys(toEdit).length) {
-                console.log(toEdit);
+                // console.log(toEdit);
                 dispatch(updateUserAction(toEdit));
             }
         } else {
@@ -63,27 +58,7 @@ function ProfilePage() {
     return (
     <>
         <div className={ profileStyle.profile }>
-            <div className={ profileStyle.profile_left }>
-                <div className={ profileStyle.profile_nav }>
-                    <p className="text text_type_main-medium">
-                        Профиль
-                    </p>
-                    <Link to={ "/profile/orders" } className={ profileStyle.link } >
-                        <p className="text text_type_main-medium text_color_inactive">
-                            История заказов
-                        </p>
-                    </Link>
-                    <Link onClick={ submitExit } className={ profileStyle.link } >
-                        <p className="text text_type_main-medium text_color_inactive">
-                            Выход
-                        </p>
-                    </Link>
-
-                </div>
-                <p className="text text_type_main-default text_color_inactive">
-                    В этом разделе вы можете изменить свои персональные данные
-                </p>
-            </div>
+            <ProfileNav type={ "profile" } />
             <div className={ profileStyle.profile_input }>
                 <div>
                     <Input

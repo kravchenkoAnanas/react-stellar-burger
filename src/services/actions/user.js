@@ -109,7 +109,7 @@ export function resetPasswordAction(password, token) {
         resetPassword(password, token)
             .then(res => {
                 if (res.success) {
-                    console.log(resetPasswordAction, res);
+                    // console.log(resetPasswordAction, res);
                     dispatch(setUser(res.user));
                 }
             })

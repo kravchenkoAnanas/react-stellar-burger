@@ -7,7 +7,7 @@ import ResetPasswordPage from './../../pages/password/reset/reset';
 import ProfilePage from './../../pages/profile/profile';
 import IngredientPage from './../../pages/ingredient/ingredient';
 import OrdersPage from './../../pages/orders/orders';
-import OrderPage from '../../pages/order/order';
+import OrderPage from '../../pages/order/order-page';
 import FeedPage from '../../pages/feed/feed';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from './../../components/protected-route';
