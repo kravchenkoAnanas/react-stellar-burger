@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState, useEffect } from 'react';
+import { PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import resetStyle from './reset.module.css';
 import { resetPasswordAction } from '../../../services/actions/user';
 import { useDispatch } from 'react-redux';
 
-function ResetPasswordPage() {
+const ResetPasswordPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
