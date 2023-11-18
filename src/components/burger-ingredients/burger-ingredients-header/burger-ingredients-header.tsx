@@ -1,11 +1,11 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from '../burger-ingredients.module.css'
-// import { useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../../services/hooks';
+import { RootState } from '../../../services/types';
 
 
 function BurgerIngredientsHeader() {
-  const currentTab = useSelector((state: any) => state.ingredients.currentTab);
+  const currentTab = useSelector((state: RootState) => state.ingredients.currentTab);
   const handleTabClick = (value: string) => { };
 
   return (

@@ -1,32 +1,40 @@
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderStyle from './order.module.css';
-// import { useSelector } from "react-redux";
 import { useSelector, useDispatch } from './../../services/hooks';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
 import { FC } from "react";
+import { IIngredint, RootState } from "../../services/types";
 
 interface OrderProps {
-  info: any;
-  add_status: any;
+  info: {
+    name: string;
+    number: number;
+    createdAt: string;
+    ingredients: IIngredint[];
+    status: "Выполнен" | "Отменен" | "Готовится";
+  };
+  add_status: boolean;
 }
 
 const Order: FC<OrderProps> = ({ info, add_status }) => {
   const { name, number, createdAt } = info;
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(createdAt);
-  const { ingredients } = useSelector((state: any) => state.ingredients);
-  const orderIngredients = orderIngredientsIdxs.map((id: any) => getIngredient(ingredients, id));
+  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  // const orderIngredients = orderIngredientsIdxs.map((id: string) => getIngredient(ingredients, id));
+  const orderIngredients = orderIngredientsIdxs.map((id: string): IIngredient | undefined => getIngredient(ingredients, id));
+
   const price = totalSum(orderIngredients);
   const [status, statusStyle] = getStatus(info.status);
   
   // console.log("ingredients", ingredients.length, ingredients[0]);
   // console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);
 
-  const getImages = (orderIngredients: any) => {
+  const getImages = (orderIngredients: IIngredint[]) => {
     const output = [];
     const maxElements = 6;
   
-    for (let i: any = 0; i < maxElements; ++i) {
+    for (let i: number = 0; i < maxElements; ++i) {
       let element;
   
       if (i < orderIngredients.length) {

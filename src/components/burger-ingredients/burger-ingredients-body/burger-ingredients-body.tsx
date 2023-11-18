@@ -8,27 +8,28 @@ import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
+import { IIngredint, RootState } from '../../../services/types';
 
 
 function BurgerIngredientsBody() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { ingredients } = useSelector((state: any) => state.ingredients);
-  const currentTab = useSelector((state: any) => state.ingredients.currentTab);
+  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  const currentTab = useSelector((state: RootState) => state.ingredients.currentTab);
 
   const [section1Ref, section1InView] = useInView({ threshold: 0.5 });
   const [section2Ref, section2InView] = useInView({ threshold: 0.5 });
 
   let [buns, mains, sauces] = useMemo(() => {
-    const buns = ingredients.filter((ingredient: any) => ingredient.type === 'bun');
-    const mains = ingredients.filter((ingredient: any) => ingredient.type === 'main');
-    const sauces = ingredients.filter((ingredient: any) => ingredient.type === 'sauce');
+    const buns = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'bun');
+    const mains = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'main');
+    const sauces = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'sauce');
 
     return [buns, mains, sauces]
   }, [ingredients]);
 
-  const handleOpenModal = (element: any) => {
+  const handleOpenModal = (element: IIngredint) => {
     dispatch({
       type: SET_INGREDIENT,
       data: element
@@ -36,7 +37,7 @@ function BurgerIngredientsBody() {
     navigate('/')
   }
 
-  const renderElement = (element: any) => {
+  const renderElement = (element: IIngredint) => {
     return (
       <Ingredient
         element={ element }
@@ -70,17 +71,17 @@ function BurgerIngredientsBody() {
       <div className={`${ burgerIngredientsStyle.scroll } custom-scroll`} >
         <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients } ref={section1Ref} >
-          {buns.map((element: any) => renderElement(element))}
+          {buns.map((element: IIngredint) => renderElement(element))}
         </article>
 
         <h3 className='text text_type_main-medium mt-10 mb-6'>Соусы</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients } ref={section2Ref}>
-          {sauces.map((element: any) => renderElement(element))}
+          {sauces.map((element: IIngredint) => renderElement(element))}
         </article>
 
         <h3 className='text text_type_main-medium mt-10 mb-6'>Начинки</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients }>    
-          {mains.map((element: any) => renderElement(element))}
+          {mains.map((element: IIngredint) => renderElement(element))}
         </article>
       </div>
     </>

@@ -4,19 +4,10 @@ import {
   UPD_CURRENT_TAB,
   UPD_INGREDIENTS
 } from '../actions/ingredients';
-
-// const initialState = {
-//   ingredients: [],
-//   currentTab: 'bun'
-// };
-
-interface Ingredient {
-  _id: string;
-  // Add other properties as needed...
-}
+import { IIngredint } from '../types';
 
 type TIngredientsType = {
-  ingredients: Ingredient[];
+  ingredients: IIngredint[];
   currentTab: 'bun' | 'sauce' | 'main';
 }
 
@@ -38,10 +29,10 @@ export const ingredientsReducer = (
       };
     }
     case UPD_INGREDIENTS: {
-      const newIngredients = state.ingredients.map((ingredient) => {
+      const newIngredients = state.ingredients.map((ingredient: IIngredint) => {
         return {
           ...ingredient,
-          counter: action.ingredientIds.filter((idx: any) => {
+          counter: action.ingredientIds.filter((idx: string) => {
             return idx === ingredient._id;
           }).length
         }

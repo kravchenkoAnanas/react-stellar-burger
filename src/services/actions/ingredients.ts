@@ -1,5 +1,5 @@
 import { getData, catchError } from '../api';
-import { AppDispatch, AppThunk } from '../types';
+import { AppDispatch, AppThunk, IIngredint } from '../types';
 import { SET_INGREDIENT } from './ingredient_details_modal';
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
@@ -8,7 +8,7 @@ export const UPD_INGREDIENTS: 'UPD_INGREDIENTS' = 'UPD_INGREDIENTS';
 
 export interface IGetIngredients {
   readonly type: typeof GET_INGREDIENTS;
-  ingredients: any;
+  ingredients: IIngredint[];
 }
 export interface IUpdCurrentTab {
   readonly type: typeof UPD_CURRENT_TAB;
@@ -18,18 +18,18 @@ export interface IUpdCurrentTab {
 }
 export interface IUpdIngredients {
   readonly type: typeof UPD_INGREDIENTS;
-  ingredientIds: any;
+  ingredientIds: string[];
 }
 export type TIngredientsActions =
   | IGetIngredients
   | IUpdCurrentTab
   | IUpdIngredients;
 
-export const getIngredients: AppThunk = (idx?: any) => (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = (idx?: string) => (dispatch: AppDispatch) => {
     getData()
       .then(res => {
         if (res) {
-          const ingredients = res.data.map((ingredient: any) => {
+          const ingredients = res.data.map((ingredient: IIngredint) => {
             const extendedIngredient = ingredient;
             extendedIngredient['counter'] = 0;
             extendedIngredient['chosenUuids'] = [];
@@ -42,7 +42,7 @@ export const getIngredients: AppThunk = (idx?: any) => (dispatch: AppDispatch) =
           })
 
           if (idx) {
-            const filtered = ingredients.filter((ingredient: any) => {
+            const filtered = ingredients.filter((ingredient: IIngredint) => {
               return ingredient._id === idx;
             })
             if (filtered.length === 1) {

@@ -1,22 +1,22 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorItemStyle from './constructor-item.module.css'
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/constructor';
 import { useDrag, useDrop } from 'react-dnd';
 import { FC, useRef } from 'react';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
+import { IIngredint, RootState } from '../../services/types';
 
 interface ConstructorItemProps {
   index: number;
-  element: any;
+  element: IIngredint;
 }
 
 const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
-  const { chosenIngredients } = useSelector((state: any) => state.burgerConstructor);
+  const { chosenIngredients } = useSelector((state: RootState) => state.burgerConstructor);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "innerIngredient",
@@ -97,8 +97,8 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
           dispatch({
             type: UPD_INGREDIENTS,
             ingredientIds: chosenIngredients
-              .map((ingredient: any) => ingredient._id)
-              .filter((idx: any) => idx !== element._id)
+              .map((ingredient: IIngredint) => ingredient._id)
+              .filter((idx: string) => idx !== element._id)
           });
         }}
         />

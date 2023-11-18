@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-
 import {
   ADD_INGREDIENT,
   DEL_CHOSEN_INGREDIENT,
   MOVE_INGREDIENT,
   TConstructorActions,
 } from '../actions/constructor';
+import { IIngredint } from '../types';
 
 type TConstructorType = {
-  chosenIngredients: ReadonlyArray<any>;
+  chosenIngredients: ReadonlyArray<IIngredint>;
 }
 
 const initialState: TConstructorType = {
@@ -25,7 +25,7 @@ export const constructorReducer = (
       const ingredientToAdd = action.ingredient;
       let processBun = false;
 
-      let newChosenIngredients = state.chosenIngredients.map((ingredient: any) => {
+      let newChosenIngredients = state.chosenIngredients.map((ingredient: IIngredint) => {
         if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
           if (ingredient.name === ingredientToAdd.name) {
             processBun = true;
@@ -50,7 +50,7 @@ export const constructorReducer = (
     case DEL_CHOSEN_INGREDIENT: {
       return {
         ...state,
-        chosenIngredients: state.chosenIngredients.filter((ingredient: any) => {
+        chosenIngredients: state.chosenIngredients.filter((ingredient: IIngredint) => {
           if (ingredient.uuid !== action.uuid) {
             return ingredient;
           }

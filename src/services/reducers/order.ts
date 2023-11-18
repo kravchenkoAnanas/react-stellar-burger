@@ -6,7 +6,7 @@ import {
 
 type TOrdersType = {
   orderVisible: boolean,
-  orderNumber: any | null,
+  orderNumber: number | null,
 }
 
 const initialState: TOrdersType = {

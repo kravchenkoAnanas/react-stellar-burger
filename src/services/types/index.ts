@@ -8,6 +8,30 @@ import { TOorderActions } from '../actions/order';
 import { TWsActions } from '../actions/wsActions';
 import { TUserActions } from '../actions/user';
 
+export interface IIngredint {
+  type: 'bun' | 'sauce' | 'main';
+  _id: string;
+  name: string;
+  uuid?: string;
+  dragIndex?: number;
+  hoverIndex?: number;
+  price: number;
+  image: string;
+  counter: number;
+  chosenUuids?: string[];
+}
+
+export interface IUser {
+  name: string;
+  email: string;
+}
+
+export interface IMessage {
+  payload: any;
+  timestamp: number;
+}
+
+// MainApplication
 type TApplicationActions =
     | TConstructorActions
     | TUserActions

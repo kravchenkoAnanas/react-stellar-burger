@@ -4,22 +4,21 @@ import ConstructorItem from '../constructor-item/constructor-item';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
-import PropTypes from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { sendOrder, CLOSE_ORDER } from '../../services/actions/order';
 import { ADD_INGREDIENT } from '../../services/actions/constructor';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
-// import { RootState } from '../../services/types';
+import { RootState } from '../../services/types';
+import { IIngredint } from '../../services/types';
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { orderVisible } = useSelector((state: any) => state.order);
-  const { chosenIngredients } = useSelector((state: any) => state.burgerConstructor);
-  const { user } = useSelector((state: any) => state.user);
+  const { orderVisible } = useSelector((state: RootState) => state.order);
+  const { chosenIngredients } = useSelector((state: RootState) => state.burgerConstructor);
+  const { user } = useSelector((state: RootState) => state.user);
   const [sum, setSum] = useState<number>(0);
 
   const [{ isHover }, drop] = useDrop({
@@ -27,28 +26,28 @@ const BurgerConstructor: FC = () => {
     collect: monitor => ({
       isHover: monitor.isOver(),
     }),
-    drop(item: any) {
+    drop(item: { element: IIngredint }) {
       dispatch({
         type: ADD_INGREDIENT,
         ingredient: item.element
       });
       dispatch({
         type: UPD_INGREDIENTS,
-        ingredientIds: chosenIngredients.map((ingredient: any) => {
+        ingredientIds: chosenIngredients.map((ingredient: IIngredint) => {
           return ingredient._id;
         }).concat([item.element._id])
       });
     }
   });
 
-  let bun = chosenIngredients.length
-    ? chosenIngredients.find((element: any) => element.type === "bun")
+  let bun: IIngredint | null | undefined = chosenIngredients.length
+    ? chosenIngredients.find((element: IIngredint) => element.type === "bun")
     : null;
   bun = bun === undefined ? null : bun;
 
   const handleOpenModal = () => {
     // console.log("handleOpenModal user", user);
-    const ids = chosenIngredients.map((ingredient: any) => {
+    const ids = chosenIngredients.map((ingredient: IIngredint) => {
       return ingredient._id;
     });
     if (user) {
@@ -71,16 +70,16 @@ const BurgerConstructor: FC = () => {
       return <ConstructorElement
         type={posType}
         isLocked={true}
-        text={bun.name + ` (${posWord})`}
-        price={bun.price}
-        thumbnail={bun.image}
+        text={bun?.name + ` (${posWord})`}
+        price={bun?.price || 0}
+        thumbnail={bun?.image || ""}
       />
     } else {
       return null;
     }
   };
 
-  const sumArrayOfIngredients = (arr: any[]) => {
+  const sumArrayOfIngredients = (arr: IIngredint[]) => {
     let sum = 0;
 
     for (let i = 0; i < arr.length; i = i + 1) {
@@ -112,7 +111,7 @@ const BurgerConstructor: FC = () => {
         <div
           className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
-          {chosenIngredients.map((ingredient: any, i: number) => (
+          {chosenIngredients.map((ingredient: IIngredint, i: number) => (
             ingredient.type !== "bun" &&
               <ConstructorItem index={i} element={ingredient} key={ingredient.uuid}/>
           )

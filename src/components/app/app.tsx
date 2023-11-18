@@ -11,7 +11,6 @@ import OrderPage from '../../pages/order/order-page';
 import FeedPage from '../../pages/feed/feed';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/actions/user';

@@ -1,41 +1,41 @@
 import { loginUser, logoutUser, registerUser, resetPassword, updateUser, getUser, catchError } from '../api'
-import { AppDispatch, AppThunk } from '../types';
+import { AppDispatch, AppThunk, IUser } from '../types';
 
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
 
 export interface ISetUser {
     readonly type: typeof SET_USER;
-    readonly payload: any;
+    readonly payload: IUser | null;
 }
 export interface ISetAuthChecked {
     readonly type: typeof SET_AUTH_CHECKED;
-    readonly payload: any;
+    readonly payload: boolean;
 }
 export type TUserActions = ISetUser | ISetAuthChecked;
 
-export const setUser = (user: any): ISetUser => ({
+export const setUser = (user: IUser | null): ISetUser => ({
     type: SET_USER,
     payload: user,
 });
 
-export const setAuthChecked = (value: any): ISetAuthChecked => ({
+export const setAuthChecked = (value: boolean): ISetAuthChecked => ({
     type: SET_AUTH_CHECKED,
     payload: value,
 });
 
-const clearToken = (token: any) => {
+const clearToken = (token: string) => {
     return token.replace('Bearer ', '');
 }
 
-const updateAccessAndRefreshTokens = (accessToken: any, refreshToken: any) => {
+const updateAccessAndRefreshTokens = (accessToken: string, refreshToken: string) => {
     console.log("updateAccessAndRefreshTokens", accessToken, refreshToken);
 
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 }
 
-export const loginUserAction: AppThunk = (email: any, password: any) => (dispatch: AppDispatch) => {
+export const loginUserAction: AppThunk = (email: string, password: string) => (dispatch: AppDispatch) => {
     loginUser(email, password)
         .then((res) => {
             if (res.success) {
@@ -51,18 +51,26 @@ export const loginUserAction: AppThunk = (email: any, password: any) => (dispatc
 };
 
 export const logoutUserAction: AppThunk = () => (dispatch: AppDispatch) => {
-    logoutUser(localStorage.getItem("refreshToken"))
-        .then((res) => {
-            if (res.success) {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                dispatch(setUser(null));
-            }
-        })
-        .catch(catchError)
+    const refreshToken: string | null = localStorage.getItem("refreshToken");
+    if (refreshToken) {
+        logoutUser(refreshToken)
+            .then((res) => {
+                if (res.success) {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    dispatch(setUser(null));
+                }
+            })
+            .catch(catchError)
+    }
 };
 
-export const registerUserAction: AppThunk = (email: any, password: any, name: any) => (dispatch: AppDispatch) => {
+export const registerUserAction: AppThunk = (
+    email: string,
+    password: string,
+    name: string
+    ) => (dispatch: AppDispatch) => {
+
     registerUser(email, password, name)
         .then(res => {
             if (res.success) {
@@ -79,7 +87,7 @@ export const registerUserAction: AppThunk = (email: any, password: any, name: an
         .catch(catchError)
 };
 
-export const updateUserAction: AppThunk = (info: any) => (dispatch: AppDispatch) => {
+export const updateUserAction: AppThunk = (info: IUser) => (dispatch: AppDispatch) => {
     updateUser(info)
         .then(res => {
             if (res.success) {
@@ -89,7 +97,11 @@ export const updateUserAction: AppThunk = (info: any) => (dispatch: AppDispatch)
         .catch(catchError)
 };
 
-export const resetPasswordAction: AppThunk = (password: any, token: any) => (dispatch: AppDispatch) => {
+export const resetPasswordAction: AppThunk = (
+    password: string,
+    token: string
+    ) => (dispatch: AppDispatch) => {
+
     resetPassword(password, token)
         .then(res => {
             if (res.success) {

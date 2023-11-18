@@ -3,9 +3,10 @@ import ingredientStyle from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { FC, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { IIngredint } from '../../services/types';
 
 interface IngredientProps {
-  element: any;
+  element: IIngredint;
   clickCallBack: () => void;
 }
 

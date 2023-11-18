@@ -1,6 +1,7 @@
 // import orderStyle from './order.module.css';
 import React from 'react';
 import orderStyle from './../components/order/order.module.css';
+import { IIngredint } from '../services/types';
 
 
 export const getStatus = (orderStatus: any) => {
@@ -16,8 +17,8 @@ export const getStatus = (orderStatus: any) => {
    return [status, statusStyle];
 }
 
-export const getIngredient = (ingredients: any, id: any) => {
-   const filteredIngredient = ingredients.filter((ingredient: any) => {
+export const getIngredient = (ingredients: IIngredint[], id: string): IIngredint | undefined => {
+   const filteredIngredient = ingredients.filter((ingredient: IIngredint) => {
      return ingredient._id === id
    });
    if (filteredIngredient.length) {

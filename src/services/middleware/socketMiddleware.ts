@@ -1,14 +1,17 @@
-export const socketMiddleware = (wsUrl: any, wsActions: any) => {
+import { IWSConfig } from "../api";
+// import { RootState } from "../types";
+
+export const socketMiddleware = (wsConfig: IWSConfig)  => {
   return (store: any) => {
     let socket: any = null;
 
     return (next: any) => (action: any) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsConfig.actions;
       
       if (type === wsInit) {
-        let url = wsUrl;
+        let url = wsConfig.url;
         if (payload) {
           url += payload;
         } else if (getState().user) {

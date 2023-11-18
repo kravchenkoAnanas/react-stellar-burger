@@ -3,10 +3,11 @@ import {
   TIngredientDetailsModalActions,
   UNSET_INGREDIENT
 } from '../actions/ingredient_details_modal';
+import { IIngredint } from '../types';
 
 type TIngredientDetailsModalType = {
   ingredientVisible: boolean;
-  ingredientInfo: any | null;
+  ingredientInfo: IIngredint | null;
 }
 
 const initialState: TIngredientDetailsModalType = {
@@ -31,7 +32,7 @@ export const ingredientDetailsModalReducer = (
       return {
         ...state,
         ingredientVisible: initialState.ingredientVisible,
-        ingredientInfo: initialState.ingredientVisible,
+        ingredientInfo: initialState.ingredientInfo,
       }
     }
     default: {

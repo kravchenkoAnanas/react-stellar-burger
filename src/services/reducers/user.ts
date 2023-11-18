@@ -3,13 +3,14 @@ import {
     SET_AUTH_CHECKED,
     TUserActions
 } from '../actions/user';
+import { IUser } from '../types';
 
 type TUserType = {
-    user: any | null,
+    user: IUser | null,
     isAuthChecked: boolean,
 }
 
-const initialState = {
+const initialState: TUserType = {
     user: null,
     isAuthChecked: false
 };

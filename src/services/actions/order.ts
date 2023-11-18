@@ -7,7 +7,7 @@ export const CLOSE_ORDER: 'CLOSE_ORDER' = 'CLOSE_ORDER';
 export interface ISendOrder {
     readonly type: typeof SEND_ORDER;
     readonly visible: boolean;
-    readonly number: any;
+    readonly number: number;
 }
 export interface ICloseOrder {
     readonly type: typeof CLOSE_ORDER;
@@ -16,7 +16,7 @@ export type TOorderActions =
     | ISendOrder
     | ICloseOrder;
 
-export const sendOrder: AppThunk = (ids?: any) => (dispatch: AppDispatch) => {
+export const sendOrder: AppThunk = (ids: string[]) => (dispatch: AppDispatch) => {
     postOrder(ids)
     .then((res) => {
       if (res.success) {

@@ -6,6 +6,7 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
 } from "./actions/wsActions";
+import { IUser } from "./types";
 
 const config = {
   "baseUrl": "https://norma.nomoreparties.space/api",
@@ -14,15 +15,27 @@ const config = {
   }
 }
 
-export const wsConfig = {
+export interface IWSConfig {
+  url: string,
+  actions: {
+    wsInit: "WS_CONNECTION_START";
+    wsClose: "WS_CONNECTION_CLOSE";
+    onOpen: "WS_CONNECTION_SUCCESS";
+    onClose: "WS_CONNECTION_CLOSED";
+    onError: "WS_CONNECTION_ERROR";
+    onMessage: "WS_GET_MESSAGE";
+  }
+}
+
+export const wsConfig: IWSConfig = {
   "url": "wss://norma.nomoreparties.space/orders",
-  "actions": {
-    wsInit: WS_CONNECTION_START,
-    wsClose: WS_CONNECTION_CLOSE,
-    onOpen: WS_CONNECTION_SUCCESS,
-    onClose: WS_CONNECTION_CLOSED,
-    onError: WS_CONNECTION_ERROR,
-    onMessage: WS_GET_MESSAGE
+  "actions": { 
+    "wsInit": WS_CONNECTION_START,
+    "wsClose": WS_CONNECTION_CLOSE,
+    "onOpen": WS_CONNECTION_SUCCESS,
+    "onClose": WS_CONNECTION_CLOSED,
+    "onError": WS_CONNECTION_ERROR,
+    "onMessage": WS_GET_MESSAGE
   }
 };
 
@@ -42,7 +55,7 @@ export const getData = async () => {
     .then(checkResponse)
 };
 
-export const postOrder = async (ids: any) => {
+export const postOrder = async (ids: string[]) => {
   const headers = {
     ...config.headers,
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")
@@ -58,7 +71,7 @@ export const postOrder = async (ids: any) => {
     .then(checkResponse)
 };
 
-export const forgotPassword = async (email: any) => {
+export const forgotPassword = async (email: string) => {
   return fetch(`${config.baseUrl}/password-reset`, {
       method: 'POST',
       headers: config.headers,
@@ -69,7 +82,7 @@ export const forgotPassword = async (email: any) => {
     .then(checkResponse)
 };
 
-export const resetPassword = async (password: any, token: any) => {
+export const resetPassword = async (password: string, token: string) => {
   return fetch(`${config.baseUrl}/password-reset/reset`, {
       method: 'POST',
       headers: config.headers,
@@ -81,7 +94,7 @@ export const resetPassword = async (password: any, token: any) => {
     .then(checkResponse)
 };
 
-export const registerUser = async (email: any, password: any, name: any) => {
+export const registerUser = async (email: string, password: string, name: string) => {
   return fetch(`${config.baseUrl}/auth/register`, {
       method: 'POST',
       headers: config.headers,
@@ -94,7 +107,7 @@ export const registerUser = async (email: any, password: any, name: any) => {
     .then(checkResponse)
 };
 
-export const loginUser = (email: any, password: any) => {
+export const loginUser = (email: string, password: string) => {
   return fetch(`${config.baseUrl}/auth/login`, {
     method: 'POST',
     headers: config.headers,
@@ -106,7 +119,7 @@ export const loginUser = (email: any, password: any) => {
   .then(checkResponse)
 }
 
-export const logoutUser = async (refreshToken: any) => {
+export const logoutUser = async (refreshToken: string) => {
   return fetch(`${config.baseUrl}/auth/logout`, {
     method: 'POST',
     headers: config.headers,
@@ -117,7 +130,7 @@ export const logoutUser = async (refreshToken: any) => {
   .then(checkResponse)
 }
 
-export const refreshUser = async (refreshToken: any) => {
+export const refreshUser = async (refreshToken: string) => {
   return fetch(`${config.baseUrl}/auth/token`, {
     method: 'POST',
     headers: config.headers,
@@ -141,7 +154,7 @@ export const getUser = async () => {
   .then(checkResponse)
 }
 
-export const updateUser = async (info: any) => {
+export const updateUser = async (info: IUser) => {
   const headers = {
     ...config.headers,
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")

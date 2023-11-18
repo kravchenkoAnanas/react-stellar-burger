@@ -6,11 +6,12 @@ import {
   WS_GET_MESSAGE,
   TWsActions
 } from '../actions/wsActions';
+import { IMessage, IUser } from '../types';
 
 type TwsType = {
   connected: boolean,
-  messages: ReadonlyArray<any>,
-  user: any | null
+  messages: IMessage[],
+  user: IUser | null
 }
 
 const initialState: TwsType = {
