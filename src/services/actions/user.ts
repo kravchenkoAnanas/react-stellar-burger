@@ -79,20 +79,6 @@ export const registerUserAction: AppThunk = (email: any, password: any, name: an
         .catch(catchError)
 };
 
-// export const getUserAction: AppThunk = () => (dispatch: AppDispatch) => {
-//     getUser()
-//         .then(res => {
-//             dispatch(setUser(res.user));
-//         })
-//         .catch(catchError)
-//         .catch(() => {
-//             localStorage.removeItem("accessToken");
-//             localStorage.removeItem("refreshToken");
-//             dispatch(setUser(null));
-//         })
-//         .finally(() => dispatch(setAuthChecked(true)))
-// };
-
 export const updateUserAction: AppThunk = (info: any) => (dispatch: AppDispatch) => {
     updateUser(info)
         .then(res => {
@@ -116,12 +102,17 @@ export const resetPasswordAction: AppThunk = (password: any, token: any) => (dis
 
 export const checkUserAuth: AppThunk = () => (dispatch: AppDispatch) => {
     if (localStorage.getItem("accessToken")) {
-        // dispatch(getUserAction());
         getUser()
             .then(res => {
                 dispatch(setUser(res.user));
             })
             .catch(catchError)
+            .catch(() => {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                dispatch(setUser(null));
+            })
+            .finally(() => dispatch(setAuthChecked(true)))
     } else {
         dispatch(setAuthChecked(true));
     }
