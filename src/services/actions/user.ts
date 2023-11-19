@@ -35,7 +35,7 @@ const updateAccessAndRefreshTokens = (accessToken: string, refreshToken: string)
     localStorage.setItem("refreshToken", refreshToken);
 }
 
-export const loginUserAction: AppThunk = (email: string, password: string) => (dispatch: AppDispatch) => {
+export const loginUserAction: AppThunk = (email: string, password: string) => (dispatch) => {
     loginUser(email, password)
         .then((res) => {
             if (res.success) {
@@ -50,7 +50,7 @@ export const loginUserAction: AppThunk = (email: string, password: string) => (d
         .catch(catchError)
 };
 
-export const logoutUserAction: AppThunk = () => (dispatch: AppDispatch) => {
+export const logoutUserAction: AppThunk = () => (dispatch) => {
     const refreshToken: string | null = localStorage.getItem("refreshToken");
     if (refreshToken) {
         logoutUser(refreshToken)
@@ -69,7 +69,7 @@ export const registerUserAction: AppThunk = (
     email: string,
     password: string,
     name: string
-    ) => (dispatch: AppDispatch) => {
+    ) => (dispatch) => {
 
     registerUser(email, password, name)
         .then(res => {
@@ -87,7 +87,7 @@ export const registerUserAction: AppThunk = (
         .catch(catchError)
 };
 
-export const updateUserAction: AppThunk = (info: IUser) => (dispatch: AppDispatch) => {
+export const updateUserAction: AppThunk = (info: IUser) => (dispatch) => {
     updateUser(info)
         .then(res => {
             if (res.success) {
@@ -100,7 +100,7 @@ export const updateUserAction: AppThunk = (info: IUser) => (dispatch: AppDispatc
 export const resetPasswordAction: AppThunk = (
     password: string,
     token: string
-    ) => (dispatch: AppDispatch) => {
+    ) => (dispatch) => {
 
     resetPassword(password, token)
         .then(res => {
@@ -112,7 +112,7 @@ export const resetPasswordAction: AppThunk = (
         .catch(catchError)
 };
 
-export const checkUserAuth: AppThunk = () => (dispatch: AppDispatch) => {
+export const checkUserAuth: AppThunk = () => (dispatch) => {
     if (localStorage.getItem("accessToken")) {
         getUser()
             .then(res => {

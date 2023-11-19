@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import resetStyle from './reset.module.css';
 import { resetPasswordAction } from '../../../services/actions/user';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../../services/hooks';
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
         navigate("/");
 	};
 
-    const submit = (e) => {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         clickResetButton();
     }
@@ -33,7 +33,6 @@ const ResetPasswordPage = () => {
     return (
     <>
         <form action="" onSubmit={ submit }>
-
             <div className={ resetStyle.reset }>
                 <h1 className="text text_type_main-medium mt-25"> 
                     Восстановление пароля
@@ -82,4 +81,3 @@ const ResetPasswordPage = () => {
 }
 
 export default ResetPasswordPage;
-

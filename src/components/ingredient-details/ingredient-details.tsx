@@ -1,9 +1,8 @@
 import ingredientDetailsStyle from './ingredient-details.module.css'
 import { useSelector, useDispatch } from './../../services/hooks';
-import { RootState } from '../../services/types';
 
 const IngredientDetails = () => {
-  const { ingredientInfo } = useSelector((state: RootState) => state.ingredientsDetailModal);
+  const { ingredientInfo } = useSelector(state => state.ingredientsDetailModal);
 
   return (
     (ingredientInfo &&

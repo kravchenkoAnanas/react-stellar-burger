@@ -10,15 +10,14 @@ import { ADD_INGREDIENT } from '../../services/actions/constructor';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../../services/types';
 import { IIngredint } from '../../services/types';
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { orderVisible } = useSelector((state: RootState) => state.order);
-  const { chosenIngredients } = useSelector((state: RootState) => state.burgerConstructor);
-  const { user } = useSelector((state: RootState) => state.user);
+  const { orderVisible } = useSelector(state => state.order);
+  const { chosenIngredients } = useSelector(state => state.burgerConstructor);
+  const { user } = useSelector(state => state.user);
   const [sum, setSum] = useState<number>(0);
 
   const [{ isHover }, drop] = useDrop({
@@ -33,7 +32,7 @@ const BurgerConstructor: FC = () => {
       });
       dispatch({
         type: UPD_INGREDIENTS,
-        ingredientIds: chosenIngredients.map((ingredient: IIngredint) => {
+        ingredientIds: chosenIngredients.map(ingredient => {
           return ingredient._id;
         }).concat([item.element._id])
       });
@@ -47,7 +46,7 @@ const BurgerConstructor: FC = () => {
 
   const handleOpenModal = () => {
     // console.log("handleOpenModal user", user);
-    const ids = chosenIngredients.map((ingredient: IIngredint) => {
+    const ids = chosenIngredients.map(ingredient => {
       return ingredient._id;
     });
     if (user) {
@@ -111,7 +110,7 @@ const BurgerConstructor: FC = () => {
         <div
           className={`${ burgerConstructorStyle.scroll } custom-scroll`}
         >
-          {chosenIngredients.map((ingredient: IIngredint, i: number) => (
+          {chosenIngredients.map((ingredient, i) => (
             ingredient.type !== "bun" &&
               <ConstructorItem index={i} element={ingredient} key={ingredient.uuid}/>
           )

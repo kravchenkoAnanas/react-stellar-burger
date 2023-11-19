@@ -1,6 +1,5 @@
 import burgerIngredientsStyle from './../burger-ingredients.module.css'
 import Ingredient from '../../ingredient/ingredient';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../../services/hooks';
 import { UPD_CURRENT_TAB } from '../../../services/actions/ingredients';
 import { SET_INGREDIENT } from '../../../services/actions/ingredient_details_modal';
@@ -8,23 +7,23 @@ import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { IIngredint, RootState } from '../../../services/types';
+import { IIngredint } from '../../../services/types';
 
 
 function BurgerIngredientsBody() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { ingredients } = useSelector((state: RootState) => state.ingredients);
-  const currentTab = useSelector((state: RootState) => state.ingredients.currentTab);
+  const { ingredients } = useSelector(state => state.ingredients);
+  const currentTab = useSelector(state => state.ingredients.currentTab);
 
   const [section1Ref, section1InView] = useInView({ threshold: 0.5 });
   const [section2Ref, section2InView] = useInView({ threshold: 0.5 });
 
   let [buns, mains, sauces] = useMemo(() => {
-    const buns = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'bun');
-    const mains = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'main');
-    const sauces = ingredients.filter((ingredient: IIngredint) => ingredient.type === 'sauce');
+    const buns = ingredients.filter(ingredient => ingredient.type === 'bun');
+    const mains = ingredients.filter(ingredient => ingredient.type === 'main');
+    const sauces = ingredients.filter(ingredient => ingredient.type === 'sauce');
 
     return [buns, mains, sauces]
   }, [ingredients]);
@@ -71,17 +70,17 @@ function BurgerIngredientsBody() {
       <div className={`${ burgerIngredientsStyle.scroll } custom-scroll`} >
         <h3 className='text text_type_main-medium mt-10 mb-6'>Булки</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients } ref={section1Ref} >
-          {buns.map((element: IIngredint) => renderElement(element))}
+          {buns.map(element => renderElement(element))}
         </article>
 
         <h3 className='text text_type_main-medium mt-10 mb-6'>Соусы</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients } ref={section2Ref}>
-          {sauces.map((element: IIngredint) => renderElement(element))}
+          {sauces.map(element => renderElement(element))}
         </article>
 
         <h3 className='text text_type_main-medium mt-10 mb-6'>Начинки</h3>
         <article className={ burgerIngredientsStyle.burger_ingredients }>    
-          {mains.map((element: IIngredint) => renderElement(element))}
+          {mains.map(element => renderElement(element))}
         </article>
       </div>
     </>

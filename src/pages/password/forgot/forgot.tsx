@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, FormEvent, ChangeEvent } from 'react';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword, catchError } from '../../../services/api';
@@ -8,22 +8,21 @@ function ForgotPasswordPage() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
-    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-		const label = target.parentElement?.querySelector("label");
-		const value = target.value;
+    const emailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const label = e.target.parentElement?.querySelector("label");
+		const value = e.target.value;
 		setEmail(value);
 
 		if (value.length) {
             if (label) {
                 label.style.cssText = "display: none";
             }
-			target.style.cssText = "margin-bottom: 1em;";
+			e.target.style.cssText = "margin-bottom: 1em;";
 		} else {
             if (label) {
     			label.style.cssText = "";
             }
-			target.style.cssText = "";
+			e.target.style.cssText = "";
 		}
     };
 
@@ -37,7 +36,7 @@ function ForgotPasswordPage() {
 			.catch(catchError)
 	};
     
-    const submit = (e: React.FormEvent) => {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         clickForgotButton();
     }

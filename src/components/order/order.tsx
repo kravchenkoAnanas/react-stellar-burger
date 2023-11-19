@@ -3,18 +3,10 @@ import orderStyle from './order.module.css';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
 import { FC } from "react";
-import { IIngredint, IOrder, RootState } from "../../services/types";
+import { IIngredint, IOrder } from "../../services/types";
 
 interface OrderProps {
   info: IOrder
-  // info: {
-  //   _id: string;
-  //   name: string;
-  //   number: number;
-  //   createdAt: string;
-  //   ingredients: string[];
-  //   status: "Выполнен" | "Отменен" | "Готовится";
-  // };
   add_status: boolean;
 }
 
@@ -22,9 +14,9 @@ const Order: FC<OrderProps> = ({ info, add_status }) => {
   const { name, number, createdAt } = info;
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(createdAt);
-  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  const { ingredients } = useSelector(state => state.ingredients);
   const orderIngredients: IIngredint[] = orderIngredientsIdxs
-    .map((id: string) => getIngredient(ingredients, id) as IIngredint)
+    .map(id => getIngredient(ingredients, id) as IIngredint)
 
   const price = totalSum(orderIngredients);
   const [status, statusStyle] = getStatus(info);

@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, FormEvent, ChangeEvent } from 'react';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { registerUserAction } from '../../services/actions/user';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import registerStyle from './register.module.css';
 
@@ -12,8 +11,8 @@ function RegisterPage() {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
-    const nameOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setName((e.target as HTMLInputElement).value)
+    const nameOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
     };
     const inputRef = useRef<HTMLInputElement>(null);
     const onIconClick = () => {
@@ -22,16 +21,16 @@ function RegisterPage() {
     };
 
     const [email, setEmail] = useState('');
-    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setEmail((e.target as HTMLInputElement).value)
+    const emailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
     };
 
     const [password, setPassword] = useState('')
-    const passwordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setPassword((e.target as HTMLInputElement).value)
+    const passwordOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
     }
 
-    const submit = (e: React.FormEvent) => {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(registerUserAction(email, password, name));
     }

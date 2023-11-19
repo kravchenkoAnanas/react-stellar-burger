@@ -25,7 +25,7 @@ export type TIngredientsActions =
   | IUpdCurrentTab
   | IUpdIngredients;
 
-export const getIngredients: AppThunk = (idx?: string) => (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = (idx?: string) => (dispatch) => {
     getData()
       .then(res => {
         if (res) {

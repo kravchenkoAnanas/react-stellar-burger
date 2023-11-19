@@ -25,7 +25,7 @@ export const constructorReducer = (
       const ingredientToAdd = action.ingredient;
       let processBun = false;
 
-      let newChosenIngredients = state.chosenIngredients.map((ingredient: IIngredint) => {
+      let newChosenIngredients = state.chosenIngredients.map(ingredient => {
         if (ingredientToAdd.type === 'bun' && ingredient.type === 'bun') {
           if (ingredient.name === ingredientToAdd.name) {
             processBun = true;
@@ -50,7 +50,7 @@ export const constructorReducer = (
     case DEL_CHOSEN_INGREDIENT: {
       return {
         ...state,
-        chosenIngredients: state.chosenIngredients.filter((ingredient: IIngredint) => {
+        chosenIngredients: state.chosenIngredients.filter(ingredient => {
           if (ingredient.uuid !== action.uuid) {
             return ingredient;
           }

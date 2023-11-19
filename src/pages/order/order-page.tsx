@@ -1,17 +1,16 @@
 import { useParams } from 'react-router-dom';
 import orderStyle from './order-page.module.css'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { useEffect } from 'react';
 import { WS_CONNECTION_START } from '../../services/actions/wsActions';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
-import { IIngredint, IMessage, IOrder, RootState } from '../../services/types';
+import { IIngredint, IMessage, IOrder } from '../../services/types';
 
 
 const getOrder = (feedInfo: IMessage, number: string) => {
   if (feedInfo && feedInfo.orders) {
-    const filteredOrders = feedInfo.orders.filter((order: IOrder) => {
+    const filteredOrders = feedInfo.orders.filter(order => {
       return order.number === Number(number)
     });
     if (filteredOrders.length) {
@@ -23,8 +22,8 @@ const getOrder = (feedInfo: IMessage, number: string) => {
 function OrderPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { connected, messages } = useSelector((state: RootState) => state.ws);
-  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  const { connected, messages } = useSelector(state => state.ws);
+  const { ingredients } = useSelector(state => state.ingredients);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
 
   // console.log(
@@ -47,9 +46,9 @@ function OrderPage() {
 
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(info.createdAt);
-  const orderIngredients = orderIngredientsIdxs.map(
-    (id: string) => getIngredient(ingredients, id)
-  );
+  const orderIngredients = orderIngredientsIdxs.map(id => {
+    return getIngredient(ingredients, id);
+  });
   const price = totalSum((orderIngredients as IIngredint[]));
   const [status, statusStyle] = getStatus(info);
 
@@ -71,7 +70,7 @@ function OrderPage() {
         <div
           className={ `${orderStyle.consist} custom-scroll` }
         >
-          {(orderIngredients as IIngredint[]).map((ingredient: IIngredint) => {
+          {(orderIngredients as IIngredint[]).map(ingredient => {
             return (
               <div className={ orderStyle.ingredient } key={ ingredient._id } >
                 <div className={ orderStyle.left }>

@@ -5,7 +5,7 @@ import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/c
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { FC, useRef } from 'react';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
-import { IIngredint, RootState } from '../../services/types';
+import { IIngredint } from '../../services/types';
 
 interface ConstructorItemProps {
   index: number;
@@ -16,7 +16,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
-  const { chosenIngredients } = useSelector((state: RootState) => state.burgerConstructor);
+  const { chosenIngredients } = useSelector(state => state.burgerConstructor);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "innerIngredient",
@@ -100,8 +100,8 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
           dispatch({
             type: UPD_INGREDIENTS,
             ingredientIds: chosenIngredients
-              .map((ingredient: IIngredint) => ingredient._id)
-              .filter((idx: string) => idx !== element._id)
+              .map(ingredient => ingredient._id)
+              .filter(idx => idx !== element._id)
           });
         }}
         />

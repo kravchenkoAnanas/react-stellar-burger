@@ -16,7 +16,7 @@ export const getStatus = (order: IOrder) => {
 }
 
 export const getIngredient = (ingredients: IIngredint[], id: string): IIngredint | undefined => {
-   const filteredIngredient = ingredients.filter((ingredient: IIngredint) => {
+   const filteredIngredient = ingredients.filter(ingredient => {
      return ingredient._id === id
    });
    if (filteredIngredient.length) {
@@ -26,6 +26,8 @@ export const getIngredient = (ingredients: IIngredint[], id: string): IIngredint
 
 export const totalSum = (ingredients: IIngredint[]) => {
    let sum = 0;
-   ingredients.map((ingredient: IIngredint) => { sum += ingredient.price });
+   ingredients.map(ingredient => { 
+      sum += ingredient.price
+   });
    return sum;
 };

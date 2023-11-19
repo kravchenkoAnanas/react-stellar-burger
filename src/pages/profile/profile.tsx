@@ -1,18 +1,16 @@
-import { useState, useRef, SyntheticEvent } from 'react';
+import { useState, useRef, SyntheticEvent, ChangeEvent, FormEvent } from 'react';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { updateUserAction } from '../../services/actions/user';
 import profileStyle from './profile.module.css';
 import ProfileNav from '../../components/profile-nav/profile-nav';
-import { RootState } from '../../services/types';
 
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
 
     const [isEditMode, setIsEditMode] = useState(false);
-    const { user } = useSelector((state: RootState) => state.user);
+    const { user } = useSelector(state => state.user);
 
     let name = '';
     let email = '';
@@ -29,11 +27,11 @@ const ProfilePage = () => {
     };
  
     const [emailState, setEmailState] = useState(email);
-    const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailState(e.target.value)
     };
 
-    const submit = (e: SyntheticEvent) => {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (((e.nativeEvent as SubmitEvent)?.submitter as HTMLInputElement)?.name === "save") {

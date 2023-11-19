@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../services/hooks';
 import { loginUserAction } from './../../services/actions/user';
 import loginStyle from './login.module.css';
 
@@ -10,16 +10,16 @@ function LoginPage() {
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('hazza99@mail.ru');
-    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setEmail((e.target as HTMLInputElement).value);
+    const emailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
     };
 
     const [password, setPassword] = useState('test1234')
-    const passwordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setPassword((e.target as HTMLInputElement).value);
-    };    
+    const passwordOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
 
-    const submit = (e: React.FormEvent) => {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(loginUserAction(email, password));
     };

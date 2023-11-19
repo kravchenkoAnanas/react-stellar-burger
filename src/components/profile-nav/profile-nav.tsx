@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import profileNavStyle from './profile-nav.module.css';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../services/hooks';
 import { logoutUserAction } from '../../services/actions/user';
 import { WS_CONNECTION_CLOSE } from '../../services/actions/wsActions';
 import { FC } from 'react';

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from './../../../services/hooks';
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import Modal from "../modal";
 import { UNSET_INGREDIENT } from "../../../services/actions/ingredient_details_modal";

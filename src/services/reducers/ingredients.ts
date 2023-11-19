@@ -29,10 +29,10 @@ export const ingredientsReducer = (
       };
     }
     case UPD_INGREDIENTS: {
-      const newIngredients = state.ingredients.map((ingredient: IIngredint) => {
+      const newIngredients = state.ingredients.map(ingredient => {
         return {
           ...ingredient,
-          counter: action.ingredientIds.filter((idx: string) => {
+          counter: action.ingredientIds.filter(idx => {
             return idx === ingredient._id;
           }).length
         }

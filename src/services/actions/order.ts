@@ -16,7 +16,7 @@ export type TOorderActions =
     | ISendOrder
     | ICloseOrder;
 
-export const sendOrder: AppThunk = (ids: string[]) => (dispatch: AppDispatch) => {
+export const sendOrder: AppThunk = (ids: string[]) => (dispatch) => {
     postOrder(ids)
     .then((res) => {
       if (res.success) {
