@@ -5,11 +5,12 @@ import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from "../../services/actions
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import ordersStyle from './orders.module.css';
 import Order from "../../components/order/order";
+import { IOrder, RootState } from '../../services/types';
 
 const OrdersPage = () => {
   const dispatch = useDispatch();
-  const { connected, messages } = useSelector((state: any) => state.ws);
-  const feedInfo = messages.length ? messages[messages.length - 1] : { };
+  const { connected, messages } = useSelector((state: RootState) => state.ws);
+  const feedInfo = messages.length ? messages[messages.length - 1] : { orders: []};
 
   // console.log(
   //   "[WS] connected", connected,
@@ -35,7 +36,7 @@ const OrdersPage = () => {
         <ProfileNav type={ "orders" }/>
 
         <div className={ `${ordersStyle.orderCards} custom-scroll` }>
-          {feedInfo && feedInfo.orders && feedInfo.orders.map((info: any) => {
+          {feedInfo && feedInfo.orders && feedInfo.orders.map((info: IOrder) => {
             return <Order info={ info } add_status={ true } key={ info._id } />
           })}
         </div>

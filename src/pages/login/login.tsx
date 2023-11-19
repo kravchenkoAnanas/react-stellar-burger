@@ -10,16 +10,16 @@ function LoginPage() {
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('hazza99@mail.ru');
-    const emailOnChange = (e: any) => {
-        setEmail(e.target.value);
+    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setEmail((e.target as HTMLInputElement).value);
     };
 
     const [password, setPassword] = useState('test1234')
-    const passwordOnChange = (e: any) => {
-        setPassword(e.target.value);
-    };
+    const passwordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setPassword((e.target as HTMLInputElement).value);
+    };    
 
-    const submit = (e: any) => {
+    const submit = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(loginUserAction(email, password));
     };
@@ -61,7 +61,7 @@ function LoginPage() {
                         type="secondary"
                         size="medium"
                         extraClass={ loginStyle.link_button }
-                        onClick={ (e: any) => { navigate("/register"); } }
+                        onClick={ () => { navigate("/register"); } }
                     >
                         Зарегистрироваться
                     </Button>
@@ -75,7 +75,7 @@ function LoginPage() {
                         type="secondary"
                         size="medium"
                         extraClass={ loginStyle.link_button }
-                        onClick={ (e: any) => { navigate("/forgot-password"); } }  
+                        onClick={ () => { navigate("/forgot-password"); } }  
                     >
                         Восстановить пароль
                     </Button>

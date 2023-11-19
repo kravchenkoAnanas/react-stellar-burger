@@ -12,6 +12,9 @@ function RegisterPage() {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
+    const nameOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setName((e.target as HTMLInputElement).value)
+    };
     const inputRef = useRef<HTMLInputElement>(null);
     const onIconClick = () => {
         setTimeout(() => inputRef.current?.focus(), 0)
@@ -19,16 +22,16 @@ function RegisterPage() {
     };
 
     const [email, setEmail] = useState('');
-    const emailOnChange = (e: any) => {
-        setEmail(e.target.value)
+    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setEmail((e.target as HTMLInputElement).value)
     };
 
     const [password, setPassword] = useState('')
-    const passwordOnChange = (e: any) => {
-        setPassword(e.target.value)
+    const passwordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setPassword((e.target as HTMLInputElement).value)
     }
 
-    const submit = (e: any) => {
+    const submit = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(registerUserAction(email, password, name));
     }
@@ -44,7 +47,7 @@ function RegisterPage() {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={(e: any) => setName(e.target.value)}
+                        onChange={nameOnChange}
                         value={name}
                         name={'name'}
                         error={false}
@@ -85,7 +88,7 @@ function RegisterPage() {
                         type="secondary"
                         size="medium"
                         extraClass={ registerStyle.link_button }
-                        onClick={ (e: any) => { navigate("/login"); } }
+                        onClick={ () => { navigate("/login"); } }
                     >
                         Войти
                     </Button>

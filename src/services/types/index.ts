@@ -19,6 +19,11 @@ export interface IIngredint {
   image: string;
   counter: number;
   chosenUuids?: string[];
+  calories?: number;
+  proteins?: number;
+  carbohydrates?: number;
+  fat?: number;
+  index: number;
 }
 
 export interface IUser {
@@ -26,9 +31,24 @@ export interface IUser {
   email: string;
 }
 
+export interface IOrder {
+  _id: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  ingredients: string[];
+  status: "Выполнен" | "Отменен" | "Готовится" | "done" | "pending" | "cancel"
+};
+
 export interface IMessage {
-  payload: any;
   timestamp: number;
+  total: number;
+  totalToday: number;
+  orders: IOrder[];
+}
+
+export interface WebSocketMessageEvent {
+  data: string;
 }
 
 // MainApplication

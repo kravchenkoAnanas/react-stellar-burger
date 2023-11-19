@@ -1,3 +1,5 @@
+import { IMessage, IUser } from "../types";
+
 export const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
 export const WS_CONNECTION_CLOSE: 'WS_CONNECTION_CLOSE' = 'WS_CONNECTION_CLOSE';
 export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
@@ -24,14 +26,14 @@ export interface IWSConnectionClosed {
 }
 export interface IWSGetMessage {
     readonly type: typeof WS_GET_MESSAGE;
-    payload: any;
+    payload: IMessage;
 }
 export interface IWSSendMessage {
     readonly type: typeof WS_SEND_MESSAGE;
 }
 export interface IWSUserNameUpdate {
     readonly type: typeof WS_USER_NAME_UPDATE;
-    payload: any;
+    payload: IUser;
 }
 export type TWsActions =
     | IWSConnectionStart

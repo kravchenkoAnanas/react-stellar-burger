@@ -6,11 +6,12 @@ import { useSelector, useDispatch } from './../../services/hooks';
 import { useEffect } from 'react';
 import { WS_CONNECTION_START } from '../../services/actions/wsActions';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
+import { IIngredint, IMessage, IOrder, RootState } from '../../services/types';
 
 
-const getOrder = (feedInfo: any, number: any) => {
+const getOrder = (feedInfo: IMessage, number: string) => {
   if (feedInfo && feedInfo.orders) {
-    const filteredOrders = feedInfo.orders.filter((order: any) => {
+    const filteredOrders = feedInfo.orders.filter((order: IOrder) => {
       return order.number === Number(number)
     });
     if (filteredOrders.length) {
@@ -22,8 +23,8 @@ const getOrder = (feedInfo: any, number: any) => {
 function OrderPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { connected, messages } = useSelector((state: any) => state.ws);
-  const { ingredients } = useSelector((state: any) => state.ingredients);
+  const { connected, messages } = useSelector((state: RootState) => state.ws);
+  const { ingredients } = useSelector((state: RootState) => state.ingredients);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
 
   // console.log(
@@ -38,7 +39,7 @@ function OrderPage() {
     });
   }, []);
 
-  const info = getOrder(feedInfo, id);
+  const info = getOrder(feedInfo as IMessage, id as string);
   // console.log("info", info);
   if (!info) {
     return <></>
@@ -46,9 +47,11 @@ function OrderPage() {
 
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(info.createdAt);
-  const orderIngredients = orderIngredientsIdxs.map((id: any) => getIngredient(ingredients, id));
-  const price = totalSum(orderIngredients);
-  const [status, statusStyle] = getStatus(info.status);
+  const orderIngredients = orderIngredientsIdxs.map(
+    (id: string) => getIngredient(ingredients, id)
+  );
+  const price = totalSum((orderIngredients as IIngredint[]));
+  const [status, statusStyle] = getStatus(info);
 
   return (
     <>
@@ -68,7 +71,7 @@ function OrderPage() {
         <div
           className={ `${orderStyle.consist} custom-scroll` }
         >
-          {orderIngredients.map((ingredient: any) => {
+          {(orderIngredients as IIngredint[]).map((ingredient: IIngredint) => {
             return (
               <div className={ orderStyle.ingredient } key={ ingredient._id } >
                 <div className={ orderStyle.left }>

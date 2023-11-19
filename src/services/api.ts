@@ -39,7 +39,7 @@ export const wsConfig: IWSConfig = {
   }
 };
 
-function checkResponse(res: any) {
+function checkResponse(res: Response) {
   if (res.ok) {
     return res.json();
   }
@@ -56,7 +56,7 @@ export const getData = async () => {
 };
 
 export const postOrder = async (ids: string[]) => {
-  const headers = {
+  const headers: HeadersInit = {
     ...config.headers,
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };
@@ -142,7 +142,7 @@ export const refreshUser = async (refreshToken: string) => {
 }
 
 export const getUser = async () => {
-  const headers = {
+  const headers: HeadersInit = {
     ...config.headers,
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };
@@ -155,7 +155,7 @@ export const getUser = async () => {
 }
 
 export const updateUser = async (info: IUser) => {
-  const headers = {
+  const headers: HeadersInit = {
     ...config.headers,
     Authorization: 'Bearer ' + localStorage.getItem("accessToken")
   };

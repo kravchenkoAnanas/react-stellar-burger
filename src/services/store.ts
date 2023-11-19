@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
-import { socketMiddleware } from "./middleware/socketMiddleware";
+import socketMiddleware from "./middleware/socketMiddleware";
 import { compose } from 'redux';
 import { wsConfig } from './api';
 

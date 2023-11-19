@@ -1,16 +1,14 @@
-// import orderStyle from './order.module.css';
-import React from 'react';
 import orderStyle from './../components/order/order.module.css';
-import { IIngredint } from '../services/types';
+import { IIngredint, IOrder } from '../services/types';
 
 
-export const getStatus = (orderStatus: any) => {
+export const getStatus = (order: IOrder) => {
    let status = 'Выполнен';
    let statusStyle = '';
-   if (orderStatus === 'pending') {
+   if (order.status === 'pending') {
       status = "Готовится"
       statusStyle = orderStyle.status_pending;
-   } else if (orderStatus === 'cancel') {
+   } else if (order.status === 'cancel') {
       status = "Отменен"
       statusStyle = orderStyle.status_canceled;
    }
@@ -26,8 +24,8 @@ export const getIngredient = (ingredients: IIngredint[], id: string): IIngredint
    }
 };
 
-export const totalSum = (ingredients: any) => {
+export const totalSum = (ingredients: IIngredint[]) => {
    let sum = 0;
-   ingredients.map((ingredient: any) => { sum += ingredient.price });
+   ingredients.map((ingredient: IIngredint) => { sum += ingredient.price });
    return sum;
 };

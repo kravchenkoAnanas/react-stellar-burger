@@ -8,17 +8,22 @@ function ForgotPasswordPage() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
-    const emailOnChange = (e: any) => {
-		const label = e.target.parentElement.querySelector("label");
-		const value = e.target.value;
+    const emailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement;
+		const label = target.parentElement?.querySelector("label");
+		const value = target.value;
 		setEmail(value);
 
 		if (value.length) {
-			label.style = "display: none";
-			e.target.style = "margin-bottom: 1em;";
+            if (label) {
+                label.style.cssText = "display: none";
+            }
+			target.style.cssText = "margin-bottom: 1em;";
 		} else {
-			label.style = "";
-			e.target.style = "";
+            if (label) {
+    			label.style.cssText = "";
+            }
+			target.style.cssText = "";
 		}
     };
 
@@ -32,7 +37,7 @@ function ForgotPasswordPage() {
 			.catch(catchError)
 	};
     
-    const submit = (e: any) => {
+    const submit = (e: React.FormEvent) => {
         e.preventDefault();
         clickForgotButton();
     }

@@ -3,16 +3,18 @@ import orderStyle from './order.module.css';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
 import { FC } from "react";
-import { IIngredint, RootState } from "../../services/types";
+import { IIngredint, IOrder, RootState } from "../../services/types";
 
 interface OrderProps {
-  info: {
-    name: string;
-    number: number;
-    createdAt: string;
-    ingredients: IIngredint[];
-    status: "Выполнен" | "Отменен" | "Готовится";
-  };
+  info: IOrder
+  // info: {
+  //   _id: string;
+  //   name: string;
+  //   number: number;
+  //   createdAt: string;
+  //   ingredients: string[];
+  //   status: "Выполнен" | "Отменен" | "Готовится";
+  // };
   add_status: boolean;
 }
 
@@ -21,11 +23,11 @@ const Order: FC<OrderProps> = ({ info, add_status }) => {
   const orderIngredientsIdxs = info.ingredients;
   const formattedDate = new Date(createdAt);
   const { ingredients } = useSelector((state: RootState) => state.ingredients);
-  // const orderIngredients = orderIngredientsIdxs.map((id: string) => getIngredient(ingredients, id));
-  const orderIngredients = orderIngredientsIdxs.map((id: string): IIngredient | undefined => getIngredient(ingredients, id));
+  const orderIngredients: IIngredint[] = orderIngredientsIdxs
+    .map((id: string) => getIngredient(ingredients, id) as IIngredint)
 
   const price = totalSum(orderIngredients);
-  const [status, statusStyle] = getStatus(info.status);
+  const [status, statusStyle] = getStatus(info);
   
   // console.log("ingredients", ingredients.length, ingredients[0]);
   // console.log("orderIngredients", orderIngredients.length, orderIngredients[0]);

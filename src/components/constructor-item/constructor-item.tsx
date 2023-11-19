@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import constructorItemStyle from './constructor-item.module.css'
 import { useSelector, useDispatch } from './../../services/hooks';
 import { DEL_CHOSEN_INGREDIENT, MOVE_INGREDIENT } from '../../services/actions/constructor';
-import { useDrag, useDrop } from 'react-dnd';
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { FC, useRef } from 'react';
 import { UPD_INGREDIENTS } from '../../services/actions/ingredients';
 import { IIngredint, RootState } from '../../services/types';
@@ -28,12 +28,12 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
 
   const [{ handlerId }, dropRef] = useDrop({
     accept: "innerIngredient",
-    collect(monitor) {
+    collect(monitor: DropTargetMonitor) {
       return {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover(item: any, monitor: any) {
+    hover(item: IIngredint, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return
       }
@@ -52,6 +52,9 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ index, element }) => {
       // Determine mouse position
       const clientOffset = monitor.getClientOffset()
       // Get pixels to the top
+      if (!clientOffset) {
+        return
+      }
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%

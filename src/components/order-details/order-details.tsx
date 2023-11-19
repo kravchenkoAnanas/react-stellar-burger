@@ -1,10 +1,10 @@
 import orderDetailsStyle from './order-details.module.css';
 import doneImg from '../../images/done.png';
-// import { useSelector } from 'react-redux';
 import { useSelector, useDispatch } from './../../services/hooks';
+import { RootState } from '../../services/types';
 
 const OrderDetails = () => {
-  const orderNumber = useSelector((state: any) => state.order.orderNumber);
+  const orderNumber = useSelector((state: RootState) => state.order.orderNumber);
 
   return (
     <div className={ orderDetailsStyle.container }>

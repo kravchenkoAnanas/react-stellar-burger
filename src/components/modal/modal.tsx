@@ -15,7 +15,7 @@ const Modal: FC<ModalProps> = (props) => {
   const { onClose } = props;
   
   useEffect(() => {
-    const closeModal = (event: any) => {
+    const closeModal = (event: { key: string}) => {
       if (event.key === "Escape") {
         onClose();
       }

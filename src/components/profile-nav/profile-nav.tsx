@@ -6,7 +6,7 @@ import { WS_CONNECTION_CLOSE } from '../../services/actions/wsActions';
 import { FC } from 'react';
 
 interface ProfileNavProps {
-  type: any;
+  type: "profile" | "orders";
 }
 
 const ProfileNav: FC<ProfileNavProps> = ({ type }) => {
