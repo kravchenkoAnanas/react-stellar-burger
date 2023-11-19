@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from './../../../services/hooks';
+import { useDispatch } from '../../../services/hooks';
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import Modal from "../modal";
 import { UNSET_INGREDIENT } from "../../../services/actions/ingredient_details_modal";
 import { getIngredients } from "../../../services/actions/ingredients";
 
-const ModalWrapper = () => {
+const ModalIngredientWrapper = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -31,4 +31,4 @@ const ModalWrapper = () => {
     )
 }
 
-export default ModalWrapper;
+export default ModalIngredientWrapper;

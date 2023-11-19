@@ -14,9 +14,10 @@ import { OnlyAuth, OnlyUnAuth } from '../protected-route';
 import { useSelector, useDispatch } from './../../services/hooks';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/actions/user';
-import ModalWrapper from '../modal/wrapper/wrapper';
+import ModalIngredientWrapper from '../modal/wrapper/wrapper-ingredient';
 import NotFound404 from '../../pages/not_found/not_found';
 import { getIngredients } from '../../services/actions/ingredients';
+import ModalOrderWrapper from '../modal/wrapper/wrapper-order';
 
 function App() {
 	const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
 
 				<Route path="/profile" element={<OnlyAuth component={<ProfilePage/>} />} /> 
 				<Route path="/profile/orders" element={<OnlyAuth component={<OrdersPage/>} />} /> 
-				<Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderPage/>} />} /> 
+				<Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderPage type={'person'}/>} />} /> 
 
 				<Route path="/ingredients">
 					<Route path=":id" element={<IngredientPage />} />
@@ -51,13 +52,22 @@ function App() {
 				<Route path="*" element={ <NotFound404 /> }/>
 
 				<Route path="/feed" element={<FeedPage/>} />
+				<Route path="/feed/:id" element={<OnlyAuth component={<OrderPage type={'all'} />} />} /> 
 			</Routes>
 
 			{background && (
 				<Routes>
 					<Route
 						path='/ingredients/:ingredientId'
-						element={<ModalWrapper />}
+						element={<ModalIngredientWrapper />}
+					/>
+					<Route
+						path='/profile/orders/:id'
+						element={<ModalOrderWrapper />}
+					/>
+					<Route
+						path='/feed/:id'
+						element={<ModalOrderWrapper />}
 					/>
 				</Routes>
 			)}

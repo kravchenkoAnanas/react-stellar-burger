@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from "../../services/actions/wsActions";
 import Order from "../../components/order/order";
 import { IMessage, IOrder } from '../../services/types';
+import { Link, useLocation } from 'react-router-dom';
 
 const getOrdersByStatus = (feedInfo: IMessage, status: 'pending' | 'done') => {
   if (feedInfo && feedInfo.orders) {
@@ -17,6 +18,7 @@ const getOrdersByStatus = (feedInfo: IMessage, status: 'pending' | 'done') => {
 
 function FeedPage() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { connected, messages } = useSelector(state => state.ws);
   const feedInfo = messages.length 
     ? messages[messages.length - 1]
@@ -52,7 +54,16 @@ function FeedPage() {
           <h2 className="text text_type_main-large mt-10">Лента заказов</h2>
           <div className={ `${feedStyle.orderCards} custom-scroll` }>
             {feedInfo && feedInfo.orders && feedInfo.orders.map(info => {
-              return <Order info={ info } add_status={ false } key={ info._id } />
+              return (
+                <Link
+                  key={ info._id }
+                  to={ `/feed/${info._id}` }
+                  state={{ background: location }}
+                  className={ feedStyle.link }
+                >
+                  <Order info={ info } add_status={ false } key={ info._id } />
+                </Link>
+              )
             })}
           </div>
         </div>

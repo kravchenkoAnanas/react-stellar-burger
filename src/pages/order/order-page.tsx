@@ -1,17 +1,17 @@
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import orderStyle from './order-page.module.css'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from './../../services/hooks';
-import { useEffect } from 'react';
 import { WS_CONNECTION_START } from '../../services/actions/wsActions';
 import { getIngredient, getStatus, totalSum } from "../../utils/data";
 import { IIngredint, IMessage, IOrder } from '../../services/types';
 
-
 const getOrder = (feedInfo: IMessage, number: string) => {
   if (feedInfo && feedInfo.orders) {
     const filteredOrders = feedInfo.orders.filter(order => {
-      return order.number === Number(number)
+      console.log("getOrder", order._id);
+      return order.number === Number(number) || order._id === number
     });
     if (filteredOrders.length) {
       return filteredOrders[0];
@@ -19,13 +19,18 @@ const getOrder = (feedInfo: IMessage, number: string) => {
   }
 };
 
-function OrderPage() {
+interface OrderPageProps {
+  type: "person" | "all";
+}
+
+const OrderPage: FC<OrderPageProps> = ({ type }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { connected, messages } = useSelector(state => state.ws);
   const { ingredients } = useSelector(state => state.ingredients);
   const feedInfo = messages.length ? messages[messages.length - 1] : { };
-
+  
+  // console.log("OrderPage id", id, "type", type);
   // console.log(
   //   "[WS] connected", connected,
   //   "messages.length", messages.lengh,
@@ -33,9 +38,16 @@ function OrderPage() {
   // );
 
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START
-    });
+    if (type === 'person') {
+      dispatch({
+        type: WS_CONNECTION_START,
+      });
+    } else if (type === 'all') {
+      dispatch({
+        type: WS_CONNECTION_START,
+        payload: "/all"
+      });
+    }
   }, []);
 
   const info = getOrder(feedInfo as IMessage, id as string);
